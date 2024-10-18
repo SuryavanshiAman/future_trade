@@ -1,6 +1,6 @@
 class AppConstants {
   // app name
-  static const String appName = 'CooeGames';
+  static const String appName = 'FutureTrade';
 
   // app version
   static const String appVersion = '1.0.0';

@@ -143,7 +143,7 @@ class CustomTextField extends StatelessWidget {
           hintText: label,
           hintStyle:TextStyle(
                 fontSize: hintSize ?? 15,
-                fontWeight: FontWeight.w500,
+                // fontWeight: FontWeight.w500,
                 fontStyle: FontStyle.normal,
                 color: hintColor ?? GameColor.gray),
 
