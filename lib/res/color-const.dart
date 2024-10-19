@@ -17,5 +17,6 @@ class GameColor{
   static Color gray= const Color(0xff3c3f41);
   static Color pink= const Color(0xffe738dd);
   static Color btnColor= const Color(0xfff5f5f5);
-  static Color lightGreeColor= const Color(0xff500860);
+  static Color purple= const Color(0xff500860);
+  static Color lightPink= const Color(0xfff9d4fa);
 }

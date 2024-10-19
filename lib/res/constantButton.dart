@@ -15,7 +15,8 @@ class ConstantButton extends StatefulWidget {
     this.width,
     this.height,
     this.gradient,
-    this.margin
+    this.margin,
+    this.borderRadius
 
   });
 
@@ -28,6 +29,7 @@ class ConstantButton extends StatefulWidget {
   final double? height;
   final Gradient? gradient;
   final EdgeInsetsGeometry? margin;
+  final BorderRadiusGeometry? borderRadius;
 
 
   @override
@@ -50,7 +52,7 @@ class _ConstantButtonState extends State<ConstantButton> {
           elevation: 3,
           margin:widget.margin ,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
+            borderRadius:widget.borderRadius?? BorderRadius.circular(
                 5
             ),
           ),
@@ -60,7 +62,7 @@ class _ConstantButtonState extends State<ConstantButton> {
             height:widget.height??height*0.05,
             decoration: BoxDecoration(
               color: widget.btnColor,
-              borderRadius: BorderRadius.circular(
+              borderRadius:widget.borderRadius?? BorderRadius.circular(
                 2,
               ),
               border: widget.border,

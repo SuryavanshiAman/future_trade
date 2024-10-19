@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_trade/res/color-const.dart';
 import 'dart:async';
 
 import '../main.dart';
@@ -19,8 +20,15 @@ class Utils {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
-              color: color??Colors.black.withOpacity(0.8),
+              color:Colors.black.withOpacity(0.8),
               borderRadius: BorderRadius.circular(24.0),
+              boxShadow:  [
+                BoxShadow(
+                  color:  color??GameColor.secondaryColor, //New
+                  blurRadius: 5,
+                ),
+
+              ],
             ),
             child: Text(
               message,

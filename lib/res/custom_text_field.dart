@@ -131,7 +131,7 @@ class CustomTextField extends StatelessWidget {
                   fontSize: fontSize ?? 15,
                   fontWeight: FontWeight.normal,
                   fontStyle: FontStyle.normal,
-                  color: textColor ?? GameColor.black),
+                  color: textColor ?? GameColor.white),
 
         decoration: InputDecoration(
           errorText: errorText,
