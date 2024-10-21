@@ -137,7 +137,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       if (otpCon.text.isEmpty || otpCon.text.length <6) {
                         Utils.show("Please enter Otp",color: GameColor.gameRed, context);
                       } else {
-                        Navigator.pushReplacementNamed(context, RoutesName.homeScreen);
+                        Navigator.pushReplacementNamed(context, RoutesName.bottomNavBar);
                       }
                     }, text: 'Submit',
                       btnColor: GameColor.purple,

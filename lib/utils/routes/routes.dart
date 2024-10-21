@@ -7,6 +7,12 @@ import 'package:future_trade/view/auth/login_screen.dart';
 import 'package:future_trade/view/auth/otp_screen.dart';
 import 'package:future_trade/view/auth/register_screen.dart';
 import 'package:future_trade/view/auth/splash_screen.dart';
+import 'package:future_trade/view/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:future_trade/view/profile/bank_details_screen.dart';
+import 'package:future_trade/view/wallet/deposit_screen.dart';
+import 'package:future_trade/view/wallet/transaction_screen.dart';
+import 'package:future_trade/view/wallet/wallet_screen.dart';
+import 'package:future_trade/view/wallet/withdrawal_screen.dart';
 
 class Routers {
   static WidgetBuilder generateRoute(String routeName) {
@@ -19,10 +25,18 @@ class Routers {
         return (context) => const OtpScreen();
       case RoutesName.registerScreen:
         return (context) => const RegisterScreen();
-      // case RoutesName.forgotScreen:
-      //   return (context) => const ForgotPassScreen();
-      case RoutesName.homeScreen:
-        return (context) =>  HomeScreen();
+      case RoutesName.bottomNavBar:
+        return (context) => const BottomNavBar();
+      case RoutesName.walletScreen:
+        return (context) => const WalletScreen();
+      case RoutesName.depositScreen:
+        return (context) =>  const DepositScreen();
+      case RoutesName.withdrawPage:
+        return (context) =>  const WithdrawPage();
+      case RoutesName.transactionScreen:
+        return (context) =>  const TransactionScreen();
+      case RoutesName.bankDetailsScreen:
+        return (context) =>  const BankDetailsScreen();
       default:
         return (context) => Scaffold(
               body: Center(

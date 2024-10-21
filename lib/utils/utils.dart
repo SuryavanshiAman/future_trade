@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'dart:async';
 
@@ -93,5 +94,108 @@ class Utils {
         _isShowingImg = false;
       }
     });
+  }
+  static showExitConfirmation(BuildContext context) async {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return await showModalBottomSheet(
+      elevation: 5,
+      backgroundColor: GameColor.black,
+      shape: const RoundedRectangleBorder(
+          side: BorderSide(width: 2, color: Colors.white),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35), topRight: Radius.circular(35))),
+      context: context,
+      builder: (context) {
+        return Container(
+          height: height * 0.45,
+          decoration: const BoxDecoration(
+
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(35),
+                  topRight: Radius.circular(35))),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 28.0, top: 28),
+                child: InkWell(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(Icons.close,color: GameColor.white,)),
+              ),
+              SizedBox(height: height / 30),
+               Center(
+                child: Text("Exit App",
+                    style: TextStyle(
+                        color: GameColor.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(height: height*0.02),
+               Center(
+                child: Text("Are you sure want to exit app?",
+                    style: TextStyle(
+                      color:GameColor.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600
+                    )),
+              ),
+              SizedBox(height: height * 0.04),
+              Center(
+                child: SizedBox(
+                  width: width * 4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            // side:
+                            // BorderSide(width: 1, color: Colors.white),
+                            // elevation: 3,
+                              backgroundColor: GameColor.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(55)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.34,
+                                  vertical: height * 0.02)),
+                          onPressed: () {
+                            SystemNavigator.pop();
+                          },
+                          child: const Text("Yes",
+                              style: TextStyle(
+                                  color: GameColor.purple,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold))),
+                      SizedBox(height: height * 0.03),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: GameColor.white,
+                              side:  BorderSide(width: 1,color: GameColor.white),
+                              // elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(55)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.34,
+                                  vertical: height * 0.02)),
+                          onPressed: () {
+                            Navigator.pop(context, false);
+                          },
+                          child:  Text("No",
+                              style: TextStyle(
+                                  color: GameColor.gameRed,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold))),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    ) ??
+        false;
   }
 }
