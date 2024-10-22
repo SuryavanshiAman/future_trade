@@ -50,10 +50,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Image.asset(
-                    //   Assets.imagesCashback,
-                    //   scale: 3,
-                    // ),
+                    Image.asset(
+                      "assets/images/deposit.png",
+                      scale: 6,
+                    ),
                     SizedBox(
                       width: width * 0.04,
                     ),
@@ -68,10 +68,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                 color: GameColor.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600)),
-                        const Text(
+                         Text(
                             "Deposit",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
+                                color: GameColor.green,
                                 fontSize: 14)),
                       ],
                     ),

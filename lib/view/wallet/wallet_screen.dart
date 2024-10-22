@@ -5,7 +5,6 @@ import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/res/custom_container.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
-import 'package:provider/provider.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -17,8 +16,6 @@ class WalletScreen extends StatefulWidget {
 class _WalletScreenState extends State<WalletScreen> {
   @override
   Widget build(BuildContext context) {
-    // final profileViewModel =
-        // Provider.of<ProfileViewModel>(context).profileResponse?.data;
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: const ConstantAppBar(

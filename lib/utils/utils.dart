@@ -126,7 +126,7 @@ class Utils {
                     child: const Icon(Icons.close,color: GameColor.white,)),
               ),
               SizedBox(height: height / 30),
-               Center(
+               const Center(
                 child: Text("Exit App",
                     style: TextStyle(
                         color: GameColor.white,
@@ -134,7 +134,7 @@ class Utils {
                         fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: height*0.02),
-               Center(
+               const Center(
                 child: Text("Are you sure want to exit app?",
                     style: TextStyle(
                       color:GameColor.white,
@@ -172,7 +172,7 @@ class Utils {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: GameColor.white,
-                              side:  BorderSide(width: 1,color: GameColor.white),
+                              side:  const BorderSide(width: 1,color: GameColor.white),
                               // elevation: 3,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(55)),

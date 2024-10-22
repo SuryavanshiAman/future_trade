@@ -2,13 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:future_trade/res/text_widget.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
-import 'package:future_trade/view/Home/home_screen.dart';
 import 'package:future_trade/view/auth/login_screen.dart';
 import 'package:future_trade/view/auth/otp_screen.dart';
 import 'package:future_trade/view/auth/register_screen.dart';
 import 'package:future_trade/view/auth/splash_screen.dart';
 import 'package:future_trade/view/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:future_trade/view/products/productView.dart';
+import 'package:future_trade/view/profile/about_us_screen.dart';
 import 'package:future_trade/view/profile/bank_details_screen.dart';
+import 'package:future_trade/view/profile/policy_screen.dart';
+import 'package:future_trade/view/profile/team.dart';
+import 'package:future_trade/view/profile/terms_screen.dart';
 import 'package:future_trade/view/wallet/deposit_screen.dart';
 import 'package:future_trade/view/wallet/transaction_screen.dart';
 import 'package:future_trade/view/wallet/wallet_screen.dart';
@@ -37,6 +41,16 @@ class Routers {
         return (context) =>  const TransactionScreen();
       case RoutesName.bankDetailsScreen:
         return (context) =>  const BankDetailsScreen();
+      case RoutesName.aboutUsScreen:
+        return (context) =>  const AboutUsScreen();
+      case RoutesName.myTeam:
+        return (context) =>  const MyTeam();
+      case RoutesName.termsScreen:
+        return (context) =>  const TermsScreen();
+      case RoutesName.policyScreen:
+        return (context) =>  const PolicyScreen();
+      case RoutesName.productViewScreen:
+        return (context) =>  const ProductViewScreen();
       default:
         return (context) => Scaffold(
               body: Center(

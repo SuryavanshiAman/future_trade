@@ -12,4 +12,9 @@ class RoutesName{
   static const String transactionScreen = '/transactionScreen';
   static const String profileScreen = '/profileScreen';
   static const String bankDetailsScreen = '/bankDetailsScreen';
+  static const String myTeam = '/myTeam';
+  static const String aboutUsScreen = '/aboutUsScreen';
+  static const String termsScreen = '/termsScreen';
+  static const String policyScreen = '/policyScreen';
+  static const String productViewScreen = '/productViewScreen';
 }

@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:future_trade/res/color-const.dart';
 
 class FabBottomNavBar extends StatefulWidget {
   const FabBottomNavBar({
@@ -56,8 +55,10 @@ class FabBottomNavBarState extends State<FabBottomNavBar> {
       notchMargin:5,
       shape: widget.notchedShape,
       color: widget.backgroundColor,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
+      child:
+      Row(
+// mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items,
       ),
@@ -70,8 +71,7 @@ class FabBottomNavBarState extends State<FabBottomNavBar> {
     int? index,
     ValueChanged<int>? onPressed,
   }) {
-    Color? color =
-    selectedIndex == index ? widget.selectedColor : widget.color;
+    Color? color = selectedIndex == index ? widget.selectedColor : widget.color;
     return Expanded(
       child: SizedBox(
         height: widget.height,
@@ -82,17 +82,11 @@ class FabBottomNavBarState extends State<FabBottomNavBar> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               if (item!.icon != null)
-                Icon(item.icon,color:color,)
-                // Image.asset(item.imageData!, height: 25)
+                item.icon!
               else const SizedBox(),
-              Text(
-                item.text.toString(),
-                style: TextStyle(
-                    color: color,
-                    fontWeight: selectedIndex == index
-                        ? FontWeight.bold
-                        : FontWeight.normal,fontSize: 13),
-              ),
+
+              if (item.text != null)
+                item.text!
             ],
           ),
         ),
@@ -102,9 +96,10 @@ class FabBottomNavBarState extends State<FabBottomNavBar> {
 }
 
 class FabBottomNavBarItem {
-  FabBottomNavBarItem({this.imageData,this.icon, this.color,this.text});
+  FabBottomNavBarItem({this.imageData,this.icon,this.text,this.style, this.color});
   String? imageData;
-  IconData?icon;
+  Widget? icon;
+  Widget? text;
+  TextStyle?style;
   Color?color;
-  String? text;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
@@ -12,7 +13,7 @@ import 'package:future_trade/view/wallet/wallet_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int initialIndex;
-  const BottomNavBar({super.key, this.initialIndex=0});
+  const BottomNavBar({super.key, this.initialIndex = 0});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -39,7 +40,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
         overlays: []);
-    _lastSelected=widget.initialIndex;
+    _lastSelected = widget.initialIndex;
     super.initState();
     Future.delayed(Duration.zero, () {
       final args = ModalRoute.of(context)?.settings.arguments;
@@ -54,17 +55,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Future<bool> _onWillPop() async {
     if (_lastSelected > 0) {
       setState(() {
-        _lastSelected=0;
+        _lastSelected = 0;
       });
+      _selectedTab(0);
       return false;
     } else {
-      return  await Utils.showExitConfirmation(context)?? false;
+      return await Utils.showExitConfirmation(context) ?? false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // context.read<ProfileProvider>().fetchProfileData();
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
@@ -73,29 +74,94 @@ class _BottomNavBarState extends State<BottomNavBar> {
         bottomNavigationBar: FabBottomNavBar(
           notchedShape: const CircularNotchedRectangle(),
           color: GameColor.black,
-          selectedColor:GameColor.purple,
+          selectedColor: GameColor.purple,
           onTabSelected: _selectedTab,
           backgroundColor: GameColor.white,
           items: [
             FabBottomNavBarItem(
-              icon:  _lastSelected == 0 ?Icons.home_filled:Icons.home_outlined,
-                text: 'Home'
-            ),
+                icon: Icon(
+                  _lastSelected == 0 ? Icons.home_filled : Icons.home_outlined,
+                  color:
+                      _lastSelected == 0 ? GameColor.purple : GameColor.black,
+                ),
+                text: Text(
+                  'Home',
+                  style: TextStyle(
+                      color: _lastSelected == 0
+                          ? GameColor.purple
+                          : GameColor.black,
+                      fontWeight: _lastSelected == 0
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      fontSize: 13),
+                )),
             FabBottomNavBarItem(
-                icon: _lastSelected ==1  ?Icons.widgets:Icons.widgets_outlined,
-                text: 'My Product'
-            ),
+                icon: Icon(
+                  _lastSelected == 1 ? Icons.widgets : Icons.widgets_outlined,
+                  color:
+                      _lastSelected == 1 ? GameColor.purple : GameColor.black,
+                ),
+                text: Text(
+                  'My Product',
+                  style: TextStyle(
+                      color: _lastSelected == 1
+                          ? GameColor.purple
+                          : GameColor.black,
+                      fontWeight: _lastSelected == 1
+                          ? FontWeight.w600
+                          : FontWeight.normal,
+                      fontSize: 12),
+                )),
             FabBottomNavBarItem(
-                text: '\n Promotion'
-            ),
+                // icon: Icon(
+                //   _lastSelected == 1 ? Icons.add : Icons.widgets_outlined,
+                //   color:
+                //   _lastSelected == 1 ? GameColor.white : GameColor.white,
+                //   size: 6,
+                // ),
+                text: Text(
+              ' Promotion',
+              style: TextStyle(
+                  color:
+                      _lastSelected == 2 ? GameColor.purple : GameColor.black,
+                  fontWeight:
+                      _lastSelected == 2 ? FontWeight.w800 : FontWeight.normal,
+                  fontSize: 13),
+            )),
             FabBottomNavBarItem(
-                icon: _lastSelected == 3 ?Icons.wallet:Icons.wallet_outlined,
-                text: 'Wallet'
-            ),
+                icon: Icon(
+                  _lastSelected == 3 ? Icons.wallet : Icons.wallet_outlined,
+                  color:
+                      _lastSelected == 3 ? GameColor.purple : GameColor.black,
+                ),
+                text: Text(
+                  'Wallet',
+                  style: TextStyle(
+                      color: _lastSelected == 3
+                          ? GameColor.purple
+                          : GameColor.black,
+                      fontWeight: _lastSelected == 3
+                          ? FontWeight.w600
+                          : FontWeight.normal,
+                      fontSize: 13),
+                )),
             FabBottomNavBarItem(
-                icon:  _lastSelected == 4 ?Icons.person:Icons.person_outline,
-                text: 'Profile'
-            ),
+                icon: Icon(
+                  _lastSelected == 4 ? Icons.person : Icons.person_outline,
+                  color:
+                      _lastSelected == 4 ? GameColor.purple : GameColor.black,
+                ),
+                text: Text(
+                  'Profile',
+                  style: TextStyle(
+                      color: _lastSelected == 4
+                          ? GameColor.purple
+                          : GameColor.black,
+                      fontWeight: _lastSelected == 4
+                          ? FontWeight.w600
+                          : FontWeight.normal,
+                      fontSize: 13),
+                )),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -104,75 +170,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
           onPressed: () {
             setState(() {
               _selectedTab(2);
-              selectedIndex=2;
+              selectedIndex = 2;
             });
           },
           elevation: 0,
-          child:
-          Container(
-              height: 55,
-              width: 55,
-              decoration: BoxDecoration(
+          child: Container(
+            height: 57,
+            width: 55,
+            decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
                 color: GameColor.purple,
-                image: const DecorationImage(image: AssetImage("assets/images/refer.png"))
-
-              ),
-              // child:  Image.asset("assets/images/refer.png",scale: 4,)
+                image: const DecorationImage(
+                    image: AssetImage("assets/images/refer.png"))),
           ),
         ),
       ),
-    );
-  }
-}
-
-class FeedbackProvider {
-  static void navigateToHome(BuildContext context) {
-    Navigator.pushNamed(context, RoutesName.bottomNavBar,arguments: 0);
-  }
-  static void navigateToActivity(BuildContext context) {
-    Navigator.pushNamed(context, RoutesName.bottomNavBar,arguments: 1);
-  }
-  static void navigateToPromotion(BuildContext context) {
-    Navigator.pushNamed(context, RoutesName.bottomNavBar,arguments: 2);
-  }
-  static void navigateToWallet(BuildContext context) {
-    Navigator.pushNamed(context, RoutesName.bottomNavBar,arguments: 3);
-  }
-  static void navigateToAccount(BuildContext context) {
-    Navigator.pushNamed(context, RoutesName.bottomNavBar,arguments: 4);
-  }
-}
-
-class GradientTextview extends StatelessWidget {
-  const GradientTextview(
-      this.text, {
-        super.key,
-        required this.gradient,
-        this.style,
-      });
-
-  final String text;
-  final TextStyle? style;
-  final Gradient gradient;
-
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) => gradient.createShader(
-        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-      ),
-      child: Text(text, style: style),
-    );
-  }
-}
-class NavigatorService {
-  static void navigateToScreenThree(BuildContext context) {
-    Navigator.of(context).pop();
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-          builder: (context) => const BottomNavBar(initialIndex: 3)),
     );
   }
 }

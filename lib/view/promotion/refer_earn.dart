@@ -4,7 +4,7 @@ import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 
 class ReferEarnScreen extends StatefulWidget {
-  const ReferEarnScreen({Key? key}) : super(key: key);
+  const ReferEarnScreen({super.key});
 
   @override
   State<ReferEarnScreen> createState() => _ReferEarnScreenState();
@@ -25,11 +25,13 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            Card(
+      body: ListView(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
               elevation: 3,
               child: Container(
                 height: height * 0.35,
@@ -100,9 +102,77 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                   ],
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                height: 1,
+                width: width * 0.3,
+                color: GameColor.white,
+              ),
+              const Text("Invitation History",
+                  style: TextStyle(
+                      color: GameColor.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18)),
+              Container(
+                height: 1,
+                width: width * 0.3,
+                color: GameColor.white,
+              ),
+            ],
+          ),
+          Container(
+            height: height * 0.45,
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 16,
+                itemBuilder: (BuildContext context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: GameColor.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: GameColor.secondaryColor, //New
+                            blurRadius: 5,
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: GameColor.purple.withOpacity(0.9),
+                          backgroundImage:
+                              const AssetImage("assets/images/user.gif"),
+                        ),
+                        title: Text("Aman",
+                            style: TextStyle(
+                                color: GameColor.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14)),
+                        subtitle: const Text("Not purchase any product",
+                            style: TextStyle(
+                                color: GameColor.purple,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14)),
+                        trailing: Text(
+                          "Pending",
+                          style: TextStyle(
+                              color: GameColor.gameRed,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+          )
+        ],
       ),
     ));
   }
