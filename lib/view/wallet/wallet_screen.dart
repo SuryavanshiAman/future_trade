@@ -36,12 +36,12 @@ class _WalletScreenState extends State<WalletScreen> {
               width: width * 0.9,
               decoration:  const BoxDecoration(
                   color: GameColor.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: GameColor.secondaryColor, //New
-                      blurRadius: 10,
-                    ),
-                  ],
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: GameColor.secondaryColor, //New
+                  //     blurRadius: 10,
+                  //   ),
+                  // ],
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,11 +52,11 @@ class _WalletScreenState extends State<WalletScreen> {
                   Center(
                     child: RichText(
                       text: TextSpan(
-                        text: "Total Balance",
+                        text: "  Total Balance",
                         style:  TextStyle(fontSize: 16, color: GameColor.black),
                         children: [
                           TextSpan(
-                            text: "    ⓘ",
+                            text: "  ⓘ",
                             style:  TextStyle(
                               color: GameColor.black,
                               fontWeight: FontWeight.w900,
@@ -70,10 +70,17 @@ class _WalletScreenState extends State<WalletScreen> {
                       ),
                     ),
                   ),
-                  const Center(
-                    child: Text("₹100",
-                      style: TextStyle(
-                          fontSize: 36, fontWeight: FontWeight.w700),
+                   Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image(image: AssetImage("assets/images/cash.png",),height: height*0.05,),
+
+                        Text(" ₹100",
+                          style: TextStyle(
+                              fontSize: 36, fontWeight: FontWeight.w700),
+                        ),
+                      ],
                     ),
                   ),
                   const Divider(),
@@ -158,7 +165,7 @@ class _WalletScreenState extends State<WalletScreen> {
                           },
                           height: height * 0.06,
                           widths: width * 0.35,
-                          color:GameColor.yellow,
+                          color:Color(0xff3bad19),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(25),
                           ),
@@ -167,12 +174,12 @@ class _WalletScreenState extends State<WalletScreen> {
                             children: [
                                Icon(
                                 Icons.arrow_downward,
-                                color: GameColor.blue,
+                                color: GameColor.white,
                               ),
                               Text(
                                 "Withdraw",
                                 style:  TextStyle(
-                                    color: GameColor.blue,
+                                    color: GameColor.white,
                                     fontSize: 17,
                                     fontWeight: FontWeight.w700),
                               )
@@ -206,12 +213,12 @@ class _WalletScreenState extends State<WalletScreen> {
                 widths: width,
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                 color:GameColor.white,
-                boxShadow: [
-                  const BoxShadow(
-                    color: GameColor.secondaryColor, //New
-                    blurRadius: 10,
-                  ),
-                ],
+                // boxShadow: [
+                //   const BoxShadow(
+                //     color: GameColor.secondaryColor, //New
+                //     blurRadius: 10,
+                //   ),
+                // ],
                 child: InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, RoutesName.transactionScreen);

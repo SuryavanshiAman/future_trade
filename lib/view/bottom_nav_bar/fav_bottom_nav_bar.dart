@@ -58,7 +58,7 @@ class FabBottomNavBarState extends State<FabBottomNavBar> {
       child:
       Row(
 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items,
       ),
@@ -71,22 +71,28 @@ class FabBottomNavBarState extends State<FabBottomNavBar> {
     int? index,
     ValueChanged<int>? onPressed,
   }) {
-    Color? color = selectedIndex == index ? widget.selectedColor : widget.color;
+    // Color? color = selectedIndex == index ? widget.selectedColor : widget.color;
     return Expanded(
       child: SizedBox(
         height: widget.height,
         child: GestureDetector(
           onTap: () => onPressed!(index!),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              if (item!.icon != null)
-                item.icon!
-              else const SizedBox(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                // mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
 
-              if (item.text != null)
-                item.text!
+                children: <Widget>[
+                  if (item!.icon != null)
+                    item.icon!
+                  else const SizedBox(),
+
+                  if (item.text != null)
+                    item.text!
+                ],
+              ),
             ],
           ),
         ),

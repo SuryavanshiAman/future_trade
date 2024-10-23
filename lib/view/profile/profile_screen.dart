@@ -38,8 +38,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: GameColor.white,
               boxShadow: const [
                 BoxShadow(
-                  color: GameColor.secondaryColor, //New
-                  blurRadius: 10,
+                  color: GameColor.bg, //New
+                  blurRadius: 4,
                 )
               ],
             ),
@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   decoration: const BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: GameColor.secondaryColor, //New
+                          color: GameColor.blue, //New
                           blurRadius: 10,
                         )
                       ],
@@ -153,8 +153,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       decoration: const BoxDecoration(
                           boxShadow: const [
                             BoxShadow(
-                              color: GameColor.secondaryColor, //New
-                              blurRadius: 10,
+                              color: GameColor.bg, //New
+                              blurRadius: 4,
                             )
                           ],
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -164,11 +164,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image(image: AssetImage(element[index].image)),
+                            Image(image: AssetImage(element[index].image,),color: GameColor.green,),
                             Text(
                               element[index].name,
-                              style: const TextStyle(
-                                  color: GameColor.purple,
+                              style:  TextStyle(
+                                  color: GameColor.green,
                                   fontWeight: FontWeight.w600),
                             )
                           ],

@@ -69,12 +69,7 @@ class _DepositScreenState extends State<DepositScreen> {
                   width: width * 0.9,
                   decoration: const BoxDecoration(
                       color: GameColor.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: GameColor.secondaryColor, //New
-                          blurRadius: 10,
-                        ),
-                      ],
+
                       borderRadius: BorderRadius.all(Radius.circular(15))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,12 +94,14 @@ class _DepositScreenState extends State<DepositScreen> {
                             horizontal: 15, vertical: 20),
                         // borderRadius: ,
                         filled: true,
-                        borderSide: BorderSide(color: GameColor.blue),
-                        borderSideFocus: BorderSide(color: GameColor.blue),
+                        // borderSide: BorderSide(color: GameColor.blue),
+                        // borderSideFocus: BorderSide(color: GameColor.blue),
                         fillColor: GameColor.purple.withOpacity(0.6),
-                        fieldRadius: const BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            topLeft: Radius.circular(10)),
+                        borderRadius: BorderRadius.circular(25),
+                        fieldRadius:  BorderRadius.circular(25),
+                        // fieldRadius: const BorderRadius.only(
+                        //     topRight: Radius.circular(10),
+                        //     topLeft: Radius.circular(10)),
                         prefix: const Padding(
                           padding: EdgeInsets.all(18.0),
                           child: Text(
@@ -197,8 +194,9 @@ class _DepositScreenState extends State<DepositScreen> {
               ),
               ListTile(
                 leading: const CircleAvatar(
+
                   backgroundColor: GameColor.white,
-                  backgroundImage: AssetImage("assets/images/upi.png"),
+                  backgroundImage: AssetImage("assets/images/upi.png",)
                 ),
                 title: const Text(
                   'UPI',
@@ -250,64 +248,44 @@ class _DepositScreenState extends State<DepositScreen> {
 
             ],
           ),
-          Container(
+          CustomContainer(
+            margin: EdgeInsets.all(10),
+            onTap: () {
+              if (amountCon.text.isEmpty) {
+                Utils.show(
+                  "Please Enter the Amount",
+                  color: GameColor.gameRed,
+                  context,
+                );
+              } else if (int.parse(amountCon.text) < 100) {
+                Utils.show(
+                  "Please Enter the Amount at least ₹100",
+                  color: GameColor.gameRed,
+                  context,
+                );
+              } else {
+                Utils.show(
+                  "Amount deposited successfully",
+                  color: GameColor.lightGreen,
+                  context,
+                );
+              }
+            },
             alignment: Alignment.center,
-            height: height * 0.1,
-            width: width,
-            decoration: BoxDecoration(
-              color: GameColor.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  spreadRadius: 1,
-                  blurRadius: 2,
-                  offset: const Offset(0, -1),
-                ),
-              ],
+            height: height * 0.07,
+            widths: width * 0.8,
+            color: GameColor.green,
+            borderRadius: const BorderRadius.all(Radius.circular(35)),
+            child: const Text(
+              "Add Money",
+              style: TextStyle(
+                  color: GameColor.white, fontWeight: FontWeight.w500),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomContainer(
-                  onTap: () {
-                    if (amountCon.text.isEmpty) {
-                      Utils.show(
-                        "Please Enter the Amount",
-                        color: GameColor.gameRed,
-                        context,
-                      );
-                    } else if (int.parse(amountCon.text) < 100) {
-                      Utils.show(
-                        "Please Enter the Amount at least ₹100",
-                        color: GameColor.gameRed,
-                        context,
-                      );
-                    } else {
-                      Utils.show(
-                        "Amount deposited successfully",
-                        color: GameColor.lightGreen,
-                        context,
-                      );
-                    }
-                  },
-                  alignment: Alignment.center,
-                  height: height * 0.07,
-                  widths: width * 0.8,
-                  color: GameColor.purple,
-                  borderRadius: const BorderRadius.all(Radius.circular(35)),
-                  child: const Text(
-                    "Add Money",
-                    style: TextStyle(
-                        color: GameColor.white, fontWeight: FontWeight.w500),
-                  ),
-                ),
-                Text(
-                  "100% Secure Payments",
-                  style: TextStyle(color: GameColor.gray),
-                )
-              ],
-            ),
-          )
+          ),
+          // Text(
+          //   "100% Secure Payments",
+          //   style: TextStyle(color: GameColor.gray),
+          // )
         ],
       ),
     );

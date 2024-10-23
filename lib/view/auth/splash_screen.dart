@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // updateLanguageViewModel.setHindi(!updateLanguageViewModel.isHindi);
     // // updateLanguageViewModel.updateLanguage(updateLanguageViewModel.isHindi);
     // getLanguage();
-    Future.delayed(Duration(seconds: 3),(){
+    Future.delayed(const Duration(seconds: 3),(){
       Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
     });
   }
@@ -31,9 +32,9 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration:  const BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/images/coming soon.gif"),fit: BoxFit.fill)
-          // color: GameColor.primaryColor,
+        decoration:   BoxDecoration(
+          image: const DecorationImage(image: AssetImage("assets/images/splash.png"),fit: BoxFit.fill),
+          color: GameColor.black,
         ),
       ),
     );

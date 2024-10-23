@@ -34,6 +34,12 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: height * 0.3,
                   width: width * 0.8,
                   decoration: const BoxDecoration(
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Color(0xFF56CCF2), //New
+                      //     blurRadius: ,
+                      //   ),
+                      // ],
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: GameColor.white),
                   child: Padding(
@@ -46,7 +52,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: AssetImage("assets/images/bg.png"))),
+                                  image: AssetImage("assets/images/pic.png"))),
                         ),
 
                         Text(
@@ -110,7 +116,8 @@ class _ProductScreenState extends State<ProductScreen> {
                         const Spacer(),
                         // snapshot.data![index].Purchasestatus==null?
                         ConstantButton(
-                          btnColor: GameColor.purple,
+                          // btnColor: GameColor.purple,
+                          btnColor: Color(0xff3bad19),
                           onTap: () {
                             Navigator.pushNamed(
                                 context, RoutesName.productViewScreen);

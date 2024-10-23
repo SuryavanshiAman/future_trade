@@ -92,8 +92,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           : GameColor.black,
                       fontWeight: _lastSelected == 0
                           ? FontWeight.bold
-                          : FontWeight.normal,
-                      fontSize: 13),
+                          : FontWeight.w400,
+                      fontSize: 12),
                 )),
             FabBottomNavBarItem(
                 icon: Icon(
@@ -109,24 +109,24 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           : GameColor.black,
                       fontWeight: _lastSelected == 1
                           ? FontWeight.w600
-                          : FontWeight.normal,
+                          : FontWeight.w400,
                       fontSize: 12),
                 )),
             FabBottomNavBarItem(
-                // icon: Icon(
-                //   _lastSelected == 1 ? Icons.add : Icons.widgets_outlined,
-                //   color:
-                //   _lastSelected == 1 ? GameColor.white : GameColor.white,
-                //   size: 6,
-                // ),
+                icon: Icon(
+                  _lastSelected == 1 ? Icons.add : Icons.widgets_outlined,
+                  color:
+                  _lastSelected == 1 ? GameColor.white : GameColor.white,
+                  size: 6,
+                ),
                 text: Text(
-              ' Promotion',
+              '  Promotion',
               style: TextStyle(
                   color:
                       _lastSelected == 2 ? GameColor.purple : GameColor.black,
                   fontWeight:
-                      _lastSelected == 2 ? FontWeight.w800 : FontWeight.normal,
-                  fontSize: 13),
+                      _lastSelected == 2 ? FontWeight.w600 : FontWeight.w400,
+                  fontSize: 12),
             )),
             FabBottomNavBarItem(
                 icon: Icon(
@@ -142,8 +142,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           : GameColor.black,
                       fontWeight: _lastSelected == 3
                           ? FontWeight.w600
-                          : FontWeight.normal,
-                      fontSize: 13),
+                          : FontWeight.w400,
+                      fontSize: 12),
                 )),
             FabBottomNavBarItem(
                 icon: Icon(
@@ -159,8 +159,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           : GameColor.black,
                       fontWeight: _lastSelected == 4
                           ? FontWeight.w600
-                          : FontWeight.normal,
-                      fontSize: 13),
+                          : FontWeight.w400,
+                      fontSize: 12),
                 )),
           ],
         ),

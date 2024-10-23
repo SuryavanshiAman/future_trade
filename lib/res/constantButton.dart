@@ -9,7 +9,7 @@ class ConstantButton extends StatefulWidget {
     super.key,
     required this.onTap,
     required this.text,
-    this.btnColor = GameColor.purple,
+    this.btnColor = const Color(0xff3bad19),
     this.textColor =  GameColor.white,
     this.border,
     this.width,

@@ -1,6 +1,10 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:future_trade/main.dart';
+import 'package:future_trade/res/bubble_animation/Particles.dart';
+import 'package:future_trade/res/bubble_animation/particle_engine.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/custom_container.dart';
 import 'package:future_trade/res/custom_text_field.dart';
@@ -30,37 +34,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: GameColor.white,
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage(
-                "assets/images/login.gif"
-            ),fit: BoxFit.cover)
-        ),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: height * 0.26,
+        child: Stack(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: height * 0.26,
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                  color: Colors.black,
+                  image: DecorationImage(image: AssetImage(
+                      "assets/images/coming.png"
+                  ),fit: BoxFit.cover)
               ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.1,
-                  ),
-                  Container(
+              child: Particles(
+                awayRadius: 100,
+                particles: createParticles(),
+                height: height,
+                width:width,
+                onTapAnimation: true,
+                awayAnimationDuration: const Duration(seconds: 300),
+                awayAnimationCurve: Curves.linear,
+                enableHover: true,
+                hoverRadius: 90,
+                connectDots: false,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: height * 0.3,
+                ),
+                Center(
+                  child: Container(
                     width: width*0.96,
                     height: height*0.5,
                     padding: const EdgeInsets.all(35),
                     decoration: BoxDecoration(
-                      color: GameColor.black,
+                      color: GameColor.bg,
                       shape: BoxShape.circle,
                       boxShadow: const [
                         BoxShadow(
-                          color: GameColor.secondaryColor, //New
+                          color: GameColor.white, //New
                           blurRadius: 10,
                         ),
 
@@ -69,11 +87,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Center(
+                         Center(
                           child: Text(
                             "Sign up",
                             style:  TextStyle(
-                                color: Color(0xfff9d4fa)
+                                color: GameColor.black
                                 , fontWeight: FontWeight.w700, fontSize: 24),
                           ),
                         ),
@@ -83,71 +101,71 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomTextField(
                           controller: nameCont,
                           label: "Enter your name.",
-                          hintColor: GameColor.white,
+                          hintColor: GameColor.black,
                           hintSize: 14,
                           width: width * 0.65,
                           height: height*0.06,
                           filled: false,
-                          border: Border.all(color: GameColor.lightPink),
+                          border: Border.all(color: GameColor.black),
                           borderRadius: BorderRadius.circular(25),
                           fieldRadius:  BorderRadius.circular(25),
                           prefix:   Padding(
                             padding: EdgeInsets.all(0.0),
-                            child: Icon(Icons.person,color:  GameColor.white,)
+                            child: Icon(Icons.person,color:  GameColor.black,)
                           ),
                         ),
                         CustomTextField(
                           controller: mobileCont,
                           keyboardType: TextInputType.number,
                           label: "Enter your phone number.",
-                          hintColor: GameColor.white,
+                          hintColor: GameColor.black,
                           hintSize: 14,
                           height: height*0.06,
                           width: width * 0.65,
                           maxLength: 10,
                           filled: false,
-                          border: Border.all(color: GameColor.lightPink),
+                          border: Border.all(color: GameColor.black),
                           borderRadius: BorderRadius.circular(25),
                           fieldRadius:  BorderRadius.circular(25),
-                          prefix:  const Padding(
+                          prefix:   Padding(
                             padding: EdgeInsets.all(15.0),
                             child: Text(
                               "+91",
-                              style: TextStyle(color: GameColor.white, fontSize: 16),
+                              style: TextStyle(color: GameColor.black, fontSize: 16),
                             ),
                           ),
                         ),
                         CustomTextField(
                           controller: referralCont,
                           label: "Enter referral code.",
-                          hintColor: GameColor.white,
+                          hintColor: GameColor.black,
                           hintSize: 14,
                           height: height*0.06,
                           width: width * 0.65,
                           filled: false,
-                          border: Border.all(color: GameColor.lightPink),
+                          border: Border.all(color: GameColor.black),
                           borderRadius: BorderRadius.circular(25),
                           fieldRadius:  BorderRadius.circular(25),
-                          prefix:  const Padding(
+                          prefix:   Padding(
                             padding: EdgeInsets.all(15.0),
-                            child: Icon(Icons.card_giftcard,color:  GameColor.white,)
+                            child: Icon(Icons.card_giftcard,color:  GameColor.black,)
                           ),
                         ),
                         CustomTextField(
                           controller: passCont,
                           label: "Enter password.",
-                          hintColor: GameColor.white,
+                          hintColor: GameColor.black,
                           hintSize: 14,
                           height: height*0.06,
                           width: width * 0.65,
                           maxLength: 8,
                           filled: false,
-                          border: Border.all(color: GameColor.lightPink),
+                          border: Border.all(color: GameColor.black),
                           borderRadius: BorderRadius.circular(25),
                           fieldRadius:  BorderRadius.circular(25),
-                          prefix:  const Padding(
+                          prefix:   Padding(
                             padding: EdgeInsets.all(15.0),
-                            child: Icon(Icons.password,color:  GameColor.white,)
+                            child: Icon(Icons.password,color:  GameColor.black,)
                           ),
                         ),
                         SizedBox(
@@ -182,15 +200,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ],
                     ),
                   ),
+                ),
+              ],
+            ),
 
-
-                ],
-              ),
-
-            ],
-          ),
+          ],
         ),
       ),
     );
+  }
+  List<Particle> createParticles() {
+    var rng = Random();
+    List<Particle> particles = [];
+    for (int i = 0; i < 140; i++) {
+      particles.add(Particle(
+        color: GameColor.bg,
+        size: rng.nextDouble() * 10,
+        velocity: Offset(rng.nextDouble() * 50 * randomSign(),
+            rng.nextDouble() * 50 * randomSign()),
+      ));
+    }
+    return particles;
+  }
+
+  double randomSign() {
+    var rng = Random();
+    return rng.nextBool() ? 1 : -1;
   }
 }

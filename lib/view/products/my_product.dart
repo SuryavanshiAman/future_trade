@@ -36,6 +36,12 @@ class _MyProductScreenState extends State<MyProductScreen> {
                 },
                 child: Container(
                   decoration:  const BoxDecoration(
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: GameColor.secondaryColor, //New
+                      //     blurRadius: 5,
+                      //   ),
+                      // ],
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: GameColor.white),
                   child: Padding(
@@ -49,7 +55,7 @@ class _MyProductScreenState extends State<MyProductScreen> {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: AssetImage("assets/images/bg.png"))),
+                                  image: AssetImage("assets/images/pic.png"))),
                         ),
                         Text(
                           'USD',
