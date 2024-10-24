@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 
@@ -34,70 +33,40 @@ class _TransactionScreenState extends State<TransactionScreen> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                padding: const EdgeInsets.all(8),
-                height: height * 0.14,
-                decoration:  const BoxDecoration(
-                    color: GameColor.white,
-                    boxShadow: [
-                      const BoxShadow(
-                        color: GameColor.secondaryColor, //New
-                        blurRadius: 10,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10))),
-                child: Row(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      "assets/images/deposit.png",
-                      scale: 6,
-                    ),
-                    SizedBox(
-                      width: width * 0.04,
-                    ),
-                    Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text("Deposit",
-                            style:  TextStyle(
-                                color: GameColor.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600)),
-                         Text(
-                            "Deposit",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: GameColor.green,
-                                fontSize: 14)),
-                      ],
-                    ),
-                    const Spacer(),
-                    Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.end,
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text("+₹10",
-                            style:  TextStyle(
-                                color:  GameColor.black,
-                                fontWeight: FontWeight.w600)),
-                        Text(
-                           "21/10/,14:23",
-                            style:  TextStyle(
-                                color:  GameColor.black,
-                                fontWeight: FontWeight.w500)),
-                      ],
-                    ),
-
-                  ],
+                decoration: const BoxDecoration(
+                  border: Border(bottom: BorderSide(color: GameColor.white))
                 ),
-              ),
+                child: ListTile(
+                  leading: const CircleAvatar(
+                    backgroundColor: GameColor.blue,
+                    child: Text(
+                        "RO",
+                        style:  TextStyle(
+                            color: GameColor.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600)) ,
+                  ) ,
+                  title:    const Text(
+                      "Rohit",
+                      style:  TextStyle(
+                          color: GameColor.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600)),
+                  subtitle:  const Text(
+                      "Deposit on 23 Oct, 08:56 am",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: GameColor.white,
+                          fontSize: 14)),
+                  trailing:  Text(
+                      "+₹10",
+                      style:  TextStyle(
+                          color:  GameColor.green,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600)),
+                ),
+              )
+              //  c
             );
           }),
     );

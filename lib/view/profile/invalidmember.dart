@@ -39,10 +39,8 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
             ),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              // shrinkWrap: true,
               itemCount: 2, // Number of categories
               itemBuilder: (context, index) {
-                print('count');
                 return GestureDetector(
                   onTap: () {
                     _changeCategory(index);
@@ -89,14 +87,12 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
                     )),
                 SizedBox(
                     width: 80,
-                    // color: Colors.red,
                     child: Text(
                       "level".toUpperCase(),
                       style: const TextStyle(color: GameColor.white),
                     )),
                 SizedBox(
                     width: 140,
-                    // color: Colors.red,
                     child: Text(
                       "registration time".toUpperCase(),
                       style: const TextStyle(color: GameColor.white),
@@ -120,7 +116,6 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
                         children: [
                           const SizedBox(
                               width: 80,
-                              // color: Colors.red,
                               child: Text(
                                 '7705015444',
                                 style: TextStyle(color: GameColor.white,fontSize: 12),
@@ -128,7 +123,6 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
                           Container(
                               alignment: Alignment.center,
                               width: 80,
-                              // color: Colors.red,
                               child: Text(
                                 '0'.toUpperCase(),
                                 style: const TextStyle(color: GameColor.white,fontSize: 12),
@@ -136,7 +130,6 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
                           Container(
                               alignment: Alignment.center,
                               width: 140,
-                              // color: Colors.red,
                               child: const Text(
                                 '22/10/24',
                                 style: TextStyle(color: GameColor.white,fontSize: 12),

@@ -32,10 +32,10 @@ class _PolicyScreenState extends State<PolicyScreen> {
             ),
             centerTitle: true,
           ),
-          body:SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+          body:const SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: HtmlWidget(
                     "Privacy Policy"
                 ),

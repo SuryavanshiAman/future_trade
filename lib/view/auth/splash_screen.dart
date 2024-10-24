@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 
@@ -33,7 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
         height: double.infinity,
         width: double.infinity,
         decoration:   BoxDecoration(
-          image: const DecorationImage(image: AssetImage("assets/images/splash.png"),fit: BoxFit.fill),
+          image: const DecorationImage(image: AssetImage(
+              Assets.imagesSplash),fit: BoxFit.fill),
           color: GameColor.black,
         ),
       ),

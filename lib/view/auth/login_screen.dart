@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/bubble_animation/Particles.dart';
 import 'package:future_trade/res/bubble_animation/particle_engine.dart';
@@ -26,22 +27,18 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: GameColor.white,
       body: SingleChildScrollView(
-
         child: Stack(
           children: [
             Container(
-
               decoration: const BoxDecoration(
                   color: Colors.black,
                   image: DecorationImage(image: AssetImage(
-                      "assets/images/coming.png"
+                      Assets.imagesComing
                   ),fit: BoxFit.cover)
               ),
               child: Particles(
@@ -57,127 +54,92 @@ class _LoginScreenState extends State<LoginScreen> {
                 connectDots: false,
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: height * 0.26,
-                ),
-                 Column(
+             Center(
+               child: Container(
+                 width: width*0.9,
+                 height: height*0.4,
+                 margin: EdgeInsets.only(top: height*0.35),
+                 padding: const EdgeInsets.all(40),
+                 decoration: const BoxDecoration(
+                   color: GameColor.bg,
+                   shape: BoxShape.circle,
+                   boxShadow: [
+                   BoxShadow(
+                     color: GameColor.white, //New
+                     blurRadius:10 ,
+                 ),
+               ],
+                 ),
+                 child: Column(
                    children: [
-                     SizedBox(
-                       height: height * 0.1,
-                     ),
-                     Center(
-                       child: Container(
-                         width: width*0.9,
-                         height: height*0.4,
-                         padding: const EdgeInsets.all(35),
-                         decoration: const BoxDecoration(
-                           color: GameColor.bg,
-                           shape: BoxShape.circle,
-                           boxShadow: [
-                           BoxShadow(
-                             color: GameColor.white, //New
-                             blurRadius:10 ,
-                         ),
-                       ],
-                         ),
-                         child: Column(
-                           children: [
-                              Center(
-                              child: Text(
-                                "Sign in",
-                                style:  TextStyle(
-                                    color: GameColor.black
-                                    , fontWeight: FontWeight.w700, fontSize: 24),
-                              ),
-                                           ),
-                             SizedBox(
-                               height: height * 0.04,
-                             ),
-                             CustomTextField(
-                               controller: _controller,
-                               keyboardType: TextInputType.number,
-                               label: "Enter your phone number",
-                               hintColor: GameColor.black,
-                               hintSize: 14,
-
-                               // height: 70,
-                               width: width * 0.65,
-                               maxLength: 10,
-                               filled: false,
-                               border: Border.all(color:GameColor.black),
-                               borderRadius: BorderRadius.circular(25),
-                               fieldRadius:  BorderRadius.circular(25),
-                               prefix:   Padding(
-                                 padding: const EdgeInsets.all(15.0),
-                                 child: Text(
-                                   "+91",
-                                   style: TextStyle(color: GameColor.black, fontSize: 16),
-                                 ),
-                               ),
-                             ),
-                             SizedBox(
-                               height: height * 0.02,
-                             ),
-                             RichText(
-                               textAlign: TextAlign.center,
-                               text: TextSpan(
-                                 style: const TextStyle(fontSize: 14, color: Colors.black),
-                                 children: [
-                                    TextSpan(
-                                       text: "Don't have an ID?",
-                                       style:  TextStyle(color: GameColor.black)),
-                                   TextSpan(
-                                     text: ' Register',
-                                     style:   TextStyle(
-                                       color: GameColor.black,
-                                       fontWeight: FontWeight.w600,
-                                       decoration: TextDecoration.underline,
-                                     ),
-                                     recognizer: TapGestureRecognizer()..onTap = () {
-                                       Navigator.pushNamed(context, RoutesName.registerScreen);
-                                     },
+                      Center(
+                      child: Text(
+                        "Sign in",
+                        style:  TextStyle(
+                            color: GameColor.black
+                            , fontWeight: FontWeight.w700, fontSize: 24),
+                      ),
                                    ),
-
-                                 ],
-                               ),
-                             ),
-
-                             SizedBox(
-                               height: height * 0.03,
-                             ),
-                             CustomContainer(
-                               onTap: () {
-                                 if (_controller.text.isEmpty || _controller.text.length <10) {
-                                   Utils.show("Please enter phone no", context);
-                                 } else {
-                                   Navigator.pushNamed(context, RoutesName.otpScreen);
-                                 }
-                               },
-                               alignment: Alignment.center,
-                               height: height * 0.06,
-                               widths: width * 0.5,
-                               color: GameColor.purple,
-                               borderRadius: const BorderRadius.all(Radius.circular(35)),
-                               child: const Text(
-                                 "Accept & Continue",
-                                 style:  TextStyle(
-                                     color: GameColor.white, fontWeight: FontWeight.w500),
-                               ),
-                             ),
-                           ],
+                     SizedBox(
+                       height: height * 0.01,
+                     ),
+                     Text(
+                       "Enter your Registered no. to access account.",
+                       textAlign: TextAlign.center,
+                       style:  TextStyle(
+                           color: GameColor.black
+                           , fontWeight: FontWeight.w700, fontSize: 16),
+                     ),
+                     SizedBox(
+                       height: height * 0.02,
+                     ),
+                     CustomTextField(
+                       controller: _controller,
+                       keyboardType: TextInputType.number,
+                       label: "Enter your phone number",
+                       hintColor: GameColor.black,
+                       hintSize: 14,
+                       width: width * 0.65,
+                       maxLength: 10,
+                       filled: false,
+                       border: Border.all(color:GameColor.black),
+                       borderRadius: BorderRadius.circular(25),
+                       fieldRadius:  BorderRadius.circular(25),
+                       prefix:   Padding(
+                         padding: const EdgeInsets.all(15.0),
+                         child: Text(
+                           "+91",
+                           style: TextStyle(color: GameColor.black, fontSize: 16),
                          ),
                        ),
                      ),
 
-
+                     SizedBox(
+                       height: height * 0.03,
+                     ),
+                     CustomContainer(
+                       onTap: () {
+                         if (_controller.text.isEmpty || _controller.text.length <10) {
+                           Utils.flushBarErrorMessage("Please enter valid phone no.", context);
+                         } else {
+                           Navigator.pushNamed(context, RoutesName.otpScreen);
+                         }
+                       },
+                       alignment: Alignment.center,
+                       height: height * 0.06,
+                       widths: width * 0.5,
+                       color: GameColor.purple,
+                       borderRadius: const BorderRadius.all(Radius.circular(35)),
+                       child: const Text(
+                         "Accept & Continue",
+                         style:  TextStyle(
+                             color: GameColor.white, fontWeight: FontWeight.w500),
+                       ),
+                     ),
                    ],
                  ),
-
-              ],
-            ),
+               ),
+             ),
           ],
         ),
       ),

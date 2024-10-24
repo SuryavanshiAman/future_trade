@@ -121,12 +121,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                   color: GameColor.white,
                   border: Border.all(color: GameColor.purple),
                   borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    const BoxShadow(
-                      color: GameColor.secondaryColor, //New
-                      blurRadius: 10,
-                    ),
-                  ],
+
                 ),
                 child: Column(
                   children: [
@@ -292,16 +287,11 @@ class _WithdrawPageState extends State<WithdrawPage> {
             ConstantButton(
                 onTap: () {
                   if (amount.text.isEmpty) {
-                    Utils.show(
-                        "Enter Amount", color: GameColor.gameRed, context);
+                    Utils.flushBarErrorMessage("Enter Amount", context);
                   } else if (password.text.isEmpty) {
-                    Utils.show(
-                        "Enter Password ", color: GameColor.gameRed, context);
+                    Utils.flushBarErrorMessage("Enter Password ", context);
                   } else {
-                    Utils.show(
-                        "Amount withdrawal successfully",
-                        color: GameColor.lightGreen,
-                        context);
+                    Utils.flushBarErrorMessage("Amount withdrawal successfully", context);
                   }
                 },
                 text: 'WITHDRAWAL REQUEST')

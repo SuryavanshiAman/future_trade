@@ -13,8 +13,6 @@ class TermsScreen extends StatefulWidget {
 }
 
 class _TermsScreenState extends State<TermsScreen> {
-
-  // ApiController apiController = ApiController();
   @override
   void initState() {
     super.initState();

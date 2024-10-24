@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -34,7 +35,7 @@ class _DepositScreenState extends State<DepositScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final selectImage=Provider.of<ElementController>(context);
+    final selectImage = Provider.of<ElementController>(context);
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       backgroundColor: GameColor.black,
@@ -69,7 +70,6 @@ class _DepositScreenState extends State<DepositScreen> {
                   width: width * 0.9,
                   decoration: const BoxDecoration(
                       color: GameColor.white,
-
                       borderRadius: BorderRadius.all(Radius.circular(15))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,14 +94,9 @@ class _DepositScreenState extends State<DepositScreen> {
                             horizontal: 15, vertical: 20),
                         // borderRadius: ,
                         filled: true,
-                        // borderSide: BorderSide(color: GameColor.blue),
-                        // borderSideFocus: BorderSide(color: GameColor.blue),
                         fillColor: GameColor.purple.withOpacity(0.6),
                         borderRadius: BorderRadius.circular(25),
-                        fieldRadius:  BorderRadius.circular(25),
-                        // fieldRadius: const BorderRadius.only(
-                        //     topRight: Radius.circular(10),
-                        //     topLeft: Radius.circular(10)),
+                        fieldRadius: BorderRadius.circular(25),
                         prefix: const Padding(
                           padding: EdgeInsets.all(18.0),
                           child: Text(
@@ -147,7 +142,8 @@ class _DepositScreenState extends State<DepositScreen> {
               ListTile(
                 leading: const CircleAvatar(
                   backgroundColor: GameColor.white,
-                  backgroundImage: AssetImage("assets/images/cash.png"),
+                  backgroundImage: AssetImage(
+                      Assets.imagesCash),
                 ),
                 // const Icon(Icons.visibility),
                 title: const Text(
@@ -171,7 +167,8 @@ class _DepositScreenState extends State<DepositScreen> {
               ListTile(
                 leading: const CircleAvatar(
                   backgroundColor: GameColor.white,
-                  backgroundImage: AssetImage("assets/images/cheque.png"),
+                  backgroundImage: AssetImage(
+                      Assets.imagesCheque),
                 ),
                 title: const Text(
                   'Cheque',
@@ -194,10 +191,10 @@ class _DepositScreenState extends State<DepositScreen> {
               ),
               ListTile(
                 leading: const CircleAvatar(
-
-                  backgroundColor: GameColor.white,
-                  backgroundImage: AssetImage("assets/images/upi.png",)
-                ),
+                    backgroundColor: GameColor.white,
+                    backgroundImage: AssetImage(
+                      Assets.imagesUpi,
+                    )),
                 title: const Text(
                   'UPI',
                   style: TextStyle(color: GameColor.white),
@@ -219,7 +216,8 @@ class _DepositScreenState extends State<DepositScreen> {
               ListTile(
                 leading: const CircleAvatar(
                   backgroundColor: GameColor.white,
-                  backgroundImage: AssetImage("assets/images/banking.png"),
+                  backgroundImage: AssetImage(
+                      Assets.imagesBanking),
                 ),
                 title: const Text(
                   'Debit/NetBanking',
@@ -241,34 +239,29 @@ class _DepositScreenState extends State<DepositScreen> {
               ),
               Center(
                 child: SizedBox(
-                  height: height*0.1,width: width*0.5,
-                child:  selectImage.image!=null?Image.file( selectImage.image!,fit: BoxFit.fill,):Text("No image selected"),
+                  height: height * 0.1,
+                  width: width * 0.5,
+                  child: selectImage.image != null
+                      ? Image.file(
+                          selectImage.image!,
+                          fit: BoxFit.fill,
+                        )
+                      : const Text("No image selected"),
                 ),
               ),
-
             ],
           ),
           CustomContainer(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             onTap: () {
               if (amountCon.text.isEmpty) {
-                Utils.show(
-                  "Please Enter the Amount",
-                  color: GameColor.gameRed,
-                  context,
-                );
+                Utils.flushBarErrorMessage("Please Enter the Amount", context);
               } else if (int.parse(amountCon.text) < 100) {
-                Utils.show(
-                  "Please Enter the Amount at least ₹100",
-                  color: GameColor.gameRed,
-                  context,
-                );
+                Utils.flushBarErrorMessage(
+                    "Please Enter the Amount at least ₹100", context);
               } else {
-                Utils.show(
-                  "Amount deposited successfully",
-                  color: GameColor.lightGreen,
-                  context,
-                );
+                Utils.flushBarSuccessMessage(
+                    "Amount deposited successfully", context);
               }
             },
             alignment: Alignment.center,
@@ -282,10 +275,6 @@ class _DepositScreenState extends State<DepositScreen> {
                   color: GameColor.white, fontWeight: FontWeight.w500),
             ),
           ),
-          // Text(
-          //   "100% Secure Payments",
-          //   style: TextStyle(color: GameColor.gray),
-          // )
         ],
       ),
     );
@@ -310,8 +299,9 @@ class _DepositScreenState extends State<DepositScreen> {
       ),
     );
   }
+
   void _showPicker(BuildContext context) {
-    final selectImage=Provider.of<ElementController>(context,listen: false);
+    final selectImage = Provider.of<ElementController>(context, listen: false);
     showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
@@ -319,16 +309,16 @@ class _DepositScreenState extends State<DepositScreen> {
           child: Wrap(
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Gallery'),
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Gallery'),
                 onTap: () {
                   selectImage.getImage(ImageSource.gallery);
                   Navigator.of(context).pop();
                 },
               ),
               ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Camera'),
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
                 onTap: () {
                   selectImage.getImage(ImageSource.camera);
                   Navigator.of(context).pop();

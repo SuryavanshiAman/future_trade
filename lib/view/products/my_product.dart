@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
@@ -30,113 +31,98 @@ class _MyProductScreenState extends State<MyProductScreen> {
           itemBuilder: (BuildContext ctx, index) {
             return Card(
               elevation: 3,
-              child: InkWell(
-                onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>myprojectview(view:snapshot.data![index])));
-                },
-                child: Container(
-                  decoration:  const BoxDecoration(
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: GameColor.secondaryColor, //New
-                      //     blurRadius: 5,
-                      //   ),
-                      // ],
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: GameColor.white),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: height * 0.20,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage("assets/images/pic.png"))),
-                        ),
-                        Text(
-                          'USD',
+              child: Container(
+                decoration:  const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: GameColor.white),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: height * 0.20,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                    Assets.imagesPic))),
+                      ),
+                      Text(
+                        'USD',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: GameColor.black,
+                            fontSize: 20),
+                        maxLines: 2,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Product price: ',
                           style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: GameColor.black,
-                              fontSize: 20),
-                          maxLines: 2,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Product price: ',
-                            style: TextStyle(
-                              color: GameColor.gray,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: '₹1200',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: GameColor.purple,
-                                      fontSize: 16)),
-                            ],
+                            color: GameColor.gray,
+                            fontWeight: FontWeight.w500,
                           ),
+                          children: const <TextSpan>[
+                            TextSpan(
+                                text: '₹1200',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: GameColor.purple,
+                                    fontSize: 16)),
+                          ],
                         ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Monthly income: ',
-                            style: TextStyle(
-                              color: GameColor.gray,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: '₹1300',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: GameColor.purple,
-                                      fontSize: 16)),
-                            ],
+                      ),
+                      SizedBox(
+                        height: height * 0.01,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Monthly income: ',
+                          style: TextStyle(
+                            color: GameColor.gray,
+                            fontWeight: FontWeight.w500,
                           ),
+                          children: const <TextSpan>[
+                            TextSpan(
+                                text: '₹1300',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: GameColor.purple,
+                                    fontSize: 16)),
+                          ],
                         ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: 'ROI: ',
-                            style: TextStyle(
-                              color: GameColor.gray,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: '₹1400',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: GameColor.purple,
-                                      fontSize: 16)),
-                            ],
+                      ),
+                      SizedBox(
+                        height: height * 0.01,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: 'ROI: ',
+                          style: TextStyle(
+                            color: GameColor.gray,
+                            fontWeight: FontWeight.w500,
                           ),
+                          children: const <TextSpan>[
+                            TextSpan(
+                                text: '₹1400',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: GameColor.purple,
+                                    fontSize: 16)),
+                          ],
                         ),
+                      ),
 
-                        const Spacer(),
-                        // snapshot.data![index].status == "1"?
-                      ConstantButton(
-                                onTap: () {
+                      const Spacer(),
+                    ConstantButton(
+                              onTap: () {
 
-                                },
-                                text: 'REDEEM',
-                              )
-                            // : disablebutton(
-                            //     onTap: () {},
-                            //     text: 'Redeem',
-                            //   )
-                      ],
-                    ),
+                              },
+                              text: 'REDEEM',
+                            )
+                    ],
                   ),
                 ),
               ),

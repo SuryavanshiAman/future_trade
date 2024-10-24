@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -12,19 +11,23 @@ class MyTeam extends StatefulWidget {
   State<MyTeam> createState() => _MyTeamState();
 }
 
-class _MyTeamState extends State<MyTeam> with TickerProviderStateMixin{
-
-
+class _MyTeamState extends State<MyTeam> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     TabController tabController = TabController(length: 2, vsync: this);
-    return SafeArea(child: Scaffold(
-backgroundColor: GameColor.black,
-     appBar:  ConstantAppBar(
+    return SafeArea(
+        child: Scaffold(
+      backgroundColor: GameColor.black,
+      appBar: ConstantAppBar(
         leading: GestureDetector(
-            onTap: (){Navigator.pop(context);},
-            child: const Icon(Icons.arrow_back,color: GameColor.white,)),
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              color: GameColor.white,
+            )),
         title: const Text(
           "My Team",
           style: TextStyle(fontWeight: FontWeight.w600, color: GameColor.white),
@@ -35,30 +38,25 @@ backgroundColor: GameColor.black,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Card(elevation: 3,
+            child: Card(
+              elevation: 3,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: GameColor.white
-                ),
-
+                    color: GameColor.white),
                 child: TabBar(
                   controller: tabController,
-                  unselectedLabelColor:GameColor.black,
+                  unselectedLabelColor: GameColor.black,
                   labelColor: GameColor.purple,
                   indicatorSize: TabBarIndicatorSize.label,
                   indicatorColor: GameColor.purple,
-
                   tabs: const [
                     Tab(
                       text: ("Invalid Member"),
                     ),
-                    // Tab(
-                    //   text: ("ONCOMING"),
-                    // ),
                     Tab(
                       text: ("Valid Member"),
                     ),
@@ -68,11 +66,12 @@ backgroundColor: GameColor.black,
             ),
           ),
           SizedBox(
-            height: height*0.77,
-            child:  TabBarView(controller: tabController, children: [
+            height: height * 0.77,
+            child: TabBarView(
+                controller: tabController,
+                children: const [
               InvalidMemberScreen(),
               ValidMemberScreen(),
-
             ]),
           )
         ],

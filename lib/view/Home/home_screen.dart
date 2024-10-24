@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -25,12 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: ConstantAppBar(
         centerTitle: true,
         title: Image.asset(
-          "assets/images/future_trade_logo.png",
+          Assets.imagesFutureTradeLogo,
           scale: 1.2,
         ),
         actions: [
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.pushNamed(context, RoutesName.walletScreen);
             },
             child: const Icon(
@@ -47,12 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Theme(
             data: Theme.of(context).copyWith(
-              dividerColor: Colors.transparent, // Remove the default border
+              dividerColor: Colors.transparent,
             ),
             child: ExpansionTile(
               leading: const CircleAvatar(
                 radius: 22,
-                backgroundImage: AssetImage('assets/images/user.gif'),
+                backgroundImage: AssetImage(Assets.imagesUser),
               ),
               title: const Text(
                 "Aman Chauhan",
@@ -98,10 +99,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisCount: 2, // 3 items per row
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
-                    childAspectRatio:
-                        2.5, // Adjust as needed for the aspect ratio
-                    physics:
-                        const NeverScrollableScrollPhysics(), // Disable grid scroll, as ListView will handle it
+                    childAspectRatio: 2.5,
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       _buildGridTile("3", "Active Downline"),
                       _buildGridTile("9250.00", "Cashback Income"),
@@ -143,7 +142,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                // shrinkWrap: true,
                 itemCount: categories.productList.length,
                 itemBuilder: (BuildContext context, index) {
                   return GestureDetector(
@@ -157,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.center,
                       width: width * 0.25,
                       color: categories.selectedIndex == index
-                          ? Color(0xFF56CCF2)
+                          ? GameColor.lightBlue
                           : GameColor.white,
                       child: Text(
                         categories.productList[index].name,
@@ -183,15 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [Color(0xFF000000), Color(0xFF000000), Color(0xFF2d2f30)],
-            // colors: [
-            //   Color(0xFF56CCF2), Color(0xFF2F80ED)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-            //   Colors.blue.shade300,
-            //   Colors.blue.shade600,
-            // ],
-            // begin: Alignment.topLeft,
-            // end: Alignment.bottomRight,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
@@ -210,13 +201,12 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const CircleAvatar(
                 radius: 22,
-                backgroundImage: AssetImage('assets/images/user.gif'),
+                backgroundImage: AssetImage(Assets.imagesUser),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // SizedBox(height: 8),
                   Text(
                     amount,
                     style: const TextStyle(
@@ -225,7 +215,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 12,
                     ),
                   ),
-                  // SizedBox(height: 8),
                   Text(
                     label,
                     textAlign: TextAlign.center,

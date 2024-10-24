@@ -14,7 +14,6 @@ class AboutUsScreen extends StatefulWidget {
 
 class _AboutUsScreenState extends State<AboutUsScreen> {
 
-  // ApiController apiController = ApiController();
   @override
   void initState() {
     super.initState();

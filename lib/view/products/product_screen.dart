@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+  const ProductScreen({super.key});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -34,12 +35,6 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: height * 0.3,
                   width: width * 0.8,
                   decoration: const BoxDecoration(
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Color(0xFF56CCF2), //New
-                      //     blurRadius: ,
-                      //   ),
-                      // ],
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: GameColor.white),
                   child: Padding(
@@ -52,7 +47,8 @@ class _ProductScreenState extends State<ProductScreen> {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: AssetImage("assets/images/pic.png"))),
+                                  image: AssetImage(
+                                      Assets.imagesPic))),
                         ),
 
                         Text(
@@ -112,12 +108,9 @@ class _ProductScreenState extends State<ProductScreen> {
                               fontSize: 16),
                           maxLines: 2,
                         ),
-
                         const Spacer(),
-                        // snapshot.data![index].Purchasestatus==null?
                         ConstantButton(
-                          // btnColor: GameColor.purple,
-                          btnColor: Color(0xff3bad19),
+                          btnColor: GameColor.green,
                           onTap: () {
                             Navigator.pushNamed(
                                 context, RoutesName.productViewScreen);

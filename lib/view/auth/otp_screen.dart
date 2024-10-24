@@ -1,8 +1,8 @@
-
 import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/bubble_animation/Particles.dart';
 import 'package:future_trade/res/bubble_animation/particle_engine.dart';
@@ -24,31 +24,26 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void initState() {
     super.initState();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: GameColor.white,
       body: SingleChildScrollView(
-
         child: Stack(
           children: [
             Container(
-
               decoration: const BoxDecoration(
                   color: Colors.black,
-                  image: DecorationImage(image: AssetImage(
-                      "assets/images/coming.png"
-                  ),fit: BoxFit.cover)
-              ),
+                  image: DecorationImage(
+                      image: AssetImage(Assets.imagesComing),
+                      fit: BoxFit.cover)),
               child: Particles(
                 awayRadius: 100,
                 particles: createParticles(),
                 height: height,
-                width:width,
+                width: width,
                 onTapAnimation: true,
                 awayAnimationDuration: const Duration(seconds: 300),
                 awayAnimationCurve: Curves.linear,
@@ -63,20 +58,18 @@ class _OtpScreenState extends State<OtpScreen> {
                 SizedBox(
                   height: height * 0.35,
                 ),
-
                 Container(
-                  width: width*0.95,
-                  height: height*0.45,
+                  width: width * 0.95,
+                  height: height * 0.45,
                   padding: const EdgeInsets.all(35),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: GameColor.bg,
                     shape: BoxShape.circle,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
                         color: GameColor.white, //New
                         blurRadius: 10,
                       ),
-
                     ],
                   ),
                   child: Column(
@@ -84,38 +77,46 @@ class _OtpScreenState extends State<OtpScreen> {
                       SizedBox(
                         height: height * 0.01,
                       ),
-                       Center(
+                      Center(
                         child: Text(
                           "Verification",
-                          style:  TextStyle(
-                              color: GameColor.black
-                              , fontWeight: FontWeight.w700, fontSize: 20),
+                          style: TextStyle(
+                              color: GameColor.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20),
                         ),
                       ),
                       SizedBox(
                         height: height * 0.02,
                       ),
-                        Text(
-                        "Enter the code sent to the number",
+                      Text(
+                        "Enter the Otp sent to the number",
                         textAlign: TextAlign.center,
-                        style:  TextStyle(
-                            color:GameColor.black
-                            , fontWeight: FontWeight.w700, fontSize: 16),
+                        style: TextStyle(
+                            color: GameColor.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16),
                       ),
                       SizedBox(
                         height: height * 0.02,
                       ),
-                       Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                           Text(
+                          Text(
                             "+91 7458946942",
-                            style:  TextStyle(
-                                color: GameColor.black
-                                , fontWeight: FontWeight.w700, fontSize: 16),
+                            style: TextStyle(
+                                color: GameColor.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16),
                           ),
-                          SizedBox(width: width*0.03,),
-                          Icon(Icons.edit,color: GameColor.black,)
+                          SizedBox(
+                            width: width * 0.03,
+                          ),
+                          Icon(
+                            Icons.edit,
+                            color: GameColor.black,
+                          )
                         ],
                       ),
                       SizedBox(
@@ -123,26 +124,32 @@ class _OtpScreenState extends State<OtpScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 18, right: 18),
-                        child:Pinput(
+                        child: Pinput(
                           controller: otpCon,
                           length: 6,
                           defaultPinTheme: PinTheme(
-                            width: width*0.11,
-                            height: height*0.05,
-                            textStyle:   TextStyle(fontSize: 20, color: GameColor.black),
-                            decoration:  BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: GameColor.black, width: 2,
+                            width: width * 0.11,
+                            height: height * 0.05,
+                            textStyle:
+                                TextStyle(fontSize: 20, color: GameColor.black),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                color: GameColor.blue,
+                                width: 2,
                               ),
                             ),
                           ),
-                          focusedPinTheme:  PinTheme(
-                            width: width*0.11,
-                            height: height*0.05,
-                            textStyle:  TextStyle(fontSize: 20, color: GameColor.black),
+                          focusedPinTheme: PinTheme(
+                            width: width * 0.11,
+                            height: height * 0.05,
+                            textStyle:
+                                TextStyle(fontSize: 20, color: GameColor.black),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: GameColor.black, width: 2,
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                color: GameColor.green,
+                                width: 2,
                               ),
                             ),
                           ),
@@ -153,12 +160,17 @@ class _OtpScreenState extends State<OtpScreen> {
                       ),
                       ConstantButton(
                         onTap: () {
-                        if (otpCon.text.isEmpty || otpCon.text.length <6) {
-                          Utils.show("Please enter Otp",color: GameColor.gameRed, context);
-                        } else {
-                          Navigator.pushReplacementNamed(context, RoutesName.bottomNavBar);
-                        }
-                      }, text: 'Submit',
+                          if (otpCon.text.isEmpty || otpCon.text.length < 6) {
+                            Utils.flushBarErrorMessage(
+                                "Please enter Otp", context);
+                          } else {
+                            Navigator.pushReplacementNamed(
+                                context, RoutesName.bottomNavBar);
+                            Utils.flushBarSuccessMessage(
+                                "Login Successfully", context);
+                          }
+                        },
+                        text: 'Submit',
                         btnColor: GameColor.purple,
                         borderRadius: BorderRadius.circular(25),
                       ),
@@ -168,29 +180,27 @@ class _OtpScreenState extends State<OtpScreen> {
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
-                          style: const TextStyle(fontSize: 14, color: Colors.black),
+                          style: const TextStyle(
+                              fontSize: 14, color: Colors.black),
                           children: [
-                             TextSpan(
+                            TextSpan(
                                 text: "Don't Received Otp?",
-                                style:  TextStyle(color: GameColor.black)),
+                                style: TextStyle(color: GameColor.black)),
                             TextSpan(
                               text: ' Resend',
-                              style:   TextStyle(
+                              style: TextStyle(
                                 color: GameColor.black,
                                 fontWeight: FontWeight.w600,
                                 decoration: TextDecoration.underline,
                               ),
                               recognizer: TapGestureRecognizer()..onTap = () {},
                             ),
-
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
-
               ],
             ),
           ],
@@ -198,6 +208,7 @@ class _OtpScreenState extends State<OtpScreen> {
       ),
     );
   }
+
   List<Particle> createParticles() {
     var rng = Random();
     List<Particle> particles = [];

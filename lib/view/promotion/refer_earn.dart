@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -39,12 +40,6 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   color: GameColor.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: GameColor.secondaryColor, //New
-                      blurRadius: 10,
-                    ),
-                  ],
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -124,7 +119,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
               ),
             ],
           ),
-          Container(
+          SizedBox(
             height: height * 0.45,
             child: ListView.builder(
                 shrinkWrap: true,
@@ -137,18 +132,14 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: GameColor.white,
-                        boxShadow: const [
-                          BoxShadow(
-                            color: GameColor.secondaryColor, //New
-                            blurRadius: 5,
-                          ),
-                        ],
+
                       ),
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundColor: GameColor.purple.withOpacity(0.9),
                           backgroundImage:
-                              const AssetImage("assets/images/user.gif"),
+                              const AssetImage(
+                                  Assets.imagesUser),
                         ),
                         title: Text("Aman",
                             style: TextStyle(

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/res/launcher.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
@@ -36,43 +37,43 @@ class ElementController with ChangeNotifier{
   }
   List<ElementModel> elementList = [
     ElementModel(
-      image: "assets/images/bank.png",
+      image:Assets.imagesBank,
       name: 'Bank Details',
       onTap: (context){
         Navigator.pushNamed(context, RoutesName.bankDetailsScreen);
       }, ),
     ElementModel(
-        image: "assets/images/support.png",
+        image:Assets.imagesSupport,
         name: 'Support',
         onTap: (context){
           Launcher.openTelegram("https://web.telegram.org/k/");
         }),
     ElementModel(
-        image: 'assets/images/team.png',
+        image: Assets.imagesTeam,
         name: 'Team',
         onTap: (context){
           Navigator.pushNamed(context, RoutesName.myTeam);
         }),
     ElementModel(
-        image: "assets/images/about.png",
+        image:Assets.imagesAbout,
         name: 'About Us',
         onTap: (context){
           Navigator.pushNamed(context, RoutesName.aboutUsScreen);
         }),
     ElementModel(
-        image: "assets/images/policy.png",
+        image: Assets.imagesPolicy,
         name: 'Privacy Policy  ',
         onTap: (context){
           Navigator.pushNamed(context, RoutesName.policyScreen);
         }),
     ElementModel(
-        image: "assets/images/term_con.png",
+        image: Assets.imagesTermCon,
         name: 'T&C',
         onTap: (context){
           Navigator.pushNamed(context, RoutesName.termsScreen);
         }),
     ElementModel(
-        image: "assets/images/log_out.png",
+        image:Assets.imagesLogOut,
         name: 'Logout',
         onTap: (context){
           Utils.showExitConfirmation(context);

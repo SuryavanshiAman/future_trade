@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -74,9 +75,9 @@ class _WalletScreenState extends State<WalletScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image(image: AssetImage("assets/images/cash.png",),height: height*0.05,),
-
-                        Text(" ₹100",
+                        Image(image: const AssetImage(
+                          Assets.imagesCash,),height: height*0.05,),
+                        const Text(" ₹100",
                           style: TextStyle(
                               fontSize: 36, fontWeight: FontWeight.w700),
                         ),
@@ -165,11 +166,11 @@ class _WalletScreenState extends State<WalletScreen> {
                           },
                           height: height * 0.06,
                           widths: width * 0.35,
-                          color:Color(0xff3bad19),
+                          color:const Color(0xff3bad19),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(25),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                Icon(
@@ -213,12 +214,6 @@ class _WalletScreenState extends State<WalletScreen> {
                 widths: width,
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                 color:GameColor.white,
-                // boxShadow: [
-                //   const BoxShadow(
-                //     color: GameColor.secondaryColor, //New
-                //     blurRadius: 10,
-                //   ),
-                // ],
                 child: InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, RoutesName.transactionScreen);
@@ -249,66 +244,4 @@ class _WalletScreenState extends State<WalletScreen> {
     );
   }
 
-  // void _showBottomSheet(BuildContext context) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     builder: (context) {
-  //       return Container(
-  //         padding: const EdgeInsets.all(16.0),
-  //         child: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           crossAxisAlignment: CrossAxisAlignment.end,
-  //           children: [
-  //             InkWell(
-  //                 onTap: () {
-  //                   Navigator.pop(context);
-  //                 },
-  //                 child: const Icon(Icons.cancel_outlined)),
-  //             _buildListItem(
-  //               image: Assets.imagesDeposit,
-  //               title: 'Deposits',
-  //               description: 'This money can be used to play tournaments.',
-  //             ),
-  //             _buildListItem(
-  //               image: Assets.imagesRupeesWhite,
-  //               title: 'Winnings',
-  //               description:
-  //               'The money you have won by playing tournaments. You can withdraw this money.',
-  //             ),
-  //             _buildListItem(
-  //               image: Assets.imagesCashback,
-  //               title: 'Cashback',
-  //               description:
-  //               'Earn Cashback by performing certain actions such as adding money to your wallet, completing KYC etc.',
-  //             ),
-  //             _buildListItem(
-  //               image: Assets.imagesBonus,
-  //               title: 'Bonus',
-  //               description:
-  //               'Bonus can be used to unlock rewards or new features.',
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-  //
-  // Widget _buildListItem(
-  //     {required String image,
-  //       required String title,
-  //       required String description}) {
-  //   return Center(
-  //     child: ListTile(
-  //       leading: CircleAvatar(
-  //           radius: 30, backgroundColor: lightBlue, child: Image.asset(image)),
-  //       // Icon(icon, color: Colors.purple),
-  //       title: Text(title,
-  //           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-  //       subtitle: Text(description,
-  //           style: const TextStyle(
-  //               fontWeight: FontWeight.w500, color: labelColor)),
-  //     ),
-  //   );
-  // }
 }

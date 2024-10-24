@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -31,7 +32,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Container(
             padding: const EdgeInsets.all(18),
             margin: const EdgeInsets.all(18),
-            // height: height*0.3,
             width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -58,7 +58,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: AssetImage("assets/images/user.gif"))),
+                          image: AssetImage(
+                              Assets.imagesUser))),
                 ),
                 SizedBox(
                   height: height * 0.02,
@@ -154,7 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           boxShadow: const [
                             BoxShadow(
                               color: GameColor.bg, //New
-                              blurRadius: 4,
+                              blurRadius: 2,
                             )
                           ],
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -164,11 +165,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image(image: AssetImage(element[index].image,),color: GameColor.green,),
+                            Image(image: AssetImage(element[index].image,),color: GameColor.blue,),
                             Text(
                               element[index].name,
-                              style:  TextStyle(
-                                  color: GameColor.green,
+                              style:  const TextStyle(
+                                  color: GameColor.blue,
                                   fontWeight: FontWeight.w600),
                             )
                           ],
