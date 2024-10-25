@@ -26,47 +26,44 @@ class _TransactionScreenState extends State<TransactionScreen> {
       ),
       body: ListView.builder(
           itemCount: 10,
+          padding: const EdgeInsets.all(8.0),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: GameColor.white))
-                ),
-                child: ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: GameColor.blue,
-                    child: Text(
-                        "RO",
-                        style:  TextStyle(
-                            color: GameColor.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600)) ,
-                  ) ,
-                  title:    const Text(
-                      "Rohit",
+            return Container(
+              decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(color: GameColor.white))
+              ),
+              child: ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: GameColor.blue,
+                  child: Text(
+                      "RO",
                       style:  TextStyle(
                           color: GameColor.white,
                           fontSize: 16,
-                          fontWeight: FontWeight.w600)),
-                  subtitle:  const Text(
-                      "Deposit on 23 Oct, 08:56 am",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: GameColor.white,
-                          fontSize: 14)),
-                  trailing:  Text(
-                      "+₹10",
-                      style:  TextStyle(
-                          color:  GameColor.green,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600)),
-                ),
-              )
-              //  c
+                          fontWeight: FontWeight.w600)) ,
+                ) ,
+                title:    const Text(
+                    "Rohit",
+                    style:  TextStyle(
+                        color: GameColor.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600)),
+                subtitle:  const Text(
+                    "Deposit on 23 Oct, 08:56 am",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: GameColor.white,
+                        fontSize: 14)),
+                trailing:  Text(
+                    "+₹10",
+                    style:  TextStyle(
+                        color:  GameColor.green,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600)),
+              ),
             );
           }),
     );

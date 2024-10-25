@@ -37,7 +37,6 @@ class _DepositScreenState extends State<DepositScreen> {
   Widget build(BuildContext context) {
     final selectImage = Provider.of<ElementController>(context);
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       backgroundColor: GameColor.black,
       appBar: ConstantAppBar(
         leading: GestureDetector(
@@ -54,82 +53,67 @@ class _DepositScreenState extends State<DepositScreen> {
         ),
         centerTitle: true,
       ),
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+            physics: const NeverScrollableScrollPhysics(),
             children: [
-              SizedBox(
-                height: height * 0.03,
-              ),
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.all(18),
-                  height: height * 0.3,
-                  width: width * 0.9,
-                  decoration: const BoxDecoration(
-                      color: GameColor.white,
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Enter Amount",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      SizedBox(
-                        height: height * 0.01,
-                      ),
-                      CustomTextField(
-                        controller: amountCon,
-                        keyboardType: TextInputType.number,
-                        label: "Enter amount here",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: GameColor.white),
-                        hintColor: GameColor.white,
-                        height: 70,
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 20),
-                        // borderRadius: ,
-                        filled: true,
-                        fillColor: GameColor.purple.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(25),
-                        fieldRadius: BorderRadius.circular(25),
-                        prefix: const Padding(
-                          padding: EdgeInsets.all(18.0),
-                          child: Text(
-                            "₹",
-                            style: TextStyle(
-                                color: GameColor.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600),
-                          ),
+              Container(
+                padding: const EdgeInsets.all(18),
+                margin: const EdgeInsets.all(10),
+                height: height * 0.3,
+                width: width * 0.9,
+                decoration: const BoxDecoration(
+                    color: GameColor.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Enter Amount",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    CustomTextField(
+                      controller: amountCon,
+                      keyboardType: TextInputType.number,
+                      label: "Enter amount here",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: GameColor.white),
+                      hintColor: GameColor.white,
+                      height: 70,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 20),
+                      filled: true,
+                      fillColor: GameColor.blue.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(25),
+                      fieldRadius: BorderRadius.circular(25),
+                      prefix: const Padding(
+                        padding: EdgeInsets.all(18.0),
+                        child: Text(
+                          "₹",
+                          style: TextStyle(
+                              color: GameColor.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildAmountContainer(10000),
-                          _buildAmountContainer(25000),
-                          _buildAmountContainer(50000),
-                        ],
-                      ),
-                      SizedBox(
-                        height: height * 0.01,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildAmountContainer(100000),
-                          _buildAmountContainer(200000),
-                          _buildAmountContainer(500000),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                    const Spacer(),
+                    GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisExtent: 40,
+                            crossAxisSpacing: 4,
+                            mainAxisSpacing: 4),
+                        itemCount: 6,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return _buildAmountContainer(selectImage.amount[index]) ;
+                        })
+                  ],
                 ),
               ),
               const Padding(
@@ -139,6 +123,35 @@ class _DepositScreenState extends State<DepositScreen> {
                   style: TextStyle(fontSize: 16, color: GameColor.white),
                 ),
               ),
+              // Column(
+              //   children: List.generate(4, (index){
+              //     return ListTile(
+              //       leading: const CircleAvatar(
+              //         backgroundColor: GameColor.white,
+              //         backgroundImage: AssetImage(
+              //             Assets.imagesCash),
+              //       ),
+              //       // const Icon(Icons.visibility),
+              //       title: const Text(
+              //         'Cash',
+              //         style: TextStyle(color: GameColor.white),
+              //       ),
+              //       subtitle: const Text(
+              //         'Use Cash for payment',
+              //         style: TextStyle(fontSize: 10, color: GameColor.white),
+              //       ),
+              //       trailing: Radio<String>(
+              //         value: 'Cash',
+              //         groupValue: _selectedOption,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             _selectedOption = value!;
+              //           });
+              //         },
+              //       ),
+              //     );
+              //   }),
+              // ),
               ListTile(
                 leading: const CircleAvatar(
                   backgroundColor: GameColor.white,
@@ -249,34 +262,32 @@ class _DepositScreenState extends State<DepositScreen> {
                       : const Text("No image selected"),
                 ),
               ),
+              CustomContainer(
+                margin: const EdgeInsets.all(10),
+                onTap: () {
+                  if (amountCon.text.isEmpty) {
+                    Utils.flushBarErrorMessage("Please Enter the Amount", context);
+                  } else if (int.parse(amountCon.text) < 100) {
+                    Utils.flushBarErrorMessage(
+                        "Please Enter the Amount at least ₹100", context);
+                  } else {
+                    Utils.flushBarSuccessMessage(
+                        "Amount deposited successfully", context);
+                  }
+                },
+                alignment: Alignment.center,
+                height: height * 0.07,
+                widths: width * 0.8,
+                color: GameColor.green,
+                borderRadius: const BorderRadius.all(Radius.circular(35)),
+                child: const Text(
+                  "Add Money",
+                  style: TextStyle(
+                      color: GameColor.white, fontWeight: FontWeight.w500),
+                ),
+              ),
             ],
           ),
-          CustomContainer(
-            margin: const EdgeInsets.all(10),
-            onTap: () {
-              if (amountCon.text.isEmpty) {
-                Utils.flushBarErrorMessage("Please Enter the Amount", context);
-              } else if (int.parse(amountCon.text) < 100) {
-                Utils.flushBarErrorMessage(
-                    "Please Enter the Amount at least ₹100", context);
-              } else {
-                Utils.flushBarSuccessMessage(
-                    "Amount deposited successfully", context);
-              }
-            },
-            alignment: Alignment.center,
-            height: height * 0.07,
-            widths: width * 0.8,
-            color: GameColor.green,
-            borderRadius: const BorderRadius.all(Radius.circular(35)),
-            child: const Text(
-              "Add Money",
-              style: TextStyle(
-                  color: GameColor.white, fontWeight: FontWeight.w500),
-            ),
-          ),
-        ],
-      ),
     );
   }
 

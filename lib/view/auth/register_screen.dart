@@ -189,7 +189,7 @@
 //                           alignment: Alignment.center,
 //                           height: height * 0.06,
 //                           widths: width * 0.5,
-//                           color: GameColor.purple,
+//                           color: GameColor.blue,
 //                           borderRadius: const BorderRadius.all(Radius.circular(35)),
 //                           child: const Text(
 //                             "Register",

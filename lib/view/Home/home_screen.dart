@@ -5,7 +5,9 @@ import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/view/products/product_screen.dart';
+import 'package:future_trade/view_model/auth_view_model.dart';
 import 'package:future_trade/view_model/controller.dart';
+import 'package:future_trade/view_model/product_view_model.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,8 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _customTileExpanded = false;
   int selectedIndex = 0;
   @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductViewModel>(context,listen: false).productApi(context,"1");
+  }
+  @override
   Widget build(BuildContext context) {
     final categories = Provider.of<ElementController>(context);
+    final user= Provider.of<AuthViewModel>(context).userDataResponse;
+    if (user == null || user.data == null) {
+      return const Center(child: Center(child: CircularProgressIndicator(color: GameColor.white,)));
+    }
+    final userData = user.data;
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: ConstantAppBar(
@@ -55,17 +67,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 radius: 22,
                 backgroundImage: AssetImage(Assets.imagesUser),
               ),
-              title: const Text(
-                "Aman Chauhan",
-                style: TextStyle(
+              title:  Text(
+                userData!.name.toString(),
+                style: const TextStyle(
                   color: GameColor.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
               ),
-              subtitle: const Text(
-                "2356",
-                style: TextStyle(
+              subtitle:  Text(
+                userData.userId.toString(),
+                style: const TextStyle(
                   color: GameColor.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -148,7 +160,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       categories.setSelectedIndex(index);
                       if (categories.productList[index].onTap != null) {
-                        categories.productList[index].onTap!();
+                        categories.productList[index].onTap!(context);
+
                       }
                     },
                     child: Container(

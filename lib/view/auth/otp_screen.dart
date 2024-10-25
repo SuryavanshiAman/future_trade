@@ -11,6 +11,8 @@ import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/pinput/pinput.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
+import 'package:future_trade/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -28,6 +30,11 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final verify = Provider.of<AuthViewModel>(context);
+    Map<String, dynamic> arguments =
+    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    String phone = arguments["phone"].toString();
+    String otp = arguments["otp"].toString();
     return Scaffold(
       backgroundColor: GameColor.white,
       body: SingleChildScrollView(
@@ -104,7 +111,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "+91 7458946942",
+                            "+91 $phone",
                             style: TextStyle(
                                 color: GameColor.black,
                                 fontWeight: FontWeight.w700,
@@ -113,9 +120,12 @@ class _OtpScreenState extends State<OtpScreen> {
                           SizedBox(
                             width: width * 0.03,
                           ),
-                          Icon(
-                            Icons.edit,
-                            color: GameColor.black,
+                          GestureDetector(
+                            onTap: (){Navigator.pop(context);},
+                            child: Icon(
+                              Icons.edit,
+                              color: GameColor.black,
+                            ),
                           )
                         ],
                       ),
@@ -164,14 +174,15 @@ class _OtpScreenState extends State<OtpScreen> {
                             Utils.flushBarErrorMessage(
                                 "Please enter Otp", context);
                           } else {
-                            Navigator.pushReplacementNamed(
-                                context, RoutesName.bottomNavBar);
-                            Utils.flushBarSuccessMessage(
-                                "Login Successfully", context);
+                            verify.verifyOtpApi(phone, otp, context);
+                            // Navigator.pushReplacementNamed(
+                            //     context, RoutesName.bottomNavBar);
+                            // Utils.flushBarSuccessMessage(
+                            //     "Login Successfully", context);
                           }
                         },
                         text: 'Submit',
-                        btnColor: GameColor.purple,
+                        btnColor: GameColor.blue,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       SizedBox(

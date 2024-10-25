@@ -1,7 +1,6 @@
 
 import 'dart:math';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
@@ -12,6 +11,8 @@ import 'package:future_trade/res/custom_container.dart';
 import 'package:future_trade/res/custom_text_field.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
+import 'package:future_trade/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final otp = Provider.of<AuthViewModel>(context);
     return Scaffold(
       backgroundColor: GameColor.white,
       body: SingleChildScrollView(
@@ -122,13 +124,14 @@ class _LoginScreenState extends State<LoginScreen> {
                          if (_controller.text.isEmpty || _controller.text.length <10) {
                            Utils.flushBarErrorMessage("Please enter valid phone no.", context);
                          } else {
-                           Navigator.pushNamed(context, RoutesName.otpScreen);
+                           otp.sedOtpApi(_controller.text, context);
+                           // Navigator.pushNamed(context, RoutesName.otpScreen);
                          }
                        },
                        alignment: Alignment.center,
                        height: height * 0.06,
                        widths: width * 0.5,
-                       color: GameColor.purple,
+                       color: GameColor.blue,
                        borderRadius: const BorderRadius.all(Radius.circular(35)),
                        child: const Text(
                          "Accept & Continue",

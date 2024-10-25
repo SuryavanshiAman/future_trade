@@ -18,7 +18,10 @@ class _MyProductScreenState extends State<MyProductScreen> {
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: const ConstantAppBar(
-        title: Text("My Project",style: TextStyle(color: GameColor.white,fontWeight: FontWeight.w600),),
+        title: Text(
+          "My Project",
+          style: TextStyle(color: GameColor.white, fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
       ),
       body: GridView.builder(
@@ -32,98 +35,92 @@ class _MyProductScreenState extends State<MyProductScreen> {
             return Card(
               elevation: 3,
               child: Container(
-                decoration:  const BoxDecoration(
+                padding: const EdgeInsets.all(8.0),
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: GameColor.white),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: height * 0.20,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                    Assets.imagesPic))),
-                      ),
-                      Text(
-                        'USD',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: height * 0.20,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(Assets.imagesPic))),
+                    ),
+                    Text(
+                      'USD',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: GameColor.black,
+                          fontSize: 20),
+                      maxLines: 2,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Product price: ',
                         style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: GameColor.black,
-                            fontSize: 20),
-                        maxLines: 2,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Product price: ',
-                          style: TextStyle(
-                            color: GameColor.gray,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          children: const <TextSpan>[
-                            TextSpan(
-                                text: '₹1200',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: GameColor.purple,
-                                    fontSize: 16)),
-                          ],
+                          color: GameColor.gray,
+                          fontWeight: FontWeight.w500,
                         ),
+                        children: const <TextSpan>[
+                          TextSpan(
+                              text: '₹1200',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: GameColor.blue,
+                                  fontSize: 16)),
+                        ],
                       ),
-                      SizedBox(
-                        height: height * 0.01,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Monthly income: ',
-                          style: TextStyle(
-                            color: GameColor.gray,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          children: const <TextSpan>[
-                            TextSpan(
-                                text: '₹1300',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: GameColor.purple,
-                                    fontSize: 16)),
-                          ],
+                    ),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Monthly income: ',
+                        style: TextStyle(
+                          color: GameColor.gray,
+                          fontWeight: FontWeight.w500,
                         ),
+                        children: const <TextSpan>[
+                          TextSpan(
+                              text: '₹1300',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: GameColor.blue,
+                                  fontSize: 16)),
+                        ],
                       ),
-                      SizedBox(
-                        height: height * 0.01,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'ROI: ',
-                          style: TextStyle(
-                            color: GameColor.gray,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          children: const <TextSpan>[
-                            TextSpan(
-                                text: '₹1400',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: GameColor.purple,
-                                    fontSize: 16)),
-                          ],
+                    ),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: 'ROI: ',
+                        style: TextStyle(
+                          color: GameColor.gray,
+                          fontWeight: FontWeight.w500,
                         ),
+                        children: const <TextSpan>[
+                          TextSpan(
+                              text: '₹1400',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: GameColor.blue,
+                                  fontSize: 16)),
+                        ],
                       ),
-
-                      const Spacer(),
+                    ),
+                    const Spacer(),
                     ConstantButton(
-                              onTap: () {
-
-                              },
-                              text: 'REDEEM',
-                            )
-                    ],
-                  ),
+                      onTap: () {},
+                      text: 'REDEEM',
+                    )
+                  ],
                 ),
               ),
             );

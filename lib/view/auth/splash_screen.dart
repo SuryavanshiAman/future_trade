@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
+import 'package:future_trade/view_model/services/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,16 +13,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // SplashServices splashServices = SplashServices();
+  SplashServices splashServices = SplashServices();
   // UpdateLanguageViewModel updateLanguageViewModel =UpdateLanguageViewModel();
   @override
   void initState() {
     super.initState();
     // splashServices.checkAuthentication(context);
-    // updateLanguageViewModel.loadSwitchState();
-    // updateLanguageViewModel.setHindi(!updateLanguageViewModel.isHindi);
-    // // updateLanguageViewModel.updateLanguage(updateLanguageViewModel.isHindi);
-    // getLanguage();
+    // // updateLanguageViewModel.loadSwitchState();
+    // // updateLanguageViewModel.setHindi(!updateLanguageViewModel.isHindi);
+    // // // updateLanguageViewModel.updateLanguage(updateLanguageViewModel.isHindi);
+    // // getLanguage();
     Future.delayed(const Duration(seconds: 3),(){
       Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
     });

@@ -1,4 +1,3 @@
-
 import 'package:future_trade/res/color-const.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +15,7 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
   void _changeCategory(int index) {
     setState(() {
       _selectedCategoryIndex = index;
-      _containerColor =
-          GameColor.purple;
+      _containerColor = GameColor.blue;
     });
   }
 
@@ -34,7 +32,7 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
           child: Container(
             height: 40,
             decoration: BoxDecoration(
-              border: Border.all(width: 1, color: GameColor.purple),
+              border: Border.all(width: 1, color: GameColor.blue),
               color: _containerColor,
             ),
             child: ListView.builder(
@@ -48,22 +46,18 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
                   },
                   child: Container(
                     width: 170,
+                    alignment: Alignment.center,
                     color: _selectedCategoryIndex == index
-                        ? GameColor.purple
+                        ? GameColor.blue
                         : Colors.white,
-                    child:  Center(
-                        child: Text(
-                      'A' +
-                          '-'
-                              ''
-                              '2' +
-                          '%' +
-                          "(" '3' +
-                          ")",
-                      style: TextStyle(color:_selectedCategoryIndex == index
-                          ? GameColor.white
-                          : Colors.black,),
-                    )),
+                    child: Text(
+                      "A-2%(3)",
+                      style: TextStyle(
+                        color: _selectedCategoryIndex == index
+                            ? GameColor.white
+                            : Colors.black,
+                      ),
+                    ),
                   ),
                 );
               },
@@ -80,27 +74,28 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
               children: [
                 Container(
                     width: 80,
-                    child: Center(
-                        child: Text(
+                    alignment: Alignment.center,
+                    child: Text(
                       "account".toUpperCase(),
                       style: const TextStyle(color: GameColor.white),
-                    ))),
+                    )),
                 Container(
                     alignment: Alignment.center,
                     width: 80,
-                    // color: Colors.red,
                     child: Text(
                       "level".toUpperCase(),
                       style: const TextStyle(color: GameColor.white),
                     )),
-                Container(
-                    alignment: Alignment.center,
-                    width: 140,
-                    // color: Colors.red,
-                    child: Text(
-                      "registration time".toUpperCase(),
-                      style: const TextStyle(color: GameColor.white),
-                    )),
+                Expanded(
+                  child: Container(
+                      alignment: Alignment.center,
+                      // width: 140,
+                      // color: Colors.red,
+                      child: Text(
+                        "registration time".toUpperCase(),
+                        style: const TextStyle(color: GameColor.white),
+                      )),
+                ),
               ],
             ),
             const SizedBox(
@@ -124,7 +119,8 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
                               // color: Colors.red,
                               child: const Text(
                                 '9793168164',
-                                style: TextStyle(color: GameColor.white,fontSize: 12),
+                                style: TextStyle(
+                                    color: GameColor.white, fontSize: 12),
                               )),
                           Container(
                               alignment: Alignment.center,
@@ -132,16 +128,20 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
                               // color: Colors.red,
                               child: Text(
                                 '1'.toUpperCase(),
-                                style: const TextStyle(color: GameColor.white,fontSize: 12),
+                                style: const TextStyle(
+                                    color: GameColor.white, fontSize: 12),
                               )),
-                          Container(
-                              alignment: Alignment.center,
-                              width: 140,
-                              // color: Colors.red,
-                              child: const Text(
-                                '2',
-                                style: TextStyle(color: GameColor.white,fontSize: 12),
-                              )),
+                          Expanded(
+                            child: Container(
+                                alignment: Alignment.center,
+                                // width: 140,
+                                // color: Colors.red,
+                                child: const Text(
+                                  '2',
+                                  style: TextStyle(
+                                      color: GameColor.white, fontSize: 12),
+                                )),
+                          ),
                         ],
                       ),
                     ),

@@ -113,7 +113,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         child: CustomContainer(
                             height: height * 0.06,
                             widths: width * 0.35,
-                            color: GameColor.purple,
+                            color: GameColor.blue,
                             borderRadius: const BorderRadius.all(
                               Radius.circular(25),
                             ),

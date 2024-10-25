@@ -44,9 +44,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
     super.initState();
     Future.delayed(Duration.zero, () {
       final args = ModalRoute.of(context)?.settings.arguments;
-      if (args != null && args is int) {
+      if (args != null && args is Map<String, dynamic>) {
         setState(() {
-          _lastSelected = args;
+          _lastSelected = args['index'] ??_lastSelected;
         });
       }
     });
@@ -66,15 +66,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (v) {
+        _onWillPop();
+      },
       child: Scaffold(
         extendBody: true,
         body: _tabs[_lastSelected],
         bottomNavigationBar: FabBottomNavBar(
           notchedShape: const CircularNotchedRectangle(),
           color: GameColor.black,
-          selectedColor: GameColor.purple,
+          selectedColor: GameColor.blue,
           onTabSelected: _selectedTab,
           backgroundColor: GameColor.white,
           items: [
@@ -82,13 +85,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 icon: Icon(
                   _lastSelected == 0 ? Icons.home_filled : Icons.home_outlined,
                   color:
-                      _lastSelected == 0 ? GameColor.purple : GameColor.black,
+                      _lastSelected == 0 ? GameColor.blue : GameColor.black,
                 ),
                 text: Text(
                   'Home',
                   style: TextStyle(
                       color: _lastSelected == 0
-                          ? GameColor.purple
+                          ? GameColor.blue
                           : GameColor.black,
                       fontWeight: _lastSelected == 0
                           ? FontWeight.bold
@@ -99,13 +102,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 icon: Icon(
                   _lastSelected == 1 ? Icons.widgets : Icons.widgets_outlined,
                   color:
-                      _lastSelected == 1 ? GameColor.purple : GameColor.black,
+                      _lastSelected == 1 ? GameColor.blue : GameColor.black,
                 ),
                 text: Text(
                   'My Product',
                   style: TextStyle(
                       color: _lastSelected == 1
-                          ? GameColor.purple
+                          ? GameColor.blue
                           : GameColor.black,
                       fontWeight: _lastSelected == 1
                           ? FontWeight.w600
@@ -123,7 +126,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               '  Promotion',
               style: TextStyle(
                   color:
-                      _lastSelected == 2 ? GameColor.purple : GameColor.black,
+                      _lastSelected == 2 ? GameColor.blue : GameColor.black,
                   fontWeight:
                       _lastSelected == 2 ? FontWeight.w600 : FontWeight.w400,
                   fontSize: 12),
@@ -132,13 +135,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 icon: Icon(
                   _lastSelected == 3 ? Icons.wallet : Icons.wallet_outlined,
                   color:
-                      _lastSelected == 3 ? GameColor.purple : GameColor.black,
+                      _lastSelected == 3 ? GameColor.blue : GameColor.black,
                 ),
                 text: Text(
                   'Wallet',
                   style: TextStyle(
                       color: _lastSelected == 3
-                          ? GameColor.purple
+                          ? GameColor.blue
                           : GameColor.black,
                       fontWeight: _lastSelected == 3
                           ? FontWeight.w600
@@ -149,13 +152,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 icon: Icon(
                   _lastSelected == 4 ? Icons.person : Icons.person_outline,
                   color:
-                      _lastSelected == 4 ? GameColor.purple : GameColor.black,
+                      _lastSelected == 4 ? GameColor.blue : GameColor.black,
                 ),
                 text: Text(
                   'Profile',
                   style: TextStyle(
                       color: _lastSelected == 4
-                          ? GameColor.purple
+                          ? GameColor.blue
                           : GameColor.black,
                       fontWeight: _lastSelected == 4
                           ? FontWeight.w600
@@ -179,7 +182,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             width: 55,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: GameColor.purple,
+                color: GameColor.blue,
                 image: const DecorationImage(
                     image: AssetImage("assets/images/refer.png"))),
           ),

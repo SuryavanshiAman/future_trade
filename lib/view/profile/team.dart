@@ -5,7 +5,7 @@ import 'package:future_trade/view/profile/invalidmember.dart';
 import 'package:future_trade/view/profile/validmember.dart';
 
 class MyTeam extends StatefulWidget {
-  const MyTeam({Key? key}) : super(key: key);
+  const MyTeam({super.key});
 
   @override
   State<MyTeam> createState() => _MyTeamState();
@@ -50,9 +50,9 @@ class _MyTeamState extends State<MyTeam> with TickerProviderStateMixin {
                 child: TabBar(
                   controller: tabController,
                   unselectedLabelColor: GameColor.black,
-                  labelColor: GameColor.purple,
+                  labelColor: GameColor.blue,
                   indicatorSize: TabBarIndicatorSize.label,
-                  indicatorColor: GameColor.purple,
+                  indicatorColor: GameColor.blue,
                   tabs: const [
                     Tab(
                       text: ("Invalid Member"),

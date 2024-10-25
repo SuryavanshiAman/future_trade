@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
+import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -14,8 +15,6 @@ class ReferEarnScreen extends StatefulWidget {
 class _ReferEarnScreenState extends State<ReferEarnScreen> {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     return SafeArea(
         child: Scaffold(
       backgroundColor: GameColor.black,
@@ -26,9 +25,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
         ),
         centerTitle: true,
       ),
-      body: ListView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+      body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -92,7 +89,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                         // Share.share('check out my website https://example.com');
                       },
                       text: 'Copy invitation link',
-                      btnColor: GameColor.purple,
+                      btnColor: GameColor.blue,
                     ),
                   ],
                 ),
@@ -119,8 +116,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
               ),
             ],
           ),
-          SizedBox(
-            height: height * 0.45,
+          Expanded(
             child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: 16,
@@ -136,7 +132,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                       ),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: GameColor.purple.withOpacity(0.9),
+                          backgroundColor: GameColor.blue.withOpacity(0.9),
                           backgroundImage:
                               const AssetImage(
                                   Assets.imagesUser),
@@ -148,7 +144,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                                 fontSize: 14)),
                         subtitle: const Text("Not purchase any product",
                             style: TextStyle(
-                                color: GameColor.purple,
+                                color: GameColor.blue,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14)),
                         trailing: Text(

@@ -32,7 +32,7 @@ class ConstantAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        // color: color??GameColor.purple,
+        // color: color??GameColor.blue,
         gradient: LinearGradient(
           colors: [
             Color(0xFF56CCF2), Color(0xFF2F80ED)],

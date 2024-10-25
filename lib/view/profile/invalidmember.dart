@@ -1,4 +1,3 @@
-
 import 'package:future_trade/res/color-const.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,7 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
     setState(() {
       _selectedCategoryIndex = index;
       _containerColor =
-          GameColor.purple; // Change container color when category is tapped
+          GameColor.blue; // Change container color when category is tapped
     });
   }
 
@@ -34,7 +33,7 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
           child: Container(
             height: 40,
             decoration: BoxDecoration(
-              border: Border.all(width: 1, color: GameColor.purple),
+              border: Border.all(width: 1, color: GameColor.blue),
               color: _containerColor,
             ),
             child: ListView.builder(
@@ -48,17 +47,11 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
                   child: Container(
                     width: 170,
                     color: _selectedCategoryIndex == index
-                        ? GameColor.purple
+                        ? GameColor.blue
                         : GameColor.white,
                     child: Center(
                         child: Text(
-                      'A' +
-                          '-'
-                              ''
-                              '2' +
-                          '%' +
-                          "(" '3' +
-                          ")",
+                          "A-2%(3)",
                       style: TextStyle(
                           color: _selectedCategoryIndex == index
                               ? GameColor.white
@@ -118,21 +111,24 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
                               width: 80,
                               child: Text(
                                 '7705015444',
-                                style: TextStyle(color: GameColor.white,fontSize: 12),
+                                style: TextStyle(
+                                    color: GameColor.white, fontSize: 12),
                               )),
                           Container(
                               alignment: Alignment.center,
                               width: 80,
                               child: Text(
                                 '0'.toUpperCase(),
-                                style: const TextStyle(color: GameColor.white,fontSize: 12),
+                                style: const TextStyle(
+                                    color: GameColor.white, fontSize: 12),
                               )),
                           Container(
                               alignment: Alignment.center,
                               width: 140,
                               child: const Text(
                                 '22/10/24',
-                                style: TextStyle(color: GameColor.white,fontSize: 12),
+                                style: TextStyle(
+                                    color: GameColor.white, fontSize: 12),
                               )),
                         ],
                       ),

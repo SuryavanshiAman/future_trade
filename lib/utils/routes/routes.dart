@@ -7,7 +7,7 @@ import 'package:future_trade/view/auth/otp_screen.dart';
 import 'package:future_trade/view/auth/register_screen.dart';
 import 'package:future_trade/view/auth/splash_screen.dart';
 import 'package:future_trade/view/bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:future_trade/view/products/productView.dart';
+import 'package:future_trade/view/products/product_view.dart';
 import 'package:future_trade/view/profile/about_us_screen.dart';
 import 'package:future_trade/view/profile/bank_details_screen.dart';
 import 'package:future_trade/view/profile/policy_screen.dart';

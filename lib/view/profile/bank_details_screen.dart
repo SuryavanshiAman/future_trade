@@ -4,6 +4,10 @@ import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/res/custom_text_field.dart';
 import 'package:future_trade/utils/utils.dart';
+import 'package:future_trade/view_model/add_bank_details_view_model.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/view_bank_details_view_model.dart';
 
 class BankDetailsScreen extends StatefulWidget {
   const BankDetailsScreen({super.key});
@@ -22,9 +26,26 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
 
   @override
   void initState() {
+    Provider.of<ViewBankDetailViewModel>(context, listen: false)
+        .viewBankDetailsApi(context);
     super.initState();
+    acDetail();
   }
-
+  acDetail() {
+    final bankDetail =
+        Provider.of<ViewBankDetailViewModel>(context, listen: false)
+            .bankDetailResponse;
+    acHolderCont.text =
+    bankDetail == null ? '' : bankDetail.data!.accountHolder.toString();
+    ifscCont.text =
+    bankDetail == null ? '' : bankDetail.data!.ifscCode.toString();
+    bankNameCont.text =
+    bankDetail == null ? '' : bankDetail.data!.bankName.toString();
+    branchCont.text =
+    bankDetail == null ? '' : bankDetail.data!.branchName.toString();
+    ifscCont.text =
+    bankDetail == null ? '' : bankDetail.data!.ifscCode.toString();
+  }
   bool _isValidifscCont = false;
 
   void validateifscCont(String ifscCont) {
@@ -37,6 +58,8 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final addBank = Provider.of<AddBankDetailsViewModel>(context);
+
     return SafeArea(
         child: Scaffold(
       backgroundColor: GameColor.black,
@@ -67,12 +90,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: GameColor.white,
-              boxShadow: const [
-                BoxShadow(
-                  color: GameColor.secondaryColor, //New
-                  blurRadius: 10,
-                ),
-              ],
+
             ),
             child: ListView(
               shrinkWrap: true,
@@ -89,7 +107,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                   ),
                   label: " A/c holder name",
                   filled: false,
-                  border: Border.all(color: GameColor.purple),
+                  border: Border.all(color: GameColor.blue),
                   borderRadius: BorderRadius.circular(25),
                   fieldRadius: BorderRadius.circular(25),
                 ),
@@ -102,7 +120,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                   textAlignVertical: TextAlignVertical.bottom,
                   style: TextStyle(color: GameColor.black),
                   filled: false,
-                  border: Border.all(color: GameColor.purple),
+                  border: Border.all(color: GameColor.blue),
                   borderRadius: BorderRadius.circular(25),
                   fieldRadius: BorderRadius.circular(25),
                   prefix: Icon(
@@ -120,7 +138,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                   textAlignVertical: TextAlignVertical.bottom,
                   style: TextStyle(color: GameColor.black),
                   filled: false,
-                  border: Border.all(color: GameColor.purple),
+                  border: Border.all(color: GameColor.blue),
                   borderRadius: BorderRadius.circular(25),
                   fieldRadius: BorderRadius.circular(25),
                   prefix: Icon(Icons.account_balance_outlined,
@@ -137,7 +155,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                   style: TextStyle(color: GameColor.black),
                   // cursorColor: const Color(0xFF075E54),
                   filled: false,
-                  border: Border.all(color: GameColor.purple),
+                  border: Border.all(color: GameColor.blue),
                   borderRadius: BorderRadius.circular(25),
                   fieldRadius: BorderRadius.circular(25),
                   prefix:
@@ -157,7 +175,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                   textAlignVertical: TextAlignVertical.bottom,
                   style: TextStyle(color: GameColor.black),
                   filled: false,
-                  border: Border.all(color: GameColor.purple),
+                  border: Border.all(color: GameColor.blue),
                   borderRadius: BorderRadius.circular(25),
                   fieldRadius: BorderRadius.circular(25),
                   prefix: Icon(Icons.pin, color: GameColor.black),
@@ -189,6 +207,13 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                       Utils.flushBarErrorMessage(
                           "Please enter valid ifscCont", context);
                     } else {
+                      addBank.addBankDetailsApi(
+                          acHolderCont.text,
+                          accountNoCont.text,
+                          bankNameCont.text,
+                          branchCont.text,
+                          ifscCont.text,
+                          context);
                       Utils.flushBarSuccessMessage(
                           "Account add successfully", context);
                     }

@@ -1,3 +1,4 @@
+import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -14,28 +15,16 @@ class WithdrawPage extends StatefulWidget {
 class _WithdrawPageState extends State<WithdrawPage> {
   TextEditingController amount = TextEditingController();
   TextEditingController password = TextEditingController();
-  int _selectedItemIndex =
-      10; // Initialize with a value that won't match any index
-  bool _isButtonEnabled = false;
-  List<int> dataItems = [300, 500, 1000, 2000, 5000, 10000, 49999];
-  void _handleTextChange() {
-    setState(() {
-      _selectedItemIndex = 10; // Reset selected index
-      _isButtonEnabled = amount.text.isNotEmpty;
-    });
-  }
+  int _selectedItemIndex = 10;
 
+  List<int> dataItems = [300, 500, 1000, 2000, 5000, 10000, 49999];
   void _handleListItemSelected(int index) {
     setState(() {
       _selectedItemIndex = dataItems[index];
-      amount.text = dataItems[index].toString(); // Update TextFormField text
-      _isButtonEnabled = true;
+      amount.text = dataItems[index].toString();
     });
   }
 
-  TextEditingController Bank_Name = TextEditingController();
-  TextEditingController UPI = TextEditingController();
-  TextEditingController Ac_holder = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -72,11 +61,10 @@ class _WithdrawPageState extends State<WithdrawPage> {
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           children: [
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: height * 0.05,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const Text(
@@ -108,8 +96,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                 )
               ],
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: height * 0.05,
             ),
             Card(
               elevation: 3,
@@ -119,9 +107,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
                   color: GameColor.white,
-                  border: Border.all(color: GameColor.purple),
+                  border: Border.all(color: GameColor.blue),
                   borderRadius: BorderRadius.circular(15),
-
                 ),
                 child: Column(
                   children: [
@@ -145,14 +132,14 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                   elevation: 5,
                                   shape: RoundedRectangleBorder(
                                       side: const BorderSide(
-                                          color: GameColor.purple),
+                                          color: GameColor.blue),
                                       borderRadius: BorderRadius.circular(12)),
                                   color: _selectedItemIndex == dataItems[index]
-                                      ? GameColor.purple
+                                      ? GameColor.blue
                                       : GameColor.white,
                                   child: Center(
                                     child: Text(
-                                      '₹  ' + dataItems[index].toString(),
+                                      '₹ ${dataItems[index]}',
                                       style: TextStyle(
                                           color: GameColor.black,
                                           fontSize: 12,
@@ -165,10 +152,10 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                     right: 5,
                                     child:
                                         _selectedItemIndex == dataItems[index]
-                                            ? Container(
+                                            ? const SizedBox(
                                                 height: 12,
                                                 width: 12,
-                                                child: const CircleAvatar(
+                                                child: CircleAvatar(
                                                   child: Icon(
                                                     Icons.check_outlined,
                                                     size: 10,
@@ -192,9 +179,6 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         textAlign: TextAlign.start,
                         keyboardType: TextInputType.number,
                         style: TextStyle(color: GameColor.black),
-                        onChanged: (text) {
-                          _handleTextChange();
-                        },
                         decoration: InputDecoration(
                             prefixIcon: SizedBox(
                               width: 70,
@@ -216,7 +200,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                 fontSize: 10, color: Colors.grey.shade200),
                             border: OutlineInputBorder(
                               borderSide:
-                                  const BorderSide(color: GameColor.purple),
+                                  const BorderSide(color: GameColor.blue),
                               borderRadius: BorderRadius.circular(25),
                             )),
                         cursorColor: Colors.grey,
@@ -253,14 +237,12 @@ class _WithdrawPageState extends State<WithdrawPage> {
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                // Based on passwordVisible state choose the icon
                                 _passwordVisible
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                                 color: Colors.grey,
                               ),
                               onPressed: () {
-                                // Update the state i.e. toogle the state of passwordVisible variable
                                 setState(() {
                                   _passwordVisible = !_passwordVisible;
                                 });
@@ -280,7 +262,6 @@ class _WithdrawPageState extends State<WithdrawPage> {
                 ),
               ),
             ),
-
             const SizedBox(
               height: 30,
             ),
@@ -291,7 +272,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                   } else if (password.text.isEmpty) {
                     Utils.flushBarErrorMessage("Enter Password ", context);
                   } else {
-                    Utils.flushBarErrorMessage("Amount withdrawal successfully", context);
+                    Utils.flushBarErrorMessage(
+                        "Amount withdrawal successfully", context);
                   }
                 },
                 text: 'WITHDRAWAL REQUEST')

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
@@ -106,21 +106,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           "1345",
                           style: TextStyle(
-                              color: GameColor.purple,
+                              color: GameColor.blue,
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
                         Text(
                           "1234567890",
                           style: TextStyle(
-                              color: GameColor.purple,
+                              color: GameColor.blue,
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
                         Text(
                           "123",
                           style: TextStyle(
-                              color: GameColor.purple,
+                              color: GameColor.blue,
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
@@ -152,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     child: Container(
                       decoration: const BoxDecoration(
-                          boxShadow: const [
+                          boxShadow:  [
                             BoxShadow(
                               color: GameColor.bg, //New
                               blurRadius: 2,

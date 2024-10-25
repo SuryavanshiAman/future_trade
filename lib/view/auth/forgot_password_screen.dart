@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
