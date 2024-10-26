@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_trade/res/circular_button.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
@@ -26,8 +27,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
 
   @override
   void initState() {
-    Provider.of<ViewBankDetailViewModel>(context, listen: false)
-        .viewBankDetailsApi(context);
+    Provider.of<ViewBankDetailViewModel>(context, listen: false).viewBankDetailsApi(context);
     super.initState();
     acDetail();
   }
@@ -37,8 +37,8 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
             .bankDetailResponse;
     acHolderCont.text =
     bankDetail == null ? '' : bankDetail.data!.accountHolder.toString();
-    ifscCont.text =
-    bankDetail == null ? '' : bankDetail.data!.ifscCode.toString();
+    accountNoCont.text =
+    bankDetail == null ? '' : bankDetail.data!.accountNo.toString();
     bankNameCont.text =
     bankDetail == null ? '' : bankDetail.data!.bankName.toString();
     branchCont.text =
@@ -187,7 +187,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                ConstantButton(
+                if (addBank.loading==false) ConstantButton(
                   text: 'UPDATE',
                   textColor: Colors.white,
                   onTap: () async {
@@ -214,11 +214,9 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                           branchCont.text,
                           ifscCont.text,
                           context);
-                      Utils.flushBarSuccessMessage(
-                          "Account add successfully", context);
                     }
                   },
-                )
+                ) else const CircularButton()
               ],
             ),
           )

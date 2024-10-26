@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
+import 'package:future_trade/view_model/user_view_model.dart';
 import '../main.dart';
 
 class Utils {
@@ -45,7 +46,7 @@ class Utils {
         borderRadius: BorderRadius.circular(20),
         positionOffset: 20,
         icon: const Icon(
-          Icons.error_outline,
+          Icons.check_circle_outline,
           size: 30,
           color: Colors.white,
         ),
@@ -229,7 +230,10 @@ class Utils {
                           ),
                         ),
                         onPressed: () {
+                          UserViewModel userViewModel = UserViewModel();
+                          userViewModel.remove();
                           Navigator.of(context, rootNavigator: true).pop();
+
                           Navigator.pushReplacementNamed(
                               context, RoutesName.loginScreen);
                         },

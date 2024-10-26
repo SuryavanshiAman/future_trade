@@ -4,7 +4,6 @@ import 'package:future_trade/repo/add_bank_details_repo.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
 import 'package:future_trade/view_model/auth_view_model.dart';
-import 'package:future_trade/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'view_bank_details_view_model.dart';

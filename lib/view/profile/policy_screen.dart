@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
+import 'package:future_trade/view_model/all_policies_view_model.dart';
+import 'package:provider/provider.dart';
 
 
 class PolicyScreen extends StatefulWidget {
@@ -20,6 +22,7 @@ class _PolicyScreenState extends State<PolicyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final policies= Provider.of<AllPoliciesViewModel>(context).policiesResponse?.data;
     return SafeArea(
         child:Scaffold(
           appBar:  ConstantAppBar(
@@ -32,12 +35,12 @@ class _PolicyScreenState extends State<PolicyScreen> {
             ),
             centerTitle: true,
           ),
-          body:const SingleChildScrollView(
+          body: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: HtmlWidget(
-                    "Privacy Policy"
+                    policies?.privacy.toString()??""
                 ),
               )),
         )

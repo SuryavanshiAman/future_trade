@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:future_trade/generated/assets.dart';
+import 'package:future_trade/helper/response/status.dart';
 import 'package:future_trade/main.dart';
+import 'package:future_trade/res/api_url.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
+import 'package:future_trade/view_model/profile_view_model.dart';
+import 'package:future_trade/view_model/referral_list_view_model.dart';
+import 'package:provider/provider.dart';
 
 class ReferEarnScreen extends StatefulWidget {
   const ReferEarnScreen({super.key});
@@ -13,8 +17,19 @@ class ReferEarnScreen extends StatefulWidget {
 }
 
 class _ReferEarnScreenState extends State<ReferEarnScreen> {
+  ReferralListViewModel referralListViewModel=ReferralListViewModel();
+  @override
+  void initState() {
+
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ReferralListViewModel>(context,listen: false).referralListApi(context);
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
+    final user= Provider.of<ProfileViewModel>(context).profileResponse?.data;
     return SafeArea(
         child: Scaffold(
       backgroundColor: GameColor.black,
@@ -49,7 +64,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                           fontSize: 20),
                     ),
                     Text(
-                      "448520",
+                      user?.referralCode.toString()??"",
                       style: TextStyle(
                           fontSize: 20,
                           color: GameColor.black,
@@ -76,7 +91,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "https://www.FutureTrade.co/h5/register/448520",
+                          "https://www.FutureTrade.co/h5/register/${ user?.referralCode.toString()??""}",
                           style: TextStyle(
                             color: GameColor.gray,
                             fontWeight: FontWeight.w500,
@@ -116,49 +131,76 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
               ),
             ],
           ),
-          Expanded(
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 16,
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: GameColor.white,
-
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: GameColor.blue.withOpacity(0.9),
-                          backgroundImage:
-                              const AssetImage(
-                                  Assets.imagesUser),
-                        ),
-                        title: Text("Aman",
-                            style: TextStyle(
-                                color: GameColor.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14)),
-                        subtitle: const Text("Not purchase any product",
-                            style: TextStyle(
-                                color: GameColor.blue,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14)),
-                        trailing: Text(
-                          "Pending",
-                          style: TextStyle(
-                              color: GameColor.gameRed,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14),
-                        ),
-                      ),
-                    ),
+          Consumer<ReferralListViewModel>(
+            builder: (context, referralList, _) {
+              switch (
+              referralList.referralList.status) {
+                case Status.LOADING:
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
-                }),
+                case Status.ERROR:
+                  return Container();
+                case Status.COMPLETED:
+                  final listData = referralList.referralList.data!.data;
+                  if (listData != null && listData.isNotEmpty) {
+                    return Expanded(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: listData.length,
+                          itemBuilder: (BuildContext context, index) {
+                            return    Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: width,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: GameColor.white,
+
+                                ),
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundColor: GameColor.blue.withOpacity(0.9),
+                                    backgroundImage: NetworkImage("${ApiUrl.imageUrl}${listData[index].img}"),
+                                  ),
+                                  title: Text(listData[index].username.toString(),
+                                      style: TextStyle(
+                                          color: GameColor.black,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14)),
+                                  subtitle:  Text(listData[index].totalProjects.toString(),
+                                      style: const TextStyle(
+                                          color: GameColor.blue,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14)),
+                                  trailing: Text(
+                                    listData[index].status.toString(),
+                                    style: TextStyle(
+                                        color: GameColor.gameRed,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                    );
+                  } else {
+                    return  Padding(
+                      padding:  EdgeInsets.only(top: height*0.15),
+                      child: const Text(
+                        "No Referral History Found!",
+                        style: TextStyle(
+                            color: GameColor.white, fontSize: 16),
+                      ),
+                    );
+                  }
+                default:
+                  return Container();
+              }
+            },
           )
+
         ],
       ),
     ));

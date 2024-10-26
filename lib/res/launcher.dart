@@ -1,7 +1,9 @@
 
+import 'package:future_trade/view_model/all_policies_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Launcher {
+
   static void launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
@@ -31,11 +33,13 @@ class Launcher {
     }
 
   }
-static void openTelegram(String telegram) async {
-  if (await canLaunchUrl(Uri.parse(telegram))) {
-    await launchUrl(Uri.parse(telegram));
+static void openTelegram() async {
+  AllPoliciesViewModel allPoliciesViewModel =AllPoliciesViewModel();
+  final support=  allPoliciesViewModel.policiesResponse?.data;
+  if (await canLaunchUrl(Uri.parse(support?.support??""))) {
+    await launchUrl(Uri.parse(support?.support??""));
   } else {
-    throw "Could not launch $telegram";
+    throw "Could not launch ${support?.support ?? ""}";
   }
 }
 }

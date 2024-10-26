@@ -27,8 +27,8 @@ class Routers {
         return (context) => const LoginScreen();
       case RoutesName.otpScreen:
         return (context) => const OtpScreen();
-      // case RoutesName.registerScreen:
-      //   return (context) => const RegisterScreen();
+      case RoutesName.registerScreen:
+        return (context) => const RegisterScreen();
       case RoutesName.bottomNavBar:
         return (context) => const BottomNavBar();
       case RoutesName.walletScreen:

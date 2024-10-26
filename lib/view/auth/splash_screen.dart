@@ -18,14 +18,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // splashServices.checkAuthentication(context);
+    splashServices.checkAuthentication(context);
     // // updateLanguageViewModel.loadSwitchState();
     // // updateLanguageViewModel.setHindi(!updateLanguageViewModel.isHindi);
     // // // updateLanguageViewModel.updateLanguage(updateLanguageViewModel.isHindi);
     // // getLanguage();
-    Future.delayed(const Duration(seconds: 3),(){
-      Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
-    });
+    // Future.delayed(const Duration(seconds: 3),(){
+    //   Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
+    // });
   }
 
   @override

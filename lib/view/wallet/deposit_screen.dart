@@ -252,6 +252,7 @@ class _DepositScreenState extends State<DepositScreen> {
               ),
               Center(
                 child: SizedBox(
+
                   height: height * 0.1,
                   width: width * 0.5,
                   child: selectImage.image != null
@@ -259,7 +260,7 @@ class _DepositScreenState extends State<DepositScreen> {
                           selectImage.image!,
                           fit: BoxFit.fill,
                         )
-                      : const Text("No image selected"),
+                      :  Container(),
                 ),
               ),
               CustomContainer(

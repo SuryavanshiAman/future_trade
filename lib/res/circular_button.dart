@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zupee/res/app_colors.dart';
+import 'package:future_trade/res/color-const.dart';
 
 
 
@@ -39,14 +39,14 @@ class _CircularButtonState extends State<CircularButton> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: widget.btnColor??secondary,
+              color: widget.btnColor??GameColor.green,
               borderRadius: BorderRadius.circular(
                 100,
               ),
               border: widget.border ,
             ),
             child: const Center(
-                child: CircularProgressIndicator(color:white,)
+                child: CircularProgressIndicator(color:GameColor.white,)
             ),
           ),
         ),

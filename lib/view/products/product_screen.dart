@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
+import 'package:future_trade/res/api_url.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
+import 'package:future_trade/view_model/join_view_model.dart';
 import 'package:future_trade/view_model/product_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +20,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     final productData=Provider.of<ProductViewModel>(context).productList.data;
+    final joinProduct=Provider.of<JoinViewModel>(context);
 
     if (productData == null || productData.data == null) {
       return const Center(child: Center(child: CircularProgressIndicator(color: GameColor.white,)));
@@ -28,9 +31,10 @@ class _ProductScreenState extends State<ProductScreen> {
         child: GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisExtent: 405,
+                // mainAxisExtent: 405,
+                mainAxisExtent: height*0.5,
                 crossAxisSpacing: 4,
                 mainAxisSpacing: 4),
             itemCount: product!.length,
@@ -53,7 +57,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         decoration:  BoxDecoration(
                             image: DecorationImage(
                                 fit: BoxFit.fill,
-                                image: NetworkImage(product[index].productImg.toString()))),
+                                image: NetworkImage("${ApiUrl.imageUrl}${product[index].productImg.toString()}"))),
                       ),
                       Text(
                         product[index].productName.toString(),
@@ -117,7 +121,15 @@ class _ProductScreenState extends State<ProductScreen> {
                         btnColor: GameColor.green,
                         onTap: () {
                           Navigator.pushNamed(
-                              context, RoutesName.productViewScreen);
+                              context, RoutesName.productViewScreen,arguments:{
+                                "id":product[index].id.toString(),
+                            "image":product[index].productImg.toString(),
+                            "name":product[index].productName.toString(),
+                            "price":product[index].productPrice.toString(),
+                            "monthlyIncome":product[index].monthlyIncome.toString(),
+                            "roi":product[index].roi.toString(),
+                            "description":product[index].description.toString(),
+                          } );
                         },
                         text: 'Join Project',
                       )

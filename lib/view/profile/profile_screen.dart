@@ -1,10 +1,18 @@
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
+import 'package:future_trade/res/api_url.dart';
+import 'package:future_trade/res/circular_button.dart';
 import 'package:future_trade/res/color-const.dart';
+import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
+import 'package:future_trade/view_model/all_policies_view_model.dart';
 import 'package:future_trade/view_model/controller.dart';
+import 'package:future_trade/view_model/profile_view_model.dart';
+import 'package:future_trade/view_model/update_image_view_model.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,8 +24,32 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<AllPoliciesViewModel>(context,listen: false).allPoliciesApi(context);
+    });
+
+    super.initState();
+  }
+  File? image;
+  final picker = ImagePicker();
+  String? base64Image;
+  Future<void> getImage(ImageSource source) async {
+    final pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      setState(() {
+        image = File(pickedFile.path);
+      });
+      base64Image = base64Encode(image!.readAsBytesSync());
+    }
+  }
+  @override
   Widget build(BuildContext context) {
     final element = Provider.of<ElementController>(context).elementList;
+    final user = Provider.of<ProfileViewModel>(context).profileResponse?.data;
+    final img = Provider.of<UpdateImageViewModel>(context);
+    final sendImg = Provider.of<ElementController>(context);
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: const ConstantAppBar(
@@ -46,26 +78,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  height: height * 0.1,
-                  width: width * 0.32,
-                  decoration: const BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: GameColor.blue, //New
-                          blurRadius: 10,
-                        )
-                      ],
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: AssetImage(
-                              Assets.imagesUser))),
+                Stack(
+                  children: [
+                    Container(
+                      height: height * 0.1,
+                      width: width * 0.32,
+                      decoration: BoxDecoration(
+                          boxShadow: const [
+                            BoxShadow(
+                              color: GameColor.blue, //New
+                              blurRadius: 10,
+                            )
+                          ],
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image:user?.photo!=null? NetworkImage(
+                                  "${ApiUrl.imageUrl}${user?.photo ?? ""}"):FileImage(image!),fit: BoxFit.fill)),
+                    ),
+                    Positioned(
+                      top: height*0.065,
+                        left: width*0.21,
+                        child:  Container(
+                         padding: const EdgeInsets.all(3),
+                          decoration:  const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: GameColor.blue
+                          ),
+                          child: GestureDetector(
+                          onTap: (){
+                            _showPicker(context);
+                          },
+                          child: const Icon(Icons.camera_alt_outlined,color: GameColor.white,)),
+                        ))
+
+                  ],
                 ),
                 SizedBox(
                   height: height * 0.02,
                 ),
                 Text(
-                  "Aman Chauhan",
+                  user?.name.toString() ?? "",
                   style: TextStyle(
                       color: GameColor.black,
                       fontWeight: FontWeight.w600,
@@ -100,26 +152,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "1345",
-                          style: TextStyle(
+                          user?.userId ?? "",
+                          style: const TextStyle(
                               color: GameColor.blue,
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
                         Text(
-                          "1234567890",
-                          style: TextStyle(
+                          user?.phone ?? "",
+                          style: const TextStyle(
                               color: GameColor.blue,
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
                         Text(
-                          "123",
-                          style: TextStyle(
+                          "₹${user?.wallet ?? " "}",
+                          style: const TextStyle(
                               color: GameColor.blue,
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
@@ -152,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     child: Container(
                       decoration: const BoxDecoration(
-                          boxShadow:  [
+                          boxShadow: [
                             BoxShadow(
                               color: GameColor.bg, //New
                               blurRadius: 2,
@@ -165,10 +217,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image(image: AssetImage(element[index].image,),color: GameColor.blue,),
+                            Image(
+                              image: AssetImage(
+                                element[index].image,
+                              ),
+                              color: GameColor.blue,
+                            ),
                             Text(
                               element[index].name,
-                              style:  const TextStyle(
+                              style: const TextStyle(
                                   color: GameColor.blue,
                                   fontWeight: FontWeight.w600),
                             )
@@ -179,8 +236,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               }),
+          img.loading==false? Center(
+            child: ConstantButton(
+              width: width*0.5,
+                onTap: (){
+                  img.updateImageApi(base64Image != null ? base64Image.toString() : "", context);
+            }, text: "Update Image"),
+          ):CircularButton()
         ],
       ),
+    );
+  }
+  void _showPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Gallery'),
+                onTap: () {
+                  getImage(ImageSource.gallery);
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
+                onTap: () {
+                 getImage(ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

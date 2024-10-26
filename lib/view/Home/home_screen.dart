@@ -8,6 +8,7 @@ import 'package:future_trade/view/products/product_screen.dart';
 import 'package:future_trade/view_model/auth_view_model.dart';
 import 'package:future_trade/view_model/controller.dart';
 import 'package:future_trade/view_model/product_view_model.dart';
+import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,12 +24,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProductViewModel>(context,listen: false).productApi(context,"1");
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ProfileViewModel>(context,listen: false).getProfileApi(context);
+      Provider.of<ProductViewModel>(context,listen: false).productApi(context,"1");
+    });
   }
   @override
   Widget build(BuildContext context) {
     final categories = Provider.of<ElementController>(context);
-    final user= Provider.of<AuthViewModel>(context).userDataResponse;
+    final user= Provider.of<ProfileViewModel>(context).profileResponse;
     if (user == null || user.data == null) {
       return const Center(child: Center(child: CircularProgressIndicator(color: GameColor.white,)));
     }

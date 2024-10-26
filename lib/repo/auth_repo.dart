@@ -19,6 +19,18 @@ class AuthRepository {
       rethrow;
     }
   }
+  Future<dynamic> registerApi(dynamic data) async {
+    try {
+      dynamic response =
+      await _apiServices.getPostApiResponse(ApiUrl.registerApi,data );
+      return response;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error occurred during registerApi: $e');
+      }
+      rethrow;
+    }
+  }
   Future<dynamic> otpApi(dynamic phone) async {
     try {
       dynamic response =

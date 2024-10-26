@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:future_trade/model/product_model.dart';
 import 'package:future_trade/repo/product_repo.dart';
 
@@ -16,7 +15,6 @@ class ProductViewModel with ChangeNotifier {
   }
 
   Future<void>productApi(context, dynamic data ) async {
-
     setProductList(ApiResponse.loading());
     _productRepo.productApi(data).then((value) {
       if (value.status == 200) {

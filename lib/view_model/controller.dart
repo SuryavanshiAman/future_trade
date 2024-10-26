@@ -10,7 +10,9 @@ import 'package:future_trade/view_model/product_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class ElementController with ChangeNotifier{
+import 'all_policies_view_model.dart';
+
+class ElementController with ChangeNotifier {
 
   int _selectedIndex=0;
   int get selectedIndex=>_selectedIndex;
@@ -31,13 +33,13 @@ class ElementController with ChangeNotifier{
     final pickedFile = await picker.pickImage(source: source);
 
     if (pickedFile != null) {
-      // setState(() {
         _image = File(pickedFile.path);
-      // });
       base64Image = base64Encode(_image!.readAsBytesSync());
         notifyListeners();
     }
   }
+  // final policies= Provider.of<AllPoliciesViewModel>(context).policiesResponse?.data;
+
   List<ElementModel> elementList = [
     ElementModel(
       image:Assets.imagesBank,
@@ -49,7 +51,7 @@ class ElementController with ChangeNotifier{
         image:Assets.imagesSupport,
         name: 'Support',
         onTap: (context){
-          Launcher.openTelegram("https://web.telegram.org/k/");
+          Launcher.openTelegram();
         }),
     ElementModel(
         image: Assets.imagesTeam,
