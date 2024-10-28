@@ -217,7 +217,7 @@ class Utils {
                   SizedBox(height: height * 0.04),
                   Center(
                     child: PopScope(
-                      canPop: true,
+                      canPop: false,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: GameColor.white,
@@ -233,7 +233,6 @@ class Utils {
                           UserViewModel userViewModel = UserViewModel();
                           userViewModel.remove();
                           Navigator.of(context, rootNavigator: true).pop();
-
                           Navigator.pushReplacementNamed(
                               context, RoutesName.loginScreen);
                         },

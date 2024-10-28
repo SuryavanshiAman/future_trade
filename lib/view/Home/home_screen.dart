@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
+import 'package:future_trade/res/api_url.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
@@ -32,11 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final categories = Provider.of<ElementController>(context);
-    final user= Provider.of<ProfileViewModel>(context).profileResponse;
-    if (user == null || user.data == null) {
-      return const Center(child: Center(child: CircularProgressIndicator(color: GameColor.white,)));
-    }
-    final userData = user.data;
+    final user= Provider.of<ProfileViewModel>(context).profileResponse?.data;
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: ConstantAppBar(
@@ -67,12 +64,14 @@ class _HomeScreenState extends State<HomeScreen> {
               dividerColor: Colors.transparent,
             ),
             child: ExpansionTile(
-              leading: const CircleAvatar(
+              leading:  CircleAvatar(
                 radius: 22,
-                backgroundImage: AssetImage(Assets.imagesUser),
+                backgroundImage: NetworkImage(
+                  "${ApiUrl.imageUrl}${ user?.photo.toString()??""}"
+                   ),
               ),
               title:  Text(
-                userData!.name.toString(),
+                user?.name.toString()??"",
                 style: const TextStyle(
                   color: GameColor.white,
                   fontWeight: FontWeight.bold,
@@ -80,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               subtitle:  Text(
-                userData.userId.toString(),
+                user?.userId.toString()??"",
                 style: const TextStyle(
                   color: GameColor.white,
                   fontWeight: FontWeight.bold,

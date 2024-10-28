@@ -54,7 +54,7 @@ class _DepositScreenState extends State<DepositScreen> {
         centerTitle: true,
       ),
       body: ListView(
-            physics: const NeverScrollableScrollPhysics(),
+            // physics: const NeverScrollableScrollPhysics(),
             children: [
               Container(
                 padding: const EdgeInsets.all(18),

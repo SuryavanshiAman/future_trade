@@ -6,6 +6,8 @@ import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/res/custom_container.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
+import 'package:future_trade/view_model/profile_view_model.dart';
+import 'package:provider/provider.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -17,6 +19,8 @@ class WalletScreen extends StatefulWidget {
 class _WalletScreenState extends State<WalletScreen> {
   @override
   Widget build(BuildContext context) {
+    final user= Provider.of<ProfileViewModel>(context).profileResponse?.data;
+
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: const ConstantAppBar(
@@ -77,7 +81,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       children: [
                         Image(image: const AssetImage(
                           Assets.imagesCash,),height: height*0.05,),
-                        const Text(" ₹100",
+                         Text(" ₹${user?.wallet??""}",
                           style: TextStyle(
                               fontSize: 36, fontWeight: FontWeight.w700),
                         ),
@@ -99,7 +103,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                 color: GameColor.gray),
                           ),
                           const Text(
-                            "₹100",
+                            "0.0",
                             style: TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.w600),
                           ),
@@ -153,7 +157,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                 color: GameColor.gray),
                           ),
                           const Text(
-                            "₹100",
+                            "0.0",
                             style: TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.w600),
                           ),
@@ -198,7 +202,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         fontWeight: FontWeight.w400,
                         color: GameColor.gray),
                   ),
-                  const Text("₹100",
+                   Text("0.0",
                     style: TextStyle(
                         fontSize: 28, fontWeight: FontWeight.w600),
                   ),

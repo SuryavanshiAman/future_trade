@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:future_trade/helper/response/status.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/api_url.dart';
+import 'package:future_trade/res/clipBoardPage.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:future_trade/view_model/referral_list_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ReferEarnScreen extends StatefulWidget {
   const ReferEarnScreen({super.key});
@@ -101,7 +103,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                     ),
                     ConstantButton(
                       onTap: () {
-                        // Share.share('check out my website https://example.com');
+                        copyToClipboard("https://www.FutureTrade.co/h5/register/${ user?.referralCode.toString()??""}",context);
                       },
                       text: 'Copy invitation link',
                       btnColor: GameColor.blue,
@@ -205,11 +207,11 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
       ),
     ));
   }
-  // Future<void> share() async {
-  //
-  //   await Share.share(
-  //       "https://www.FutureTrade.co/h5/register/448520",
-  //       subject: 'Referral Code :448520');
-  //
-  // }
+  Future<void> share(data) async {
+
+    await Share.share(
+        "https://www.FutureTrade.co/h5/register/$data",
+        subject: 'Referral Code :$data');
+
+  }
 }

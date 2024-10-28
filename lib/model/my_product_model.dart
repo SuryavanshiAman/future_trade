@@ -11,7 +11,7 @@ class MyProductModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
@@ -30,36 +30,44 @@ class MyProductModel {
 class Data {
   String? userId;
   String? productName;
+  String? projectID;
   String? productImg;
   String? productPrice;
   String? monthlyIncome;
   String? roi;
+  String? status;
 
   Data(
       {this.userId,
         this.productName,
+        this.projectID,
         this.productImg,
         this.productPrice,
         this.monthlyIncome,
-        this.roi});
+        this.roi,
+      this.status});
 
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     productName = json['product_name'];
+    projectID = json['project_id'];
     productImg = json['product_img'];
     productPrice = json['product_price'];
     monthlyIncome = json['monthly_income'];
     roi = json['roi'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['user_id'] = userId;
     data['product_name'] = productName;
+    data['project_id'] = projectID;
     data['product_img'] = productImg;
     data['product_price'] = productPrice;
     data['monthly_income'] = monthlyIncome;
     data['roi'] = roi;
+    data['status'] = status;
     return data;
   }
 }

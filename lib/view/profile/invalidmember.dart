@@ -1,23 +1,66 @@
+import 'package:future_trade/helper/response/status.dart';
+import 'package:future_trade/main.dart';
+import 'package:future_trade/model/level_model.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/view_model/level_view_model.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class InvalidMemberScreen extends StatefulWidget {
-  const InvalidMemberScreen({super.key});
+  final LevelModel? levelModel;
+  const InvalidMemberScreen({super.key, this.levelModel});
 
   @override
   _InvalidMemberScreenState createState() => _InvalidMemberScreenState();
 }
 
 class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
+
+
+  @override
+  void initState() {
+  final levelList=  Provider.of<LevelViewModel>(context, listen: false);
+  levelList.levelApi(context, "1");
+  Future.delayed(const Duration(seconds: 1),(){
+    _changeCategory( 0, levelList);
+  });
+    //
+    super.initState();
+  }
+
+
   int _selectedCategoryIndex = 0;
   Color _containerColor = Colors.white;
-
-  void _changeCategory(int index) {
+  String? selectedLevel;
+  List<dynamic>? selectedData;
+  void _changeCategory(int index, LevelViewModel levelList) {
     setState(() {
       _selectedCategoryIndex = index;
+      selectedData = _getDataForLevel(levelList, levelList.levelList.data?.data?[index].teamLevel ?? '');
       _containerColor =
           GameColor.blue; // Change container color when category is tapped
     });
+  }
+  List<dynamic>? _getDataForLevel(LevelViewModel levelList, String level) {
+    // Retrieve data based on selected level
+    for (var data in levelList.levelList.data!.data!) {
+      if (data.teamLevel == level) {
+        switch (level) {
+          case 'A':
+            return data.a; // Get data for level A
+          case 'B':
+            return data.b; // Get data for level B
+          case 'C':
+            return data.c; // Get data for level C
+          case 'D':
+            return data.d; // Get data for level D
+          case 'E':
+            return data.e; // Get data for level E
+        }
+      }
+    }
+    return null; // Return null if no data found
   }
 
   @override
@@ -29,39 +72,65 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
           height: 10,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Container(
-            height: 40,
-            decoration: BoxDecoration(
-              border: Border.all(width: 1, color: GameColor.blue),
-              color: _containerColor,
-            ),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 2, // Number of categories
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    _changeCategory(index);
-                  },
-                  child: Container(
-                    width: 170,
-                    color: _selectedCategoryIndex == index
-                        ? GameColor.blue
-                        : GameColor.white,
-                    child: Center(
-                        child: Text(
-                          "A-2%(3)",
-                      style: TextStyle(
-                          color: _selectedCategoryIndex == index
-                              ? GameColor.white
-                              : GameColor.black),
-                    )),
-                  ),
-                );
-              },
-            ),
-          ),
+              height: 40,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: GameColor.blue),
+                color: _containerColor,
+              ),
+              child: Consumer<LevelViewModel>(
+                builder: (context, levelList, _) {
+                  switch (levelList.levelList.status) {
+                    case Status.LOADING:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case Status.ERROR:
+                      return Container();
+                    case Status.COMPLETED:
+                      final levelData = levelList.levelList.data!.data;
+                      if (levelData != null && levelData.isNotEmpty) {
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: levelData.length, // Number of categories
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                _changeCategory(index,levelList);
+                              },
+                              child: Container(
+                                width: 72,
+                                color: _selectedCategoryIndex == index
+                                    ? GameColor.blue
+                                    : GameColor.white,
+                                child: Center(
+                                    child: Text(
+                                  "${levelData[index].teamLevel}-2%(${levelData[index].totalCount.toString()})",
+                                  style: TextStyle(
+                                      color: _selectedCategoryIndex == index
+                                          ? GameColor.white
+                                          : GameColor.black),
+                                )),
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return Padding(
+                          padding: EdgeInsets.only(top: height * 0.15),
+                          child: const Text(
+                            "No Referral History Found!",
+                            style:
+                                TextStyle(color: GameColor.white, fontSize: 16),
+                          ),
+                        );
+                      }
+                    default:
+                      return Container();
+                  }
+                },
+              )),
         ),
         const SizedBox(
           height: 10,
@@ -95,49 +164,80 @@ class _InvalidMemberScreenState extends State<InvalidMemberScreen> {
             const SizedBox(
               height: 10,
             ),
-            ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 3, // Number of categories
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const SizedBox(
-                              width: 80,
-                              child: Text(
-                                '7705015444',
-                                style: TextStyle(
-                                    color: GameColor.white, fontSize: 12),
-                              )),
-                          Container(
-                              alignment: Alignment.center,
-                              width: 80,
-                              child: Text(
-                                '0'.toUpperCase(),
-                                style: const TextStyle(
-                                    color: GameColor.white, fontSize: 12),
-                              )),
-                          Container(
-                              alignment: Alignment.center,
-                              width: 140,
-                              child: const Text(
-                                '22/10/24',
-                                style: TextStyle(
-                                    color: GameColor.white, fontSize: 12),
-                              )),
-                        ],
-                      ),
-                    ),
-                    const Divider(
-                      thickness: 1.5,
-                    )
-                  ],
-                );
+            Consumer<LevelViewModel>(
+              builder: (context, levelList, _) {
+                switch (levelList.levelList.status) {
+                  case Status.LOADING:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case Status.ERROR:
+                    return Container();
+                  case Status.COMPLETED:
+                    final levelData = levelList.levelList.data?.data;
+                    if (levelData != null && levelData.isNotEmpty) {
+                      return ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: selectedData?.length??0,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                     SizedBox(
+                                        width: 80,
+                                        child: Text(
+                                          selectedData?[index].phone.toString()??"",
+                                          style: const TextStyle(
+                                              color: GameColor.white,
+                                              fontSize: 12),
+                                        )),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        width: 80,
+                                        child: Text(
+                                          selectedData?[index].teamLevel.toString()??"",
+                                          style: const TextStyle(
+                                              color: GameColor.white,
+                                              fontSize: 12),
+                                        )),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        width: 140,
+                                        child:  Text(
+                                          DateFormat("dd/MM/yy").format(DateTime.parse( selectedData?[index].datetime.toString()??"")),
+                                          style: const TextStyle(
+                                              color: GameColor.white,
+                                              fontSize: 12),
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                thickness: 1.5,
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.only(top: height * 0.15),
+                        child: const Text(
+                          "No Referral History Found!",
+                          style:
+                          TextStyle(color: GameColor.white, fontSize: 16),
+                        ),
+                      );
+                    }
+                  default:
+                    return Container();
+                }
               },
             ),
           ],

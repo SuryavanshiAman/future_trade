@@ -6,6 +6,7 @@ import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/view_model/my_product_view_model.dart';
+import 'package:future_trade/view_model/reddem_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MyProductScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _MyProductScreenState extends State<MyProductScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    // final productData=Provider.of<MyProductViewModel>(context).productList.data;
+    final redeem=Provider.of<RedeemViewModel>(context);
     // if (productData == null || productData.data == null) {
     //   return const Center(child: Center(child: CircularProgressIndicator(color: GameColor.white,)));
     // }
@@ -146,9 +147,16 @@ class _MyProductScreenState extends State<MyProductScreen> {
                                 ),
                               ),
                               const Spacer(),
-                              ConstantButton(
-                                onTap: () {},
+                              product[index].status.toString()=="1"? ConstantButton(
+                                onTap: () {
+                                  redeem.redeemApi(product[index].projectID.toString(), context);
+                                },
                                 text: 'REDEEM',
+                              ):ConstantButton(
+                                btnColor: GameColor.gray,
+                                onTap: () {
+                                },
+                                text: 'REDEEMED',
                               )
                             ],
                           ),

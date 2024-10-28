@@ -12,9 +12,12 @@ import 'package:provider/provider.dart';
 
 import 'view_model/controller.dart';
 import 'view_model/join_view_model.dart';
+import 'view_model/level_view_model.dart';
 import 'view_model/my_product_view_model.dart';
 import 'view_model/product_view_model.dart';
 import 'view_model/profile_view_model.dart';
+import 'view_model/reddem_view_model.dart';
+import 'view_model/transaction_history_view_model.dart';
 import 'view_model/user_view_model.dart';
 import 'view_model/view_bank_details_view_model.dart';
 
@@ -42,6 +45,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ReferralListViewModel()),
         ChangeNotifierProvider(create: (_) => AllPoliciesViewModel()),
         ChangeNotifierProvider(create: (_) => UpdateImageViewModel()),
+        ChangeNotifierProvider(create: (_) => TransactionHistoryViewModel()),
+        ChangeNotifierProvider(create: (_) => LevelViewModel()),
+        ChangeNotifierProvider(create: (_) => RedeemViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
