@@ -10,10 +10,12 @@ class Assets {
   static const String imagesCash = 'assets/images/cash.png';
   static const String imagesCheque = 'assets/images/cheque.png';
   static const String imagesComing = 'assets/images/coming.png';
+  static const String imagesComingSoon = 'assets/images/coming_soon.gif';
   static const String imagesDeposit = 'assets/images/deposit.png';
   static const String imagesFutureTradeLogo = 'assets/images/future_trade_logo.png';
   static const String imagesLogOut = 'assets/images/log_out.png';
   static const String imagesLogin = 'assets/images/login.gif';
+  static const String imagesNoData = 'assets/images/no_data.png';
   static const String imagesPic = 'assets/images/pic.png';
   static const String imagesPolicy = 'assets/images/policy.png';
   static const String imagesRefer = 'assets/images/refer.png';

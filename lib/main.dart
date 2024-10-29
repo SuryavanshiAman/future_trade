@@ -8,9 +8,12 @@ import 'package:future_trade/view_model/all_policies_view_model.dart';
 import 'package:future_trade/view_model/auth_view_model.dart';
 import 'package:future_trade/view_model/referral_list_view_model.dart';
 import 'package:future_trade/view_model/update_image_view_model.dart';
+import 'package:future_trade/view_model/withdraw_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'view_model/controller.dart';
+import 'view_model/deposit_view_model.dart';
+import 'view_model/downline_view_model.dart';
 import 'view_model/join_view_model.dart';
 import 'view_model/level_view_model.dart';
 import 'view_model/my_product_view_model.dart';
@@ -48,6 +51,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TransactionHistoryViewModel()),
         ChangeNotifierProvider(create: (_) => LevelViewModel()),
         ChangeNotifierProvider(create: (_) => RedeemViewModel()),
+        ChangeNotifierProvider(create: (_) => WithdrawViewModel()),
+        ChangeNotifierProvider(create: (_) => DepositViewModel()),
+        ChangeNotifierProvider(create: (_) => DownlineViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -62,7 +68,7 @@ class MyApp extends StatelessWidget {
           }
           return null;
         },
-        // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        // home: const MyTeam(),
       ),
     );
   }

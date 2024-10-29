@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/helper/response/status.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/api_url.dart';
@@ -93,17 +94,18 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "https://www.FutureTrade.co/h5/register/${ user?.referralCode.toString()??""}",
+                          user?.referralCode.toString()??"",
                           style: TextStyle(
                             color: GameColor.gray,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
                     ),
                     ConstantButton(
                       onTap: () {
-                        copyToClipboard("https://www.FutureTrade.co/h5/register/${ user?.referralCode.toString()??""}",context);
+                        copyToClipboard(user?.referralCode.toString()??"",context);
                       },
                       text: 'Copy invitation link',
                       btnColor: GameColor.blue,
@@ -188,13 +190,18 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                           }),
                     );
                   } else {
-                    return  Padding(
-                      padding:  EdgeInsets.only(top: height*0.15),
-                      child: const Text(
-                        "No Referral History Found!",
-                        style: TextStyle(
-                            color: GameColor.white, fontSize: 16),
-                      ),
+                    return  Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: height*0.2,),
+                        Image.asset(Assets.imagesNoData,scale: 2,),
+                        SizedBox(height: height*0.01,),
+                        const Text(
+                          "No Referral History Found!",
+                          style: TextStyle(color: GameColor.white, fontSize: 16),
+                        ),
+
+                      ],
                     );
                   }
                 default:

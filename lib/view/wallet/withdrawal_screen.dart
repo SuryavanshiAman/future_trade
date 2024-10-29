@@ -1,9 +1,13 @@
 import 'package:future_trade/main.dart';
+import 'package:future_trade/res/circular_button.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/view_model/profile_view_model.dart';
+import 'package:future_trade/view_model/withdraw_view_model.dart';
+import 'package:provider/provider.dart';
 
 class WithdrawPage extends StatefulWidget {
   const WithdrawPage({Key? key}) : super(key: key);
@@ -39,6 +43,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
 
   @override
   Widget build(BuildContext context) {
+    final withdrawViewModel = Provider.of<WithdrawViewModel>(context);
+    final user= Provider.of<ProfileViewModel>(context).profileResponse?.data;
     return SafeArea(
         child: Scaffold(
       backgroundColor: GameColor.black,
@@ -74,8 +80,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       color: GameColor.white,
                       fontSize: 20),
                 ),
-                const Text(
-                  "1000",
+                 Text(
+                   user?.wallet??"0.0",
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: GameColor.white,
@@ -265,18 +271,17 @@ class _WithdrawPageState extends State<WithdrawPage> {
             const SizedBox(
               height: 30,
             ),
-            ConstantButton(
+            withdrawViewModel.loading==false?      ConstantButton(
                 onTap: () {
                   if (amount.text.isEmpty) {
                     Utils.flushBarErrorMessage("Enter Amount", context);
                   } else if (password.text.isEmpty) {
                     Utils.flushBarErrorMessage("Enter Password ", context);
                   } else {
-                    Utils.flushBarErrorMessage(
-                        "Amount withdrawal successfully", context);
+                    withdrawViewModel.withdrawApi(amount.text,password.text, context);
                   }
                 },
-                text: 'WITHDRAWAL REQUEST')
+                text: 'WITHDRAWAL REQUEST'):const CircularButton(),
           ]),
     ));
   }

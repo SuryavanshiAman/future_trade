@@ -49,6 +49,7 @@ class _MyTeamState extends State<MyTeam> with TickerProviderStateMixin {
                     color: GameColor.white),
                 child: TabBar(
                   controller: tabController,
+                  dividerColor: Colors.transparent,
                   unselectedLabelColor: GameColor.black,
                   labelColor: GameColor.blue,
                   indicatorSize: TabBarIndicatorSize.label,

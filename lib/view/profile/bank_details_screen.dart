@@ -116,7 +116,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 ),
                 CustomTextField(
                   controller: accountNoCont,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.number,
                   textAlignVertical: TextAlignVertical.bottom,
                   style: TextStyle(color: GameColor.black),
                   filled: false,

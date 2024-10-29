@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
+import 'package:future_trade/res/circular_button.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/res/custom_container.dart';
 import 'package:future_trade/res/custom_text_field.dart';
 import 'package:future_trade/utils/utils.dart';
 import 'package:future_trade/view_model/controller.dart';
+import 'package:future_trade/view_model/deposit_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +38,7 @@ class _DepositScreenState extends State<DepositScreen> {
   @override
   Widget build(BuildContext context) {
     final selectImage = Provider.of<ElementController>(context);
+    final depositViewModel = Provider.of<DepositViewModel>(context);
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: ConstantAppBar(
@@ -123,132 +126,39 @@ class _DepositScreenState extends State<DepositScreen> {
                   style: TextStyle(fontSize: 16, color: GameColor.white),
                 ),
               ),
-              // Column(
-              //   children: List.generate(4, (index){
-              //     return ListTile(
-              //       leading: const CircleAvatar(
-              //         backgroundColor: GameColor.white,
-              //         backgroundImage: AssetImage(
-              //             Assets.imagesCash),
-              //       ),
-              //       // const Icon(Icons.visibility),
-              //       title: const Text(
-              //         'Cash',
-              //         style: TextStyle(color: GameColor.white),
-              //       ),
-              //       subtitle: const Text(
-              //         'Use Cash for payment',
-              //         style: TextStyle(fontSize: 10, color: GameColor.white),
-              //       ),
-              //       trailing: Radio<String>(
-              //         value: 'Cash',
-              //         groupValue: _selectedOption,
-              //         onChanged: (value) {
-              //           setState(() {
-              //             _selectedOption = value!;
-              //           });
-              //         },
-              //       ),
-              //     );
-              //   }),
-              // ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: GameColor.white,
-                  backgroundImage: AssetImage(
-                      Assets.imagesCash),
-                ),
-                // const Icon(Icons.visibility),
-                title: const Text(
-                  'Cash',
-                  style: TextStyle(color: GameColor.white),
-                ),
-                subtitle: const Text(
-                  'Use Cash for payment',
-                  style: TextStyle(fontSize: 10, color: GameColor.white),
-                ),
-                trailing: Radio<String>(
-                  value: 'Cash',
-                  groupValue: _selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedOption = value!;
-                    });
-                  },
-                ),
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: GameColor.white,
-                  backgroundImage: AssetImage(
-                      Assets.imagesCheque),
-                ),
-                title: const Text(
-                  'Cheque',
-                  style: TextStyle(color: GameColor.white),
-                ),
-                subtitle: const Text(
-                  'Upload Cheque for payment',
-                  style: TextStyle(fontSize: 10, color: GameColor.white),
-                ),
-                trailing: Radio<String>(
-                  value: 'Cheque',
-                  groupValue: _selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedOption = value!;
-                      _showPicker(context);
-                    });
-                  },
-                ),
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                    backgroundColor: GameColor.white,
-                    backgroundImage: AssetImage(
-                      Assets.imagesUpi,
-                    )),
-                title: const Text(
-                  'UPI',
-                  style: TextStyle(color: GameColor.white),
-                ),
-                subtitle: const Text(
-                  'Use UPI for payment',
-                  style: TextStyle(fontSize: 10, color: GameColor.white),
-                ),
-                trailing: Radio<String>(
-                  value: 'UPI',
-                  groupValue: _selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedOption = value!;
-                    });
-                  },
-                ),
-              ),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: GameColor.white,
-                  backgroundImage: AssetImage(
-                      Assets.imagesBanking),
-                ),
-                title: const Text(
-                  'Debit/NetBanking',
-                  style: TextStyle(color: GameColor.white),
-                ),
-                subtitle: const Text(
-                  'Use Debit card or use NetBanking for payment',
-                  style: TextStyle(fontSize: 10, color: GameColor.white),
-                ),
-                trailing: Radio<String>(
-                  value: 'Debit/NetBanking',
-                  groupValue: _selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedOption = value!;
-                    });
-                  },
-                ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: selectImage.paymentOptions.length,
+                itemBuilder: (context, index) {
+                  final option = selectImage.paymentOptions[index];
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: GameColor.white,
+                      backgroundImage: AssetImage(option['image'].toString()),
+                    ),
+                    title: Text(
+                      option['title'],
+                      style: const TextStyle(color: GameColor.white),
+                    ),
+                    subtitle: Text(
+                      option['subtitle'],
+                      style: const TextStyle(fontSize: 10, color: GameColor.white),
+                    ),
+                    trailing: Radio<String>(
+                      value: option['value'],
+                      groupValue: _selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedOption = value!;
+                          if (_selectedOption == 'Cheque') {
+                            _showPicker(context);
+                          }
+                          print(_selectedOption);
+                        });
+                      },
+                    ),
+                  );
+                },
               ),
               Center(
                 child: SizedBox(
@@ -263,6 +173,7 @@ class _DepositScreenState extends State<DepositScreen> {
                       :  Container(),
                 ),
               ),
+              depositViewModel.loading==false?
               CustomContainer(
                 margin: const EdgeInsets.all(10),
                 onTap: () {
@@ -271,9 +182,15 @@ class _DepositScreenState extends State<DepositScreen> {
                   } else if (int.parse(amountCon.text) < 100) {
                     Utils.flushBarErrorMessage(
                         "Please Enter the Amount at least ₹100", context);
-                  } else {
-                    Utils.flushBarSuccessMessage(
-                        "Amount deposited successfully", context);
+                  } else if (_selectedOption=="1") {
+                    Utils.flushBarErrorMessage(
+                        "Please select payment type", context);
+
+                  }else{
+                    print(amountCon.text);
+                    print(_selectedOption);
+                    print(selectImage.base64Image);
+                    depositViewModel.depositApi(amountCon.text,_selectedOption=="1"?"":_selectedOption,selectImage.base64Image ?? "", context);
                   }
                 },
                 alignment: Alignment.center,
@@ -286,7 +203,7 @@ class _DepositScreenState extends State<DepositScreen> {
                   style: TextStyle(
                       color: GameColor.white, fontWeight: FontWeight.w500),
                 ),
-              ),
+              ):CircularButton(),
             ],
           ),
     );

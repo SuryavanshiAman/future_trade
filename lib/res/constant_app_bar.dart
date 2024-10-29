@@ -1,9 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:future_trade/main.dart';
-
-import 'color-const.dart';
-
 class ConstantAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final Widget? title;

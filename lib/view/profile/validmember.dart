@@ -1,3 +1,4 @@
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/helper/response/status.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/color-const.dart';
@@ -115,7 +116,7 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
                         return Padding(
                           padding: EdgeInsets.only(top: height * 0.15),
                           child: const Text(
-                            "No Referral History Found!",
+                            "No Data  Found!",
                             style:
                             TextStyle(color: GameColor.white, fontSize: 16),
                           ),
@@ -170,7 +171,7 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
                     return Container();
                   case Status.COMPLETED:
                     final levelData = levelList.levelList.data?.data;
-                    if (levelData != null && levelData.isNotEmpty) {
+                    if (selectedData != null && selectedData!.isNotEmpty) {
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
@@ -221,13 +222,18 @@ class _ValidMemberScreenState extends State<ValidMemberScreen> {
                         },
                       );
                     } else {
-                      return Padding(
-                        padding: EdgeInsets.only(top: height * 0.15),
-                        child: const Text(
-                          "No Referral History Found!",
-                          style:
-                          TextStyle(color: GameColor.white, fontSize: 16),
-                        ),
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: height*0.2,),
+                          Image.asset(Assets.imagesNoData,scale: 2,),
+                          SizedBox(height: height*0.01,),
+                          const Text(
+                            "No Team Data Found!",
+                            style: TextStyle(color: GameColor.white, fontSize: 16),
+                          ),
+
+                        ],
                       );
                     }
                   default:

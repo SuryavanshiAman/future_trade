@@ -9,7 +9,6 @@ import 'package:future_trade/res/circular_button.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/custom_container.dart';
 import 'package:future_trade/res/custom_text_field.dart';
-import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
 import 'package:future_trade/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';

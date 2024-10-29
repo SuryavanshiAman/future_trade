@@ -6,8 +6,8 @@ import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/view/products/product_screen.dart';
-import 'package:future_trade/view_model/auth_view_model.dart';
 import 'package:future_trade/view_model/controller.dart';
+import 'package:future_trade/view_model/downline_view_model.dart';
 import 'package:future_trade/view_model/product_view_model.dart';
 import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:provider/provider.dart';
@@ -28,12 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ProfileViewModel>(context,listen: false).getProfileApi(context);
       Provider.of<ProductViewModel>(context,listen: false).productApi(context,"1");
+      Provider.of<DownlineViewModel>(context,listen: false).downlineApi(context);
     });
   }
   @override
   Widget build(BuildContext context) {
     final categories = Provider.of<ElementController>(context);
     final user= Provider.of<ProfileViewModel>(context).profileResponse?.data;
+    final downline= Provider.of<DownlineViewModel>(context).downlineResponse?.data;
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: ConstantAppBar(
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, RoutesName.walletScreen);
+              Navigator.pushNamed(context, RoutesName.bottomNavBar,arguments: {"index": 3});
             },
             child: const Icon(
               Icons.wallet,
@@ -117,14 +119,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     childAspectRatio: 2.5,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      _buildGridTile("3", "Active Downline"),
-                      _buildGridTile("9250.00", "Cashback Income"),
-                      _buildGridTile("7500.00", "Team Income"),
-                      _buildGridTile("15700.00", "Total Payout"),
-                      _buildGridTile("0.00", "Team Reward Income"),
-                      _buildGridTile("0.00", "Today Team Business"),
-                      _buildGridTile("16750.00", "Total Income"),
-                      _buildGridTile("0.00", "Income Wallet"),
+                      _buildGridTile(downline?.activeDownline??"0.0", "Active Downline"),
+                      _buildGridTile(downline?.teamIncome??"0.0", "Team Income"),
+                      _buildGridTile(downline?.totalPayout??"0.0", "Total Payout"),
+                      _buildGridTile(downline?.todayTeamBusiness??"0.0", "Today Team Business"),
+                      _buildGridTile(downline?.totalIncome??"0.0", "Total Income"),
+                      _buildGridTile(downline?.incomeWallet??"0.0", "Income Wallet"),
                     ],
                   ),
                 ),
@@ -216,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const CircleAvatar(
-                radius: 22,
+                radius: 21,
                 backgroundImage: AssetImage(Assets.imagesUser),
               ),
               Column(

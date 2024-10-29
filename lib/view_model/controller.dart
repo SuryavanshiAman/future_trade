@@ -10,8 +10,6 @@ import 'package:future_trade/view_model/product_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import 'all_policies_view_model.dart';
-
 class ElementController with ChangeNotifier {
 
   int _selectedIndex=0;
@@ -23,7 +21,7 @@ class ElementController with ChangeNotifier {
   File? _image;
   File? get image => _image;
   final picker = ImagePicker();
-  void setImage(File value) {
+  void setImage(File? value) {
     _image = value;
     notifyListeners();
   }
@@ -38,7 +36,6 @@ class ElementController with ChangeNotifier {
         notifyListeners();
     }
   }
-  // final policies= Provider.of<AllPoliciesViewModel>(context).policiesResponse?.data;
 
   List<ElementModel> elementList = [
     ElementModel(
@@ -116,6 +113,32 @@ class ElementController with ChangeNotifier {
     100000,
     200000,
     500000
+  ];
+  final List<Map<String, dynamic>> paymentOptions = [
+    {
+      'title': 'Cash',
+      'subtitle': 'Use Cash for payment',
+      'image': Assets.imagesCash,
+      'value': 'Cash',
+    },
+    {
+      'title': 'Cheque',
+      'subtitle': 'Upload Cheque for payment',
+      'image': Assets.imagesCheque,
+      'value': 'Cheque',
+    },
+    {
+      'title': 'UPI',
+      'subtitle': 'Use UPI for payment',
+      'image': Assets.imagesUpi,
+      'value': 'UPI',
+    },
+    {
+      'title': 'Debit/NetBanking',
+      'subtitle': 'Use Debit card or use NetBanking for payment',
+      'image': Assets.imagesBanking,
+      'value': 'NetBanking',  // Only "NetBanking" as the value
+    },
   ];
 }
 class ElementModel{

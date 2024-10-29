@@ -44,12 +44,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       image: AssetImage(Assets.imagesComing),
                       fit: BoxFit.cover)),
               child: Particles(
-                awayRadius: 100,
+                awayRadius: 80,
                 particles: createParticles(),
                 height: height,
                 width: width,
                 onTapAnimation: true,
-                awayAnimationDuration: const Duration(seconds: 300),
+                awayAnimationDuration: const Duration(seconds: 3),
                 awayAnimationCurve: Curves.linear,
                 enableHover: true,
                 hoverRadius: 90,
@@ -160,7 +160,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 "Please enter valid phone no.", context);
                           } else {
                             otp.sedOtpApi(_controller.text, context);
-                            // Navigator.pushNamed(context, RoutesName.otpScreen);
                           }
                         },
                         alignment: Alignment.center,

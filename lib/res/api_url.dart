@@ -18,6 +18,9 @@ class ApiUrl {
   static const String transactionHistory = '${baseUrl}transaction_history?user_id=';
   static const String teamLevel = '${baseUrl}myteam2?user_id=';
   static const String redeem = '${baseUrl}redeem?user_id=';
+  static const String withdrawal = '${baseUrl}withdrawal?user_id=';
+  static const String deposit = '${baseUrl}add_amount';
+  static const String downlineApi = '${baseUrl}dashboard?user_id=';
 
 }
 

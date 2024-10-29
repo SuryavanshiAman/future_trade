@@ -1,15 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:future_trade/repo/join_project.dart';
+import 'package:future_trade/repo/withdraw_repo.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
+import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:future_trade/view_model/user_view_model.dart';
 
-class JoinViewModel with ChangeNotifier {
-  final _joinRepo = JoinRepository();
+
+class WithdrawViewModel with ChangeNotifier {
+  final _withdrawRepo = WithdrawRepository();
 
   bool _loading = false;
-
   bool get loading => _loading;
 
   setLoading(bool value) {
@@ -17,34 +18,31 @@ class JoinViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> joinApi(dynamic pId, context) async {
+  ProfileViewModel profileViewModel = ProfileViewModel();
+
+  Future<void> withdrawApi(dynamic amount,dynamic password,context) async {
     setLoading(true);
+
     UserViewModel userViewModel = UserViewModel();
     String? userId = await userViewModel.getUser();
-    Map data={
-      "user_id":userId,
-      "project_id":pId
-    };
-    _joinRepo.joinApi(data).then((value) {
-      if (value['status'] == 200) {
+
+    _withdrawRepo.withdrawApi(userId,amount,password).then((value) {
+      if (value['status'] ==200) {
         setLoading(false);
+        profileViewModel.getProfileApi(context);
         Navigator.pushReplacementNamed(context, RoutesName.bottomNavBar);
         Utils.flushBarSuccessMessage(value['msg'], context);
-      }else if(value['status'] == 401){
-        setLoading(false);
-        Navigator.pushReplacementNamed(context, RoutesName.bottomNavBar);
-        Utils.flushBarErrorMessage(value['msg'], context);
       }
-      else {
+      else{
         setLoading(false);
-        Navigator.pushReplacementNamed(context, RoutesName.depositScreen);
         Utils.flushBarErrorMessage(value['msg'], context);
       }
     }).onError((error, stackTrace) {
       setLoading(false);
       if (kDebugMode) {
-        print('joinApiError: $error');
+        print('error: $error');
       }
     });
   }
+
 }
