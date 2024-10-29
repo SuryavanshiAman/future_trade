@@ -90,17 +90,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                         Center(
-                          child: Text(
-                            "Sign up",
-                            style:  TextStyle(
-                                color: GameColor.black
-                                , fontWeight: FontWeight.w700, fontSize: 24),
-                          ),
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                             GestureDetector(
+                                 onTap: (){
+                                   Navigator.pop(context);
+                                 },
+                                 child: Icon(Icons.arrow_back_ios,color: GameColor.black,)),
+                             SizedBox(width: width*0.03,),
+                             Center(
+                              child: Text(
+                                "Sign up",
+                                style:  TextStyle(
+                                    color: GameColor.black
+                                    , fontWeight: FontWeight.w700, fontSize: 24),
+                              ),
+                                                     ),
+                           ],
+                         ),
+                        // SizedBox(
+                        //   height: height * 0.01,
+                        // ),
                         CustomTextField(
                           controller: nameCont,
                           label: "Enter your name.",

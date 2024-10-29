@@ -180,7 +180,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                                   trailing: Text(
                                     listData[index].status.toString(),
                                     style: TextStyle(
-                                        color: GameColor.gameRed,
+                                        color:listData[index].status.toString()=="Pending" ?GameColor.gameRed:Colors.green,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14),
                                   ),
@@ -193,7 +193,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                     return  Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: height*0.2,),
+                        SizedBox(height: height*0.1,),
                         Image.asset(Assets.imagesNoData,scale: 2,),
                         SizedBox(height: height*0.01,),
                         const Text(

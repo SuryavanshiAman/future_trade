@@ -30,7 +30,7 @@
         </intent>
     </queries>
     <application
-        android:label="future_trade"
+        android:label="FutureTrade"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
