@@ -10,7 +10,6 @@ import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:future_trade/view_model/referral_list_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 class ReferEarnScreen extends StatefulWidget {
   const ReferEarnScreen({super.key});
@@ -67,7 +66,8 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                           fontSize: 20),
                     ),
                     Text(
-                      user?.referralCode.toString()??"",
+                        Uri.parse(user?.referralCode.toString() ?? "").queryParameters['refcode'] ?? "",
+                      // user?.referralCode.toString()??"",
                       style: TextStyle(
                           fontSize: 20,
                           color: GameColor.black,
@@ -97,7 +97,7 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
                           user?.referralCode.toString()??"",
                           style: TextStyle(
                             color: GameColor.gray,
-                            fontSize: 20,
+                            fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -214,11 +214,5 @@ class _ReferEarnScreenState extends State<ReferEarnScreen> {
       ),
     ));
   }
-  Future<void> share(data) async {
 
-    await Share.share(
-        "https://www.FutureTrade.co/h5/register/$data",
-        subject: 'Referral Code :$data');
-
-  }
 }

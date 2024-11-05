@@ -47,6 +47,28 @@ class AuthViewModel with ChangeNotifier {
       }
     });
   }
+  Future<void> passwordApi(dynamic data, context) async {
+    final userPref = Provider.of<UserViewModel>(context, listen: false);
+    setLoading(true);
+    _authRepo.passwordApi(data).then((value) {
+      if (value['status'] == 200) {
+        setLoading(false);
+        userPref.saveUser(value['data']['user_id'].toString());
+        UserDataModel userDataModel = UserDataModel.fromJson(value);
+        Provider.of<AuthViewModel>(context, listen: false).setUserData(userDataModel);
+        Navigator.pushReplacementNamed(context, RoutesName.bottomNavBar);
+      }
+      else {
+      setLoading(false);
+      Utils.flushBarErrorMessage(value['msg'], context);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      if (kDebugMode) {
+        print('loginApiError: $error');
+      }
+    });
+  }
 
   Future<void> registerApi(dynamic data, context) async {
     setLoading(true);

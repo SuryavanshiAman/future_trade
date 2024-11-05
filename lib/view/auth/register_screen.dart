@@ -196,7 +196,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Utils.flushBarErrorMessage("Please enter referral code.",context);
                             }else if (passCont.text.isEmpty || passCont.text.length <8 ) {
                               Utils.flushBarErrorMessage("Please enter password.",context);
-                            }else{
+                            }
+                            else{
                             Map data=  {
                                 "name":nameCont.text,
                             "phone":mobileCont.text,

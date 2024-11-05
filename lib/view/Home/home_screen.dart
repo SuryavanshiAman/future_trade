@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
@@ -11,6 +12,7 @@ import 'package:future_trade/view_model/downline_view_model.dart';
 import 'package:future_trade/view_model/product_view_model.dart';
 import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -54,6 +56,15 @@ class _HomeScreenState extends State<HomeScreen> {
               color: GameColor.white,
             ),
           ),
+          kIsWeb == true
+              ? IconButton(
+            onPressed: () {
+              downloadApkLauncher();
+            },
+            icon:  Icon(Icons.download_for_offline, color: GameColor.white
+            ),
+          )
+              : Container(),
           SizedBox(
             width: width * 0.02,
           )
@@ -244,5 +255,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ));
+  }
+  downloadApkLauncher() async {
+    var url = "${ApiUrl.baseUrl}apk/future_trade.apk";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

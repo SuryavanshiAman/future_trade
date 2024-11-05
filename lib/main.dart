@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:future_trade/res/app_constant.dart';
@@ -25,11 +27,24 @@ import 'view_model/user_view_model.dart';
 import 'view_model/view_bank_details_view_model.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    HttpOverrides.global = MyHttpOverrides();
+  }
   @override
   Widget build(BuildContext context) {
     height=MediaQuery.of(context).size.height;
@@ -55,23 +70,37 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DepositViewModel()),
         ChangeNotifierProvider(create: (_) => DownlineViewModel()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: AppConstants.appName,
-        initialRoute: RoutesName.splashScreen,
-        onGenerateRoute: (settings) {
-          if (settings.name != null) {
-            return MaterialPageRoute(
-              builder: Routers.generateRoute(settings.name!),
-              settings: settings,
-            );
-          }
-          return null;
-        },
-        // home: const MyTeam(),
+      child: Center(
+        child: Container(
+          constraints: BoxConstraints(
+              maxWidth: width
+          ),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: AppConstants.appName,
+            initialRoute: RoutesName.splashScreen,
+            onGenerateRoute: (settings) {
+              if (settings.name != null) {
+                return MaterialPageRoute(
+                  builder: Routers.generateRoute(settings.name!),
+                  settings: settings,
+                );
+              }
+              return null;
+            },
+            // home: const MyTeam(),
+          ),
+        ),
       ),
     );
   }
 }
 double height=0.0;
 double width=0.0;
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=>true;
+  }
+}

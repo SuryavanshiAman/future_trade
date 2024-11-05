@@ -1,4 +1,5 @@
 
+import 'package:future_trade/res/api_url.dart';
 import 'package:future_trade/view_model/all_policies_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,6 +12,15 @@ class Launcher {
       throw 'Could not launch $url';
     }
   }
+  static void downloadApkLauncher() async {
+    var url = "${ApiUrl.baseUrl}apk/future_trade.apk";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   static void whatsappLaunch() async {
     var url = "https://api.whatsapp.com/text=Mai+jeet+gaya&type=phone_number&app_absent";
     // "whatsapp://send?phone="+whatsapp+"&text=hello";

@@ -24,14 +24,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _controller = TextEditingController();
+  final TextEditingController passCont = TextEditingController();
   @override
   void initState() {
     super.initState();
   }
-
+bool loginPassword=false;
   @override
   Widget build(BuildContext context) {
-    final otp = Provider.of<AuthViewModel>(context);
+    final authViewModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
       backgroundColor: GameColor.white,
       body: SingleChildScrollView(
@@ -58,13 +59,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Center(
               child: Container(
-                width: width * 0.9,
-                height: height * 0.4,
-                margin: EdgeInsets.only(top: height * 0.35),
+                width: width * 0.96,
+                // height: height * 0.45,
+                margin: EdgeInsets.only(top: height * 0.34),
                 padding: EdgeInsets.only(
+                    // 40
                     left: width >= 450 ? width * 0.17 : width * 0.1,
                     right: width >= 450 ? width * 0.17 : width * 0.1,
-                    top: height * 0.05),
+                    top:loginPassword==true? height * 0.04:height*0.06,bottom: height*0.04
+                ),
                 decoration: const BoxDecoration(
                   color: GameColor.bg,
                   shape: BoxShape.circle,
@@ -99,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 16),
                     ),
                     SizedBox(
-                      height: width >= 450 ? height * 0.025 : height * 0.02,
+                      height: width >= 450 ? height * 0.025 : height * 0.015,
                     ),
                     CustomTextField(
                       controller: _controller,
@@ -108,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintColor: GameColor.black,
                       hintSize: 14,
                       width: width >= 450 ? width * 0.5 : width * 0.65,
+                      height: 50,
                       maxLength: 10,
                       filled: false,
                       border: Border.all(color: GameColor.black),
@@ -123,19 +127,46 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
+                      height: width >= 450 ? height * 0.025 : height * 0.015,
+                    ),
+                  loginPassword==true?  CustomTextField(
+                      controller: passCont,
+                      label: "Enter your password",
+                      hintColor: GameColor.black,
+                      keyboardType: TextInputType.name,
+                      hintSize: 14,
+                      width: width >= 450 ? width * 0.5 : width * 0.65,
+                      height: 50,
+                      maxLength: 10,
+                      filled: false,
+                      border: Border.all(color: GameColor.black),
+                      borderRadius: BorderRadius.circular(25),
+                      fieldRadius: BorderRadius.circular(25),
+                      prefix: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Icon(Icons.password,color: GameColor.black,)
+                        // Text(
+                        //   "+91",
+                        //   style:
+                        //       TextStyle(color: GameColor.black, fontSize: 16),
+                        // ),
+                      ),
+                    ):Container(),
+                    SizedBox(
                       height: height * 0.01,
                     ),
-                    RichText(
+                  loginPassword==false?
+                  RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         style: const TextStyle(
                             fontSize: 14, color: Colors.black),
                         children: [
                           TextSpan(
-                              text: "Don't have an ID?",
+                              text: "Don't have an ID? ",
                               style: TextStyle(color: GameColor.black)),
                           TextSpan(
-                            text: ' Register',
+                            text: 'Register',
                             style: TextStyle(
                               color: GameColor.black,
                               fontWeight: FontWeight.w600,
@@ -147,24 +178,105 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
+                    ):
+                  Container(),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    loginPassword==false?
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: const TextStyle(
+                            fontSize: 14, color: Colors.black),
+                        children: [
+                          TextSpan(
+                              text: "Login via ",
+                              style: TextStyle(color: GameColor.black)),
+                          TextSpan(
+                            text: 'Password',
+                            style: TextStyle(
+                              color: GameColor.black,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
+                            ),
+                            recognizer: TapGestureRecognizer()..onTap = () {
+                              setState(() {
+                                loginPassword=true;
+                              });
+
+                            },
+                          ),
+                        ],
+                      ),
+                    ):
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: const TextStyle(
+                            fontSize: 14, color: Colors.black),
+                        children: [
+                          TextSpan(
+                              text: "Login via ",
+                              style: TextStyle(color: GameColor.black)),
+                          TextSpan(
+                            text: 'OTP',
+                            style: TextStyle(
+                              color: GameColor.black,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
+                            ),
+                            recognizer: TapGestureRecognizer()..onTap = () {
+                              setState(() {
+                                loginPassword=false;
+                              });
+
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: height * 0.03,
                     ),
-                    if (otp.loading==false)
+                    if (authViewModel.loading==false)
                       CustomContainer(
                         onTap: () {
-                          if (_controller.text.isEmpty ||
-                              _controller.text.length < 10) {
-                            Utils.flushBarErrorMessage(
-                                "Please enter valid phone no.", context);
-                          } else {
-                            otp.sedOtpApi(_controller.text, context);
-                          }
-                        },
+                          setState(() {
+                            if(loginPassword==false){
+                              if (_controller.text.isEmpty ||
+                                  _controller.text.length < 10) {
+                                Utils.flushBarErrorMessage(
+                                    "Please enter valid phone no.", context);
+                              } else {
+                                authViewModel.sedOtpApi(_controller.text, context);
+                              }
+                            } else{
+                              if (_controller.text.isEmpty ||
+                                  _controller.text.length < 10) {
+                                Utils.flushBarErrorMessage(
+                                    "Please enter valid phone no.", context);
+                              } else if(passCont.text.isEmpty ||
+                                  passCont.text.length < 8) {
+                                Utils.flushBarErrorMessage(
+                                    "Please enter valid password", context);
+
+                              }else{
+                                Map data={
+                                  "phone":_controller.text,
+                                  "password":passCont.text
+                                };
+                                authViewModel.passwordApi(data, context);
+                              }
+                            }
+
+                          });
+                          },
                         alignment: Alignment.center,
                         height: height * 0.06,
-                        widths: width >= 450 ? width * 0.4 : width * 0.5,
+                        widths:
+                        width >= 450 ? width * 0.4 :
+                        width * 0.5,
                         color: GameColor.blue,
                         borderRadius: const BorderRadius.all(Radius.circular(35)),
                         child: const Text(

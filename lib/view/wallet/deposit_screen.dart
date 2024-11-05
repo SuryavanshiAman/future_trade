@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/circular_button.dart';
 import 'package:future_trade/res/color-const.dart';
@@ -128,6 +127,7 @@ class _DepositScreenState extends State<DepositScreen> {
               ),
               ListView.builder(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: selectImage.paymentOptions.length,
                 itemBuilder: (context, index) {
                   final option = selectImage.paymentOptions[index];
@@ -153,7 +153,6 @@ class _DepositScreenState extends State<DepositScreen> {
                           if (_selectedOption == 'Cheque') {
                             _showPicker(context);
                           }
-                          print(_selectedOption);
                         });
                       },
                     ),
@@ -173,39 +172,38 @@ class _DepositScreenState extends State<DepositScreen> {
                       :  Container(),
                 ),
               ),
-              depositViewModel.loading==false?
-              CustomContainer(
-                margin: const EdgeInsets.all(10),
-                onTap: () {
-                  if (amountCon.text.isEmpty) {
-                    Utils.flushBarErrorMessage("Please Enter the Amount", context);
-                  } else if (int.parse(amountCon.text) < 100) {
-                    Utils.flushBarErrorMessage(
-                        "Please Enter the Amount at least ₹100", context);
-                  } else if (_selectedOption=="1") {
-                    Utils.flushBarErrorMessage(
-                        "Please select payment type", context);
-
-                  }else{
-                    print(amountCon.text);
-                    print(_selectedOption);
-                    print(selectImage.base64Image);
-                    depositViewModel.depositApi(amountCon.text,_selectedOption=="1"?"":_selectedOption,selectImage.base64Image ?? "", context);
-                  }
-                },
-                alignment: Alignment.center,
-                height: height * 0.07,
-                widths: width * 0.8,
-                color: GameColor.green,
-                borderRadius: const BorderRadius.all(Radius.circular(35)),
-                child: const Text(
-                  "Add Money",
-                  style: TextStyle(
-                      color: GameColor.white, fontWeight: FontWeight.w500),
-                ),
-              ):CircularButton(),
             ],
           ),
+      bottomNavigationBar:
+      depositViewModel.loading==false?
+      CustomContainer(
+        margin: const EdgeInsets.all(10),
+        onTap: () {
+          if (amountCon.text.isEmpty) {
+            Utils.flushBarErrorMessage("Please Enter the Amount", context);
+          } else if (int.parse(amountCon.text) < 100) {
+            Utils.flushBarErrorMessage(
+                "Please Enter the Amount at least ₹100", context);
+          } else if (_selectedOption=="1") {
+            Utils.flushBarErrorMessage(
+                "Please select payment type", context);
+
+          }else{
+            depositViewModel.depositApi(amountCon.text,_selectedOption=="1"?"":_selectedOption,selectImage.base64Image ?? "", context);
+          }
+        },
+        alignment: Alignment.center,
+        height: height * 0.07,
+        widths: width * 0.8,
+        color: GameColor.green,
+        borderRadius: const BorderRadius.all(Radius.circular(35)),
+        child: const Text(
+          "Add Money",
+          style: TextStyle(
+              color: GameColor.white, fontWeight: FontWeight.w500),
+        ),
+      )
+          :const CircularButton() ,
     );
   }
 
