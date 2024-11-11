@@ -27,5 +27,6 @@ static  const Color textGray=Color(0xFF6f6f6f);
 static  const Color color1=Color(0xFFc739aa);
 static  const Color color2=Color(0xFF8d20fa);
 static  const Color color3=Color(0xFF7232fe);
+static  const Color darkGray=Color(0xFF26272b);
  // #8d20fa
 }

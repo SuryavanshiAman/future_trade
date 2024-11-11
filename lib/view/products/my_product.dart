@@ -42,148 +42,178 @@ class _MyProductScreenState extends State<MyProductScreen> {
         ),
         centerTitle: true,
       ),
-      body: Consumer<MyProductViewModel>(
-        builder: (context, productData, _) {
-          switch (
-          productData.productList.status) {
-            case Status.LOADING:
-              return const Center(
-                child: CircularProgressIndicator(color: GameColor.white,),
-              );
-            case Status.ERROR:
-              return Container();
-            case Status.COMPLETED:
-              final product = productData.productList.data!.data;
-              if (product != null && product.isNotEmpty) {
-                return GridView.builder(
-                    gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        // mainAxisExtent: 380,
-                        mainAxisExtent: height*0.42,
-                        crossAxisSpacing: 4,
-                        mainAxisSpacing: 4),
-                    itemCount: product.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return Card(
-                        elevation: 3,
-                        child: Container(
-                          padding: const EdgeInsets.all(8.0),
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              color: GameColor.white),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: height * 0.20,
-                                width: double.infinity,
-                                decoration:  BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: NetworkImage("${ApiUrl.imageUrl}${product[index].productImg.toString()}"))),
-                              ),
-                              Text(
-                                product[index].productName.toString(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: GameColor.black,
-                                    fontSize: 20),
-                                maxLines: 2,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Product price: ',
-                                  style: TextStyle(
-                                    color: GameColor.gray,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  children:  <TextSpan>[
-                                    TextSpan(
-                                        text: '₹${product[index].productPrice.toString()}',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: GameColor.blue,
-                                            fontSize: 16)),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: height * 0.01,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Monthly income: ',
-                                  style: TextStyle(
-                                    color: GameColor.gray,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  children:  <TextSpan>[
-                                    TextSpan(
-                                        text: '₹${product[index].monthlyIncome.toString()}',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: GameColor.blue,
-                                            fontSize: 16)),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: height * 0.01,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'ROI: ',
-                                  style: TextStyle(
-                                    color: GameColor.gray,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  children:  <TextSpan>[
-                                    TextSpan(
-                                        text: '₹${product[index].roi.toString()}',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: GameColor.blue,
-                                            fontSize: 16)),
-                                  ],
-                                ),
-                              ),
-                              const Spacer(),
-                              product[index].status.toString()=="1"? ConstantButton(
-                                onTap: () {
-                                  redeem.redeemApi(product[index].projectID.toString(), context);
-                                },
-                                text: 'REDEEM',
-                              ):ConstantButton(
-                                btnColor: GameColor.gray,
-                                onTap: () {
-                                },
-                                text: 'REDEEMED',
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-              } else {
-                return   Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: height*0.2,),
-                    Center(child: Image.asset(Assets.imagesNoData,scale: 1,)),
-                    SizedBox(height: height*0.01,),
-                    const Text(
-                      "No Product Found!",
-                      style: TextStyle(color: GameColor.white, fontSize: 16),
-                    ),
-
-                  ],
-                );
-              }
-            default:
-              return Container();
-          }
-        },
-      )
+      body:ListView.builder(
+          itemCount:11,
+          padding: const EdgeInsets.all(8.0),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          // physics: const BouncingScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              decoration: const BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(color: GameColor.white))),
+              child: ListTile(
+                title: Text("USD",
+                    style: const TextStyle(
+                        color: GameColor.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600)),
+                subtitle: Text("ROI:10%",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: GameColor.white,
+                        fontSize: 14)),
+                trailing:  Text("Prize:₹100",
+                    style:  TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: GameColor.green,
+                        fontSize: 14)),
+              ),
+            );
+          })
+      // Consumer<MyProductViewModel>(
+      //   builder: (context, productData, _) {
+      //     switch (
+      //     productData.productList.status) {
+      //       case Status.LOADING:
+      //         return const Center(
+      //           child: CircularProgressIndicator(color: GameColor.white,),
+      //         );
+      //       case Status.ERROR:
+      //         return Container();
+      //       case Status.COMPLETED:
+      //         final product = productData.productList.data!.data;
+      //         if (product != null && product.isNotEmpty) {
+      //           return GridView.builder(
+      //               gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+      //                   crossAxisCount: 2,
+      //                   // mainAxisExtent: 380,
+      //                   mainAxisExtent: height*0.42,
+      //                   crossAxisSpacing: 4,
+      //                   mainAxisSpacing: 4),
+      //               itemCount: product.length,
+      //               itemBuilder: (BuildContext ctx, index) {
+      //                 return Card(
+      //                   elevation: 3,
+      //                   child: Container(
+      //                     padding: const EdgeInsets.all(8.0),
+      //                     decoration: const BoxDecoration(
+      //                         borderRadius: BorderRadius.all(Radius.circular(10)),
+      //                         color: GameColor.white),
+      //                     child: Column(
+      //                       crossAxisAlignment: CrossAxisAlignment.start,
+      //                       children: [
+      //                         Container(
+      //                           height: height * 0.20,
+      //                           width: double.infinity,
+      //                           decoration:  BoxDecoration(
+      //                               image: DecorationImage(
+      //                                   fit: BoxFit.fill,
+      //                                   image: NetworkImage("${ApiUrl.imageUrl}${product[index].productImg.toString()}"))),
+      //                         ),
+      //                         Text(
+      //                           product[index].productName.toString(),
+      //                           style: TextStyle(
+      //                               fontWeight: FontWeight.w700,
+      //                               color: GameColor.black,
+      //                               fontSize: 20),
+      //                           maxLines: 2,
+      //                         ),
+      //                         RichText(
+      //                           text: TextSpan(
+      //                             text: 'Product price: ',
+      //                             style: TextStyle(
+      //                               color: GameColor.gray,
+      //                               fontWeight: FontWeight.w500,
+      //                             ),
+      //                             children:  <TextSpan>[
+      //                               TextSpan(
+      //                                   text: '₹${product[index].productPrice.toString()}',
+      //                                   style: const TextStyle(
+      //                                       fontWeight: FontWeight.w500,
+      //                                       color: GameColor.blue,
+      //                                       fontSize: 16)),
+      //                             ],
+      //                           ),
+      //                         ),
+      //                         SizedBox(
+      //                           height: height * 0.01,
+      //                         ),
+      //                         RichText(
+      //                           text: TextSpan(
+      //                             text: 'Monthly income: ',
+      //                             style: TextStyle(
+      //                               color: GameColor.gray,
+      //                               fontWeight: FontWeight.w500,
+      //                             ),
+      //                             children:  <TextSpan>[
+      //                               TextSpan(
+      //                                   text: '₹${product[index].monthlyIncome.toString()}',
+      //                                   style: const TextStyle(
+      //                                       fontWeight: FontWeight.w500,
+      //                                       color: GameColor.blue,
+      //                                       fontSize: 16)),
+      //                             ],
+      //                           ),
+      //                         ),
+      //                         SizedBox(
+      //                           height: height * 0.01,
+      //                         ),
+      //                         RichText(
+      //                           text: TextSpan(
+      //                             text: 'ROI: ',
+      //                             style: TextStyle(
+      //                               color: GameColor.gray,
+      //                               fontWeight: FontWeight.w500,
+      //                             ),
+      //                             children:  <TextSpan>[
+      //                               TextSpan(
+      //                                   text: '₹${product[index].roi.toString()}',
+      //                                   style: const TextStyle(
+      //                                       fontWeight: FontWeight.w500,
+      //                                       color: GameColor.blue,
+      //                                       fontSize: 16)),
+      //                             ],
+      //                           ),
+      //                         ),
+      //                         const Spacer(),
+      //                         product[index].status.toString()=="1"? ConstantButton(
+      //                           onTap: () {
+      //                             redeem.redeemApi(product[index].projectID.toString(), context);
+      //                           },
+      //                           text: 'REDEEM',
+      //                         ):ConstantButton(
+      //                           btnColor: GameColor.gray,
+      //                           onTap: () {
+      //                           },
+      //                           text: 'REDEEMED',
+      //                         )
+      //                       ],
+      //                     ),
+      //                   ),
+      //                 );
+      //               });
+      //         } else {
+      //           return   Column(
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: [
+      //               SizedBox(height: height*0.2,),
+      //               Center(child: Image.asset(Assets.imagesNoData,scale: 1,)),
+      //               SizedBox(height: height*0.01,),
+      //               const Text(
+      //                 "No Product Found!",
+      //                 style: TextStyle(color: GameColor.white, fontSize: 16),
+      //               ),
+      //
+      //             ],
+      //           );
+      //         }
+      //       default:
+      //         return Container();
+      //     }
+      //   },
+      // )
 
     );
   }

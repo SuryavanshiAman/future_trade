@@ -140,6 +140,47 @@ class ElementController with ChangeNotifier {
       'value': 'NetBanking',  // Only "NetBanking" as the value
     },
   ];
+  final List<Map<String, dynamic>> product = [
+    {
+      'title': 'Nifty50',
+    },
+    {
+      'title': 'Bank Nifty',
+    },
+    {
+      'title': 'USD',
+    },
+    {
+      'title': 'Bitcoin',// Only "NetBanking" as the value
+    },
+  ];
+  final List<Map<String, dynamic>> items = [
+    {
+      'title': 'Nifty50',
+      'subtitle': '₹100',
+    },
+    {
+      'title': 'Bank Nifty',
+      'subtitle': '₹100',
+    },
+    {
+      'title': 'USD',
+      'subtitle': '₹100',
+    },
+    {
+      'title': 'Bitcoin',
+      'subtitle': '₹100',// Only "NetBanking" as the value
+    },
+  ];
+  late List<bool> selectedItems ;
+  ElementController() {
+    selectedItems = List.generate(items.length, (_) => false);
+    notifyListeners();
+  }
+  void toggleSelection(int index) {
+    selectedItems[index] = !selectedItems[index];
+    notifyListeners();  // Notify listeners to update UI
+  }
 }
 class ElementModel{
   final String image;

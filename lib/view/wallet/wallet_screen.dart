@@ -145,14 +145,14 @@ class _WalletScreenState extends State<WalletScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Withdraw",
+                            "ROI",
                             style:  TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
                                 color: GameColor.gray),
                           ),
                            Text(
-                           "₹${downline?.totalPayout??"0.0"}",
+                           "%${downline?.totalPayout??"0.0"}",
                             style: const TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.w600),
                           ),
@@ -173,6 +173,58 @@ class _WalletScreenState extends State<WalletScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                Icon(
+                                Icons.arrow_downward,
+                                color: GameColor.white,
+                              ),
+                              Text(
+                                "Withdraw",
+                                style:  TextStyle(
+                                    color: GameColor.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700),
+                              )
+                            ],
+                          ))
+                    ],
+                  ),
+                  Divider(
+                    height: height * 0.03,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Salary",
+                            style:  TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: GameColor.gray),
+                          ),
+                          Text(
+                            "₹${downline?.totalPayout??"0.0"}",
+                            style: const TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      CustomContainer(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RoutesName.withdrawPage);
+                          },
+                          height: height * 0.06,
+                          widths: width * 0.35,
+                          color:const Color(0xff3bad19),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
                                 Icons.arrow_downward,
                                 color: GameColor.white,
                               ),

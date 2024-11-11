@@ -105,7 +105,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       _lastSelected == 1 ? GameColor.blue : GameColor.black,
                 ),
                 text: Text(
-                  'My Product',
+                  'INV Fund',
                   style: TextStyle(
                       color: _lastSelected == 1
                           ? GameColor.blue
