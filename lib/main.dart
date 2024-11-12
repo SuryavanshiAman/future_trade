@@ -48,7 +48,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     height=MediaQuery.of(context).size.height;
-    width=kIsWeb?400:MediaQuery.of(context).size.width;
+    // width=kIsWeb?400:MediaQuery.of(context).size.width;
+    width=MediaQuery.of(context).size.width;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ElementController()),
@@ -71,26 +72,42 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => DownlineViewModel()),
       ],
       child: Center(
-        child: Container(
-          constraints: BoxConstraints(
-              maxWidth: width
-          ),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: AppConstants.appName,
-            initialRoute: RoutesName.splashScreen,
-            onGenerateRoute: (settings) {
-              if (settings.name != null) {
-                return MaterialPageRoute(
-                  builder: Routers.generateRoute(settings.name!),
-                  settings: settings,
-                );
-              }
-              return null;
-            },
-            // home: const MyTeam(),
-          ),
+        child:
+        MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: AppConstants.appName,
+          initialRoute: RoutesName.splashScreen,
+          onGenerateRoute: (settings) {
+            if (settings.name != null) {
+              return MaterialPageRoute(
+                builder: Routers.generateRoute(settings.name!),
+                settings: settings,
+              );
+            }
+            return null;
+          },
+          // home: const MyTeam(),
         ),
+        // Container(
+        //   constraints: BoxConstraints(
+        //       maxWidth: width
+        //   ),
+        //   child: MaterialApp(
+        //     debugShowCheckedModeBanner: false,
+        //     title: AppConstants.appName,
+        //     initialRoute: RoutesName.splashScreen,
+        //     onGenerateRoute: (settings) {
+        //       if (settings.name != null) {
+        //         return MaterialPageRoute(
+        //           builder: Routers.generateRoute(settings.name!),
+        //           settings: settings,
+        //         );
+        //       }
+        //       return null;
+        //     },
+        //     // home: const MyTeam(),
+        //   ),
+        // ),
       ),
     );
   }

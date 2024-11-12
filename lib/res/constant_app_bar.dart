@@ -11,6 +11,7 @@ class ConstantAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? leadingWidth;
   final double? elevation;
   final Color?color;
+  final PreferredSizeWidget?bottom;
 
   const ConstantAppBar({
     super.key,
@@ -22,7 +23,8 @@ class ConstantAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.toolbarHeight,
     this.leadingWidth,
     this.elevation,
-    this.color
+    this.color,
+    this.bottom
   });
 
   @override
@@ -47,7 +49,8 @@ class ConstantAppBar extends StatelessWidget implements PreferredSizeWidget {
         title: title ?? const Text(''),
         actions: actions,
         centerTitle: centerTitle ?? false,
-        toolbarHeight: toolbarHeight, // Pass the toolbarHeight to AppBar
+        toolbarHeight: toolbarHeight,
+        bottom: bottom,// Pass the toolbarHeight to AppBar
       ),
     );
   }

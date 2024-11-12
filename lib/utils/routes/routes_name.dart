@@ -17,4 +17,5 @@ class RoutesName{
   static const String termsScreen = '/termsScreen';
   static const String policyScreen = '/policyScreen';
   static const String productViewScreen = '/productViewScreen';
+  static const String kycScreen = '/kycScreen';
 }

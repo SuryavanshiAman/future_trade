@@ -10,6 +10,7 @@ import 'package:future_trade/view/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:future_trade/view/products/product_view.dart';
 import 'package:future_trade/view/profile/about_us_screen.dart';
 import 'package:future_trade/view/profile/bank_details_screen.dart';
+import 'package:future_trade/view/profile/kyc_screen.dart';
 import 'package:future_trade/view/profile/policy_screen.dart';
 import 'package:future_trade/view/profile/team.dart';
 import 'package:future_trade/view/profile/terms_screen.dart';
@@ -43,6 +44,8 @@ class Routers {
         return (context) =>  const BankDetailsScreen();
       case RoutesName.aboutUsScreen:
         return (context) =>  const AboutUsScreen();
+      case RoutesName.kycScreen:
+        return (context) =>  const KycScreen();
       case RoutesName.myTeam:
         return (context) =>  const MyTeam();
       case RoutesName.termsScreen:

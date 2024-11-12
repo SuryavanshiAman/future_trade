@@ -20,12 +20,23 @@ class ElementController with ChangeNotifier {
   }
   File? _image;
   File? get image => _image;
+  File? _aadhaarImage;
+  File? get aadhaarImage =>_aadhaarImage;
+  File? _panImage;
+  File? get panImage =>_panImage;
   final picker = ImagePicker();
   void setImage(File? value) {
     _image = value;
     notifyListeners();
   }
-
+void setAadhaarImage(File?value){
+  _aadhaarImage = value;
+  notifyListeners();
+}
+  void setPanImage(File?value){
+    _panImage = value;
+    notifyListeners();
+  }
   String? base64Image;
   Future<void> getImage(ImageSource source) async {
     final pickedFile = await picker.pickImage(source: source);
@@ -36,7 +47,24 @@ class ElementController with ChangeNotifier {
         notifyListeners();
     }
   }
+  Future<void> getAadhaarImage(ImageSource source) async {
+    final pickedFile = await picker.pickImage(source: source);
 
+    if (pickedFile != null) {
+      _aadhaarImage = File(pickedFile.path);
+      base64Image = base64Encode(_aadhaarImage!.readAsBytesSync());
+      notifyListeners();
+    }
+  }
+  Future<void> getPanImage(ImageSource source) async {
+    final pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      _panImage = File(pickedFile.path);
+      base64Image = base64Encode(_panImage!.readAsBytesSync());
+      notifyListeners();
+    }
+  }
   List<ElementModel> elementList = [
     ElementModel(
       image:Assets.imagesBank,
@@ -55,6 +83,12 @@ class ElementController with ChangeNotifier {
         name: 'Team',
         onTap: (context){
           Navigator.pushNamed(context, RoutesName.myTeam);
+        }),
+    ElementModel(
+        image: Assets.imagesKyc,
+        name: 'KYC',
+        onTap: (context){
+          Navigator.pushNamed(context, RoutesName.kycScreen);
         }),
     ElementModel(
         image:Assets.imagesAbout,

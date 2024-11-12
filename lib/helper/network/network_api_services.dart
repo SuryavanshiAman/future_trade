@@ -15,7 +15,7 @@ class NetworkApiServices extends BaseApiServices {
     dynamic responseJson;
     try {
       final response =
-          await http.get(Uri.parse(url)).timeout(const Duration(seconds: AppConstants.timeOut));
+          await http.get(Uri.parse(url),).timeout(const Duration(seconds: AppConstants.timeOut));
       if (kDebugMode) {
         print('Api Url : $url');
       }

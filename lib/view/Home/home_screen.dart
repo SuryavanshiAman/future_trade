@@ -189,6 +189,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buildGridTile(downline?.totalPayout ?? "0.0", "Total Payout"),
                 _buildGridTile(downline?.todayTeamBusiness ?? "0.0",
                     "Today Team Business"),
+                _buildGridTile(downline?.todayTeamBusiness ?? "0.0",
+                    "Daily Income"),
                 _buildGridTile(downline?.totalIncome ?? "0.0", "Total Income"),
                 _buildGridTile(
                     downline?.incomeWallet ?? "0.0", "Income Wallet"),
@@ -263,13 +265,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   alignment: Alignment.centerLeft,
                   height: height * 0.05,
                   width: width,
-                  color: GameColor.white,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF000000), Color(0xFF000000), Color(0xFF2d2f30)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: GameColor.lightPink.withOpacity(0.7),
+                        blurRadius: 1,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  // color: GameColor.white,
                   child: Text(
                     "₹100",
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: GameColor.black),
+                        color: GameColor.white),
                   ),
                 ),
                 SizedBox(
@@ -287,7 +304,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     alignment: Alignment.centerLeft,
                     width: width,
                     height: height * 0.05,
-                    color: GameColor.white,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF000000), Color(0xFF000000), Color(0xFF2d2f30)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: GameColor.lightPink.withOpacity(0.7),
+                          blurRadius: 1,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    // color: GameColor.white,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: _dropDownValue.isEmpty
@@ -296,12 +328,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: GameColor.black,
+                                  color: GameColor.white,
                                 ),
                               )
                             : Text(
                                 _dropDownValue,
-                                style: const TextStyle(color: Colors.blue),
+                                style: const TextStyle(color: Colors.white),
                               ),
                         isExpanded: true,
                         iconSize: 30.0,
@@ -333,7 +365,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     alignment: Alignment.centerLeft,
                     width: width,
                     height: height * 0.09,
-                    color: GameColor.white,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF000000), Color(0xFF000000), Color(0xFF2d2f30)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: GameColor.lightPink.withOpacity(0.7),
+                          blurRadius: 1,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         dropdownColor: GameColor.white,
@@ -343,12 +389,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
-                            color: GameColor.black,
+                            color: GameColor.white,
                           ),
                         )
                             : Text(
                           selectedData,
-                          style: const TextStyle(color: Colors.blue),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         isExpanded: true,
                         iconSize: 30.0,
@@ -369,6 +415,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 1.0, // Set border width
                                   ),
                                 ),
+                                // gradient: const LinearGradient(
+                                //   colors: [Color(0xFF000000), Color(0xFF000000), Color(0xFF2d2f30)],
+                                //   begin: Alignment.topLeft,
+                                //   end: Alignment.bottomRight,
+                                // ),
                               ),
                               child: ListTile(
                                 contentPadding: EdgeInsets.zero, // Remove inner padding for the ListTile
@@ -420,7 +471,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   }, text: 'Join',
 
                   ),
-                )
+                ),
+                SizedBox(height: height*0.05,)
               ],
             ),
           )
