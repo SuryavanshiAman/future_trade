@@ -7,9 +7,7 @@ import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
-import 'package:future_trade/view/Home/product_popup.dart';
 import 'package:future_trade/view/Home/slider.dart';
-import 'package:future_trade/view/products/product_screen.dart';
 import 'package:future_trade/view_model/controller.dart';
 import 'package:future_trade/view_model/downline_view_model.dart';
 import 'package:future_trade/view_model/product_view_model.dart';
@@ -26,16 +24,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _customTileExpanded = false;
+  // bool _customTileExpanded = false;
   int selectedIndex = 0;
   String _dropDownValue = "";
   String selectedData = "";
-  // List<bool> isCheckedList = [];
   @override
   void initState() {
     super.initState();
-    final categories = Provider.of<ElementController>(context,listen: false);
-    // isCheckedList = List<bool>.filled(categories.product.length, false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getProfileApi(context);
@@ -50,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final history = Provider.of<ElementController>(context);
-    final categories = Provider.of<ElementController>(context);
+    final categories = Provider.of<ProductViewModel>(context);
     final user = Provider.of<ProfileViewModel>(context).profileResponse?.data;
     final downline =
         Provider.of<DownlineViewModel>(context).downlineResponse?.data;
@@ -281,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   // color: GameColor.white,
-                  child: Text(
+                  child: const Text(
                     "₹100",
                     style: TextStyle(
                         fontSize: 14,
@@ -323,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: _dropDownValue.isEmpty
-                            ? Text(
+                            ? const Text(
                                 'Select',
                                 style: TextStyle(
                                   fontSize: 14,
@@ -352,6 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onChanged: (val) {
                           setState(() {
                             _dropDownValue = val!;
+                            int index = ['Nifty50', 'Bank Nifty', 'USD', 'BitCoin'].indexOf(val);
                           });
                         },
                       ),
@@ -384,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: DropdownButton(
                         dropdownColor: GameColor.white,
                         hint: selectedData.isEmpty
-                            ? Text(
+                            ? const Text(
                           'Select',
                           style: TextStyle(
                             fontSize: 14,
@@ -415,11 +411,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 1.0, // Set border width
                                   ),
                                 ),
-                                // gradient: const LinearGradient(
-                                //   colors: [Color(0xFF000000), Color(0xFF000000), Color(0xFF2d2f30)],
-                                //   begin: Alignment.topLeft,
-                                //   end: Alignment.bottomRight,
-                                // ),
                               ),
                               child: ListTile(
                                 contentPadding: EdgeInsets.zero, // Remove inner padding for the ListTile

@@ -88,26 +88,6 @@ class _MyAppState extends State<MyApp> {
           },
           // home: const MyTeam(),
         ),
-        // Container(
-        //   constraints: BoxConstraints(
-        //       maxWidth: width
-        //   ),
-        //   child: MaterialApp(
-        //     debugShowCheckedModeBanner: false,
-        //     title: AppConstants.appName,
-        //     initialRoute: RoutesName.splashScreen,
-        //     onGenerateRoute: (settings) {
-        //       if (settings.name != null) {
-        //         return MaterialPageRoute(
-        //           builder: Routers.generateRoute(settings.name!),
-        //           settings: settings,
-        //         );
-        //       }
-        //       return null;
-        //     },
-        //     // home: const MyTeam(),
-        //   ),
-        // ),
       ),
     );
   }

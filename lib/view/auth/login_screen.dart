@@ -137,7 +137,7 @@ bool loginPassword=false;
                       hintSize: 14,
                       width: width >= 450 ? width * 0.5 : width * 0.65,
                       height: 50,
-                      maxLength: 10,
+                      // maxLength: 10,
                       filled: false,
                       border: Border.all(color: GameColor.black),
                       borderRadius: BorderRadius.circular(25),
@@ -256,8 +256,7 @@ bool loginPassword=false;
                                   _controller.text.length < 10) {
                                 Utils.flushBarErrorMessage(
                                     "Please enter valid phone no.", context);
-                              } else if(passCont.text.isEmpty ||
-                                  passCont.text.length < 8) {
+                              } else if(passCont.text.isEmpty ) {
                                 Utils.flushBarErrorMessage(
                                     "Please enter valid password", context);
 

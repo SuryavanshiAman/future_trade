@@ -172,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintSize: 14,
                           height: height*0.06,
                           width: width * 0.65,
-                          maxLength: 8,
+                          // maxLength: 8,
                           filled: false,
                           border: Border.all(color: GameColor.black),
                           borderRadius: BorderRadius.circular(25),
@@ -194,7 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Utils.flushBarErrorMessage("Please enter phone no.", context);
                             }else if (referralCont.text.isEmpty ) {
                               Utils.flushBarErrorMessage("Please enter referral code.",context);
-                            }else if (passCont.text.isEmpty || passCont.text.length <8 ) {
+                            }else if (passCont.text.isEmpty ) {
                               Utils.flushBarErrorMessage("Please enter password.",context);
                             }
                             else{
