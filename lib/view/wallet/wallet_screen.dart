@@ -152,7 +152,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                 color: GameColor.gray),
                           ),
                            Text(
-                           "%${downline?.totalPayout??"0.0"}",
+                           "₹${user?.roiCommission??"0.0"}",
                             style: const TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.w600),
                           ),
@@ -204,7 +204,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                 color: GameColor.gray),
                           ),
                           Text(
-                            "₹${downline?.totalPayout??"0.0"}",
+                            "₹${user?.salary??"0.0"}",
                             style: const TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.w600),
                           ),

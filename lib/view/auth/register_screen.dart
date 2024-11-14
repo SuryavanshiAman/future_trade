@@ -25,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController nameCont =TextEditingController();
   TextEditingController passCont =TextEditingController();
   TextEditingController referralCont =TextEditingController();
+  TextEditingController districtCont =TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -73,9 +74,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Center(
                   child: Container(
-                    width: width*0.96,
+                    width: width*1,
                     height: height*0.5,
-                    padding: const EdgeInsets.all(35),
+                    padding: const EdgeInsets.all(30),
                     decoration: const BoxDecoration(
                       color: GameColor.bg,
                       shape: BoxShape.circle,
@@ -109,9 +110,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                      ),
                            ],
                          ),
-                        // SizedBox(
-                        //   height: height * 0.01,
-                        // ),
                         CustomTextField(
                           controller: nameCont,
                           label: "Enter your name.",
@@ -147,6 +145,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               "+91",
                               style: TextStyle(color: GameColor.black, fontSize: 16),
                             ),
+                          ),
+                        ),
+                        CustomTextField(
+                          controller: districtCont,
+                          label: "Enter your district.",
+                          hintColor: GameColor.black,
+                          hintSize: 14,
+                          height: height*0.06,
+                          width: width * 0.65,
+                          // maxLength: 10,
+                          filled: false,
+                          border: Border.all(color: GameColor.black),
+                          borderRadius: BorderRadius.circular(25),
+                          fieldRadius:  BorderRadius.circular(25),
+                          prefix:   const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Icon(Icons.location_on)
                           ),
                         ),
                         CustomTextField(
@@ -192,7 +207,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Utils.flushBarErrorMessage("Please enter your name", context);
                             } else if (mobileCont.text.isEmpty || mobileCont.text.length <10) {
                               Utils.flushBarErrorMessage("Please enter phone no.", context);
-                            }else if (referralCont.text.isEmpty ) {
+                            }else if (districtCont.text.isEmpty) {
+                              Utils.flushBarErrorMessage("Please enter district.", context);
+                            }
+                            else if (referralCont.text.isEmpty ) {
                               Utils.flushBarErrorMessage("Please enter referral code.",context);
                             }else if (passCont.text.isEmpty ) {
                               Utils.flushBarErrorMessage("Please enter password.",context);
@@ -202,6 +220,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 "name":nameCont.text,
                             "phone":mobileCont.text,
                             "referral":referralCont.text,
+                            "district":districtCont.text,
                             "password":passCont.text
                           };
                             register.registerApi(data, context);

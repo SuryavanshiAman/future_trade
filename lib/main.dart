@@ -2,23 +2,28 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/repo/view_kyc_details_repo.dart';
 import 'package:future_trade/res/app_constant.dart';
 import 'package:future_trade/utils/routes/routes.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/view_model/add_bank_details_view_model.dart';
+import 'package:future_trade/view_model/add_kyc_view_model.dart';
 import 'package:future_trade/view_model/all_policies_view_model.dart';
 import 'package:future_trade/view_model/auth_view_model.dart';
 import 'package:future_trade/view_model/referral_list_view_model.dart';
 import 'package:future_trade/view_model/update_image_view_model.dart';
+import 'package:future_trade/view_model/view_kyc_details_view_model.dart';
 import 'package:future_trade/view_model/withdraw_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'view_model/banner_view_ model.dart';
 import 'view_model/controller.dart';
 import 'view_model/deposit_view_model.dart';
 import 'view_model/downline_view_model.dart';
 import 'view_model/join_view_model.dart';
 import 'view_model/level_view_model.dart';
 import 'view_model/my_product_view_model.dart';
+import 'view_model/note_view_model.dart';
 import 'view_model/product_view_model.dart';
 import 'view_model/profile_view_model.dart';
 import 'view_model/reddem_view_model.dart';
@@ -48,7 +53,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     height=MediaQuery.of(context).size.height;
-    // width=kIsWeb?400:MediaQuery.of(context).size.width;
     width=MediaQuery.of(context).size.width;
     return MultiProvider(
       providers: [
@@ -70,6 +74,10 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => WithdrawViewModel()),
         ChangeNotifierProvider(create: (_) => DepositViewModel()),
         ChangeNotifierProvider(create: (_) => DownlineViewModel()),
+        ChangeNotifierProvider(create: (_) => BannerViewModel()),
+        ChangeNotifierProvider(create: (_) => AddKycViewModel()),
+        ChangeNotifierProvider(create: (_) => ViewKycDetailViewModel()),
+        ChangeNotifierProvider(create: (_) => NoteViewModel()),
       ],
       child: Center(
         child:

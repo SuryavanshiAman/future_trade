@@ -5,7 +5,12 @@ import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/res/custom_text_field.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
+import 'package:future_trade/utils/utils.dart';
+import 'package:future_trade/view_model/add_bank_details_view_model.dart';
+import 'package:future_trade/view_model/add_kyc_view_model.dart';
 import 'package:future_trade/view_model/controller.dart';
+import 'package:future_trade/view_model/user_view_model.dart';
+import 'package:future_trade/view_model/view_kyc_details_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +27,31 @@ class _KycScreenState extends State<KycScreen> {
   final TextEditingController panNameCon = TextEditingController();
   final TextEditingController panNoCon = TextEditingController();
   @override
+  void initState() {
+    Provider.of<ViewKycDetailViewModel>(context, listen: false).viewKycDetailsApi(context);
+    super.initState();
+    kycDetail();
+  }
+  kycDetail() {
+    final kycDetails =
+        Provider.of<ViewKycDetailViewModel>(context, listen: false).kycResponse;
+    aadhaarNameCon.text =
+    kycDetails == null ? '' : kycDetails.data!.aadhaarName.toString();
+    aadhaarNumberCon.text =
+    kycDetails == null ? '' : kycDetails.data!.aadhaarNumber.toString();
+    panNameCon.text =
+    kycDetails == null ? '' : kycDetails.data!.panName.toString();
+    panNoCon.text =
+    kycDetails == null ? '' : kycDetails.data!.panNumber.toString();
+    // ifscCont.text =
+    // kycDetails == null ? '' : kycDetails.data!.ifscCode.toString();
+  }
+  @override
   Widget build(BuildContext context) {
     final selectImage = Provider.of<ElementController>(
+      context,
+    );
+    final addKyc = Provider.of<AddKycViewModel>(
       context,
     );
     return Scaffold(
@@ -45,8 +73,9 @@ class _KycScreenState extends State<KycScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          shrinkWrap: true,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: height * 0.02,
@@ -118,6 +147,52 @@ class _KycScreenState extends State<KycScreen> {
             SizedBox(
               height: height * 0.02,
             ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: height * 0.12,
+                    width: width * 0.45,
+                    child: selectImage.aadhaarImage != null
+                        ? Image.file(
+                      selectImage.aadhaarImage!,
+                      fit: BoxFit.fill,
+                    )
+                        : Container(),
+                  ),
+                  ConstantButton(
+                    width: width * 0.45,
+                    onTap: () {
+                      selectImage.getAadhaarImage(ImageSource.gallery);
+                      // _showPicker(context);
+                    },
+                    text: 'Upload Aadhaar Front Image',
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: height * 0.12,
+                    width: width * 0.45,
+                    child: selectImage.aadhaarBackImage != null
+                        ? Image.file(
+                      selectImage.aadhaarBackImage!,
+                      fit: BoxFit.fill,
+                    )
+                        : Container(),
+                  ),
+                  ConstantButton(
+                    width: width * 0.45,
+                    onTap: () {
+                      selectImage.getAadhaarBackImage(ImageSource.gallery);
+                      // _showPicker(context);
+                    },
+                    text: 'Upload Aadhaar Back Image',
+                  ),
+                ],
+              )
+            ]),
             const Text(
               "Enter your PAN Name* ",
               style: TextStyle(
@@ -171,68 +246,72 @@ class _KycScreenState extends State<KycScreen> {
               fieldRadius: BorderRadius.circular(10),
             ),
             SizedBox(
-              height: height * 0.03,
+              height: height * 0.02,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.13,
-                    width: width * 0.45,
-                    child: selectImage.aadhaarImage != null
-                        ? Image.file(
-                            selectImage.aadhaarImage!,
-                            fit: BoxFit.fill,
-                          )
-                        : Container(),
-                  ),
-                  ConstantButton(
-                    width: width * 0.45,
-                    onTap: () {
-                      selectImage.getAadhaarImage(ImageSource.gallery);
-                      // _showPicker(context);
-                    },
-                    text: 'Upload Aadhaar Image',
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.13,
-                    width: width * 0.45,
-                    child: selectImage.panImage != null
-                        ? Image.file(
-                            selectImage.panImage!,
-                            fit: BoxFit.fill,
-                          )
-                        : Container(),
-                  ),
-                  ConstantButton(
-                    width: width * 0.45,
-                    onTap: () {
-                      selectImage.getPanImage(ImageSource.gallery);
-                      // _showPicker(context);
-                    },
-                    text: 'Upload PAN Image',
-                  ),
-                ],
-              )
-            ]),
+
             SizedBox(
-              height: height * 0.05,
+              height: height * 0.12,
+              width: width * 0.45,
+              child: selectImage.panImage != null
+                  ? Image.file(
+                selectImage.panImage!,
+                fit: BoxFit.fill,
+              )
+                  : Container(),
             ),
-            Center(
-              child: ConstantButton(
-                width: width * 0.45,
-                onTap: () {
-                  Navigator.pushNamed(context, RoutesName.bottomNavBar,
-                      arguments: {"index": 0});
-                  // _showPicker(context);
-                },
-                text: 'Submit',
-              ),
+            Row(
+              children: [
+                ConstantButton(
+                  width: width * 0.45,
+                  onTap: () {
+                    selectImage.getPanImage(ImageSource.gallery);
+                    // _showPicker(context);
+                  },
+                  text: 'Upload PAN Image',
+                ),
+                Center(
+                  child: ConstantButton(
+                    width: width * 0.45,
+                    onTap: () async{
+                      if (aadhaarNameCon.text.isEmpty) {
+                        Utils.flushBarErrorMessage("Please enter Aadhaar name", context);
+                      } else if (aadhaarNumberCon.text.isEmpty || aadhaarNumberCon.text.length <12) {
+                        Utils.flushBarErrorMessage("Please enter Aadhaar no.", context);
+                      }else if (panNameCon.text.isEmpty ) {
+                        Utils.flushBarErrorMessage("Please enter PAN name.", context);
+                      }
+                      else if (panNoCon.text.isEmpty || panNoCon.text.length <10) {
+                        Utils.flushBarErrorMessage("Please enter PAN No.",context);
+                      }else if (selectImage.aadhaarImage == null ) {
+                        Utils.flushBarErrorMessage("Please  upload Aadhaar front image.",context);
+                      }
+                      else if (selectImage.aadhaarBackImage == null ) {
+                        Utils.flushBarErrorMessage("Please upload Aadhaar back image.",context);
+                      }
+                      else if (selectImage.panImage == null ) {
+                        Utils.flushBarErrorMessage("Please upload PAN image.",context);
+                      }else {
+                        UserViewModel userViewModel = UserViewModel();
+                        String? userId = await userViewModel.getUser();
+                        Map data = {
+                          "user_id": userId,
+                          "aadhaarName": aadhaarNameCon.text,
+                          "aadhaarNumber": aadhaarNumberCon.text,
+                          "panName": panNameCon.text,
+                          "panNumber": panNoCon.text,
+                          "aadhaarImg": selectImage.aadhaarBase64Image,
+                          "panImg": selectImage.aadhaarBase64Image
+                        };
+                        addKyc.addKycApi(data, context);
+                      }
+                      },
+                    text: 'Submit',
+                  ),
+                ),
+              ],
             ),
+
+
           ],
         ),
       ),

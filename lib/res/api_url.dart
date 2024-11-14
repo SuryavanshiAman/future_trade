@@ -1,9 +1,7 @@
 class ApiUrl {
 
-  // static const String baseUrl ='https://thetrade.fapjoymall.com/';
-  static const String baseUrl ='https://root.futureservices.services/';
-  // static const String imageUrl ='https://thetrade.fapjoymall.com/uploads/';
-  static const String imageUrl ='https://root.futureservices.services/uploads/';
+  static const String baseUrl ='https://root2.futureservices.services/';
+  static const String imageUrl ='https://root2.futureservices.services/uploads/';
   static const String sendOtp="https://otp.fctechteam.org/send_otp.php?";
   static const String verifyOtp="https://otp.fctechteam.org/verifyotp.php?";
   static const String authApi = '${baseUrl}login?phone=';
@@ -24,6 +22,10 @@ class ApiUrl {
   static const String withdrawal = '${baseUrl}withdrawal?user_id=';
   static const String deposit = '${baseUrl}add_amount';
   static const String downlineApi = '${baseUrl}dashboard?user_id=';
+  static const String banner = '${baseUrl}slider';
+  static const String addKyc = '${baseUrl}kyc';
+  static const String viewKyc = '${baseUrl}get_kyc?user_id=';
+  static const String note = '${baseUrl}note';
 
 }
 

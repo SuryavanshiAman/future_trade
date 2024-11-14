@@ -64,7 +64,7 @@ class Data {
     data['product_name'] = productName;
     data['project_id'] = projectID;
     data['product_img'] = productImg;
-    data['product_price'] = productPrice;
+    data['price'] = productPrice;
     data['monthly_income'] = monthlyIncome;
     data['roi'] = roi;
     data['status'] = status;

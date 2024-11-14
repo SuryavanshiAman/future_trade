@@ -35,7 +35,11 @@ class Data {
   String? joinBy;
   String? datetime;
   String? wallet;
-  String? levelEncome;
+  String? levelIncome;
+  String? roi;
+  String? district;
+  String? salary;
+  String? roiCommission;
 
   Data(
       {this.id,
@@ -50,7 +54,14 @@ class Data {
         this.joinBy,
         this.datetime,
         this.wallet,
-        this.levelEncome});
+        this.levelIncome,
+        this.roi,
+        this.district,
+        this.salary,
+        this.roiCommission,
+
+
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -65,7 +76,11 @@ class Data {
     joinBy = json['join_by'];
     datetime = json['datetime'];
     wallet = json['wallet'];
-    levelEncome = json['level_encome'];
+    levelIncome = json['level_income'];
+    roi = json['roi'];
+    district = json['district'];
+    salary = json['salary'];
+    roiCommission = json['roi_comission'];
   }
 
   Map<String, dynamic> toJson() {
@@ -82,7 +97,11 @@ class Data {
     data['join_by'] = joinBy;
     data['datetime'] = datetime;
     data['wallet'] = wallet;
-    data['level_encome'] = levelEncome;
+    data['level_income'] = levelIncome;
+    data['roi'] = roi;
+    data['district'] = district;
+    data['salary'] = salary;
+    data['roi_comission'] = roiCommission;
     return data;
   }
 }

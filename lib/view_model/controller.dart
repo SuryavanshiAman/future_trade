@@ -22,6 +22,8 @@ class ElementController with ChangeNotifier {
   File? get image => _image;
   File? _aadhaarImage;
   File? get aadhaarImage =>_aadhaarImage;
+  File? _aadhaarBackImage;
+  File? get aadhaarBackImage =>_aadhaarBackImage;
   File? _panImage;
   File? get panImage =>_panImage;
   final picker = ImagePicker();
@@ -33,11 +35,18 @@ void setAadhaarImage(File?value){
   _aadhaarImage = value;
   notifyListeners();
 }
+  void setAadhaarBackImage(File?value){
+    _aadhaarBackImage = value;
+    notifyListeners();
+  }
   void setPanImage(File?value){
     _panImage = value;
     notifyListeners();
   }
   String? base64Image;
+  String? aadhaarBase64Image;
+  String? aadhaarBackBase64Image;
+  String? panBase64Image;
   Future<void> getImage(ImageSource source) async {
     final pickedFile = await picker.pickImage(source: source);
 
@@ -52,7 +61,16 @@ void setAadhaarImage(File?value){
 
     if (pickedFile != null) {
       _aadhaarImage = File(pickedFile.path);
-      base64Image = base64Encode(_aadhaarImage!.readAsBytesSync());
+      aadhaarBase64Image = base64Encode(_aadhaarImage!.readAsBytesSync());
+      notifyListeners();
+    }
+  }
+  Future<void> getAadhaarBackImage(ImageSource source) async {
+    final pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      _aadhaarBackImage = File(pickedFile.path);
+      aadhaarBackBase64Image = base64Encode(_aadhaarBackImage!.readAsBytesSync());
       notifyListeners();
     }
   }
@@ -61,7 +79,7 @@ void setAadhaarImage(File?value){
 
     if (pickedFile != null) {
       _panImage = File(pickedFile.path);
-      base64Image = base64Encode(_panImage!.readAsBytesSync());
+      panBase64Image = base64Encode(_panImage!.readAsBytesSync());
       notifyListeners();
     }
   }

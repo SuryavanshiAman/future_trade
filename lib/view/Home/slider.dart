@@ -3,8 +3,11 @@ import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/main.dart';
+import 'package:future_trade/res/api_url.dart';
 import 'package:future_trade/res/color-const.dart';
-import 'package:http/http.dart' as http;
+import 'package:future_trade/view_model/banner_view_%20model.dart';
+import 'package:provider/provider.dart';
 
 class SliderPage extends StatefulWidget {
   const SliderPage({Key? key}) : super(key: key);
@@ -16,9 +19,15 @@ class SliderPage extends StatefulWidget {
 class _SliderPageState extends State<SliderPage> {
   int _currentIndex = 0;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<BannerViewModel>(context,listen: false).bannerApi(context);
+  }
+  @override
+
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+   final banner= Provider.of<BannerViewModel>(context).bannerResponse;
     return Stack(
       children: [
         CarouselSlider(
@@ -42,7 +51,7 @@ class _SliderPageState extends State<SliderPage> {
             },
             scrollDirection: Axis.horizontal,
           ),
-          items: state_data.map((i) {
+          items: (banner?.data??[]).map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
@@ -54,7 +63,7 @@ class _SliderPageState extends State<SliderPage> {
                       // border: Border.all(width: 2,color: lightBlue),
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(i)
+                        image: NetworkImage("${ApiUrl.imageUrl}${i.slider1.toString()}")
                       )
                     ),
 
@@ -67,7 +76,7 @@ class _SliderPageState extends State<SliderPage> {
           padding:  EdgeInsets.only(top: height*0.19),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: state_data.asMap().entries.map((entry) {
+            children: (banner?.data??[]).asMap().entries.map((entry) {
               return GestureDetector(
                 onTap: () => setState(() => _currentIndex = entry.key),
                 child: Container(
@@ -89,30 +98,10 @@ class _SliderPageState extends State<SliderPage> {
       ],
     );
   }
-  @override
-  void initState() {
-    // state();
-    super.initState();
-  }
 
   List<String> state_data = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs39HZSVdNk4sipuGJ10Ebwajwcq03xrqz_A&s",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Dw7-4lVfRq74_YEiPEt4e-bQ0_6UA2y73Q&s"
   ];
 
-  // Future<String> state() async {
-  //   final res = await http.get(
-  //       Uri.parse(ApiConst.sliderUrl)
-  //   );
-  //   final resBody = json.decode(res.body)['data'];
-  //   print("hhhhhhhhhhhhh");
-  //   print(resBody);
-  //   setState(() {
-  //     state_data = resBody;
-  //   });
-  //
-  //
-  //
-  //   return "Sucess";
-  // }
 }
