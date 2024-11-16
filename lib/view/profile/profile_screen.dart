@@ -26,6 +26,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .getProfileApi(context);
       Provider.of<AllPoliciesViewModel>(context,listen: false).allPoliciesApi(context);
     });
 
@@ -199,8 +201,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (element[index].onTap != null) {
                         element[index].onTap!(context);
                       }
-                      // element[index].onTap;
-                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>myprojectview(view:snapshot.data![index])));
                     },
                     child: Container(
                       decoration: const BoxDecoration(

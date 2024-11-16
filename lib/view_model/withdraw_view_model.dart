@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:future_trade/repo/withdraw_repo.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
+import 'package:future_trade/view_model/controller.dart';
 import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:future_trade/view_model/user_view_model.dart';
+import 'package:provider/provider.dart';
 
 
 class WithdrawViewModel with ChangeNotifier {
@@ -25,8 +27,8 @@ class WithdrawViewModel with ChangeNotifier {
 
     UserViewModel userViewModel = UserViewModel();
     String? userId = await userViewModel.getUser();
-
-    _withdrawRepo.withdrawApi(userId,amount,password).then((value) {
+    final type= Provider.of<ElementController>(context,listen: false);
+    _withdrawRepo.withdrawApi(userId,amount,password,type.type).then((value) {
       if (value['status'] ==200) {
         setLoading(false);
         profileViewModel.getProfileApi(context);

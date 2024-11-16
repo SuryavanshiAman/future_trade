@@ -24,9 +24,11 @@ import 'view_model/join_view_model.dart';
 import 'view_model/level_view_model.dart';
 import 'view_model/my_product_view_model.dart';
 import 'view_model/note_view_model.dart';
+import 'view_model/product_category_view_model.dart';
 import 'view_model/product_view_model.dart';
 import 'view_model/profile_view_model.dart';
 import 'view_model/reddem_view_model.dart';
+import 'view_model/team_view_model.dart';
 import 'view_model/transaction_history_view_model.dart';
 import 'view_model/user_view_model.dart';
 import 'view_model/view_bank_details_view_model.dart';
@@ -78,6 +80,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AddKycViewModel()),
         ChangeNotifierProvider(create: (_) => ViewKycDetailViewModel()),
         ChangeNotifierProvider(create: (_) => NoteViewModel()),
+        ChangeNotifierProvider(create: (_) => ProductCategoryViewModel()),
+        ChangeNotifierProvider(create: (_) => TeamViewModel()),
       ],
       child: Center(
         child:

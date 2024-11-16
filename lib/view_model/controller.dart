@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
+import 'package:future_trade/res/api_url.dart';
 import 'package:future_trade/res/launcher.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
 import 'package:future_trade/utils/utils.dart';
 import 'package:future_trade/view_model/product_view_model.dart';
+import 'package:future_trade/view_model/user_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,13 @@ class ElementController with ChangeNotifier {
 
   int _selectedIndex=0;
   int get selectedIndex=>_selectedIndex;
+  int _type =0;
+  int get  type=>_type;
+  setType(int value){
+    _type=value;
+    notifyListeners();
+
+  }
   setSelectedIndex(int val){
     _selectedIndex=val;
     notifyListeners();
@@ -94,13 +103,16 @@ void setAadhaarImage(File?value){
         image:Assets.imagesSupport,
         name: 'Support',
         onTap: (context){
-          Launcher.openTelegram();
+          Launcher.openTelegram(context);
         }),
     ElementModel(
         image: Assets.imagesTeam,
         name: 'Team',
-        onTap: (context){
-          Navigator.pushNamed(context, RoutesName.myTeam);
+        onTap: (context) async{
+          UserViewModel userViewModel = UserViewModel();
+          String? userId = await userViewModel.getUser();
+          Launcher.launchURL(ApiUrl.team+"111");
+          // Navigator.pushNamed(context, RoutesName.myTeam);
         }),
     ElementModel(
         image: Assets.imagesKyc,

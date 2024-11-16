@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/api_url.dart';
+import 'package:future_trade/res/circular_button.dart';
 import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
+import 'package:future_trade/utils/utils.dart';
 import 'package:future_trade/view/Home/slider.dart';
-import 'package:future_trade/view_model/controller.dart';
 import 'package:future_trade/view_model/downline_view_model.dart';
+import 'package:future_trade/view_model/join_view_model.dart';
 import 'package:future_trade/view_model/note_view_model.dart';
+import 'package:future_trade/view_model/product_category_view_model.dart';
 import 'package:future_trade/view_model/product_view_model.dart';
 import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:marquee/marquee.dart';
@@ -29,16 +32,19 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   String _dropDownValue = "";
   String selectedData = "";
-  String productID = "";
-  bool isExpanded =false;
+  bool isExpanded = false;
+  String productId = '';
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ProfileViewModel>(context, listen: false)
           .getProfileApi(context);
-      Provider.of<NoteViewModel>(context, listen: false)
-          .noteApi(context);
+      Provider.of<NoteViewModel>(context, listen: false).noteApi(context);
+      Provider.of<ProductCategoryViewModel>(context, listen: false)
+          .productCategoryApi(
+        context,
+      );
       Provider.of<ProductViewModel>(context, listen: false)
           .productApi(context, "1");
       Provider.of<DownlineViewModel>(context, listen: false)
@@ -49,12 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-    final history = Provider.of<ElementController>(context);
-    final categories = Provider.of<ProductViewModel>(context);
+    final product = Provider.of<ProductViewModel>(context);
+    final categories = Provider.of<ProductCategoryViewModel>(context);
     final note = Provider.of<NoteViewModel>(context).noteResponse?.data;
     final user = Provider.of<ProfileViewModel>(context).profileResponse?.data;
     final downline =
         Provider.of<DownlineViewModel>(context).downlineResponse?.data;
+    final join = Provider.of<JoinViewModel>(context);
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: ConstantAppBar(
@@ -88,371 +95,438 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: ListView(
+      body: Stack(
         children: [
-          Theme(
-            data: Theme.of(context).copyWith(
-              dividerColor: Colors.transparent,
-            ),
-            child: ExpansionTile(
-              leading: CircleAvatar(
-                radius: 22,
-                backgroundImage: NetworkImage(
-                    "${ApiUrl.imageUrl}${user?.photo.toString() ?? ""}"),
-              ),
-              title: Text(
-                user?.name.toString() ?? "",
-                style: const TextStyle(
-                  color: GameColor.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              trailing: Text(
-                "ID:${user?.userId.toString() ?? " "}",
-                style: const TextStyle(
-                  color: GameColor.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-          const Text(
-            "Downline Details",
-            style: TextStyle(
-              color: GameColor.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 2, // 3 items per row
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              childAspectRatio: 2.5,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                _buildGridTile(
-                    downline?.activeDownline ?? "0.0", "Active Downline"),
-                _buildGridTile(downline?.teamIncome ?? "0.0", "Team Income"),
-                _buildGridTile(downline?.totalPayout ?? "0.0", "Total Payout"),
-                _buildGridTile(downline?.todayTeamBusiness ?? "0.0",
-                    "Today Team Business"),
-                _buildGridTile(
-                    downline?.todayTeamBusiness ?? "0.0", "Daily Income"),
-                _buildGridTile(downline?.totalIncome ?? "0.0", "Total Income"),
-                _buildGridTile(
-                    downline?.incomeWallet ?? "0.0", "Income Wallet"),
-                _buildGridTile(
-                    downline?.incomeWallet ?? "0.0", "Income Wallet"),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          Row(
+          ListView(
             children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                alignment: Alignment.center,
-                height: height * 0.05,
-                color: GameColor.gray,
-                child: const Text(
-                  "Note:",
-                  style: TextStyle(
-                    color: GameColor.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+              Theme(
+                data: Theme.of(context).copyWith(
+                  dividerColor: Colors.transparent,
+                ),
+                child: ExpansionTile(
+                  leading: CircleAvatar(
+                    radius: 22,
+                    backgroundImage: NetworkImage(
+                        "${ApiUrl.imageUrl}${user?.photo.toString() ?? ""}"),
+                  ),
+                  title: Text(
+                    user?.name.toString() ?? "",
+                    style: const TextStyle(
+                      color: GameColor.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  trailing: Text(
+                    "ID:${user?.userId.toString() ?? " "}",
+                    style: const TextStyle(
+                      color: GameColor.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
-              Container(
-                // // padding: EdgeInsets.all(5),
-                width: width * 0.85,
-                height: height * 0.05,
-                color: GameColor.gray, // Background color for the marquee
-                child: Marquee(
-                  text:note?.homeNote??"",
-                  style: const TextStyle(
-                    fontSize: 16, // Font size
-                    color: Colors.white, // Text color
-                  ),
-                  scrollAxis: Axis.horizontal,
-                  blankSpace: 15.0, // Space between repetitions
-                  velocity: 50.0, // Speed of the scroll
-                  startPadding: 200.0,
-                  decelerationCurve: Curves.easeOut,
+              const Text(
+                "Downline Details",
+                style: TextStyle(
+                  color: GameColor.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  childAspectRatio: 2.5,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _buildGridTile(
+                        downline?.activeDownline ?? "0.0", "Active Downline"),
+                    _buildGridTile(
+                        downline?.teamIncome ?? "0.0", "Team Income"),
+                    _buildGridTile(
+                        downline?.totalPayout ?? "0.0", "Total Payout"),
+                    _buildGridTile(downline?.todayTeamBusiness ?? "0.0",
+                        "Today Team Business"),
+                    _buildGridTile(
+                        downline?.todayTeamBusiness ?? "0.0", "Daily Income"),
+                    _buildGridTile(
+                        downline?.totalIncome ?? "0.0", "Total Income"),
+                    _buildGridTile(
+                        downline?.incomeWallet ?? "0.0", "Income Wallet"),
+                    _buildGridTile(
+                        downline?.incomeWallet ?? "0.0", "Cashback Income"),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.center,
+                    height: height * 0.05,
+                    color: GameColor.gray,
+                    child: const Text(
+                      "Note:",
+                      style: TextStyle(
+                        color: GameColor.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: width * 0.85,
+                    height: height * 0.05,
+                    color: GameColor.gray, // Background color for the marquee
+                    child: Marquee(
+                      text: note?.homeNote?.isNotEmpty == true
+                          ? note!.homeNote.toString()
+                          : "No note available",
+                      style: const TextStyle(
+                        fontSize: 16, // Font size
+                        color: Colors.white, // Text color
+                      ),
+                      scrollAxis: Axis.horizontal,
+                      blankSpace: 15.0, // Space between repetitions
+                      velocity: 50.0, // Speed of the scroll
+                      startPadding: 200.0,
+                      decelerationCurve: Curves.easeOut,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              const SliderPage(),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Container(
+                padding: const EdgeInsets.all(5),
+                // color: GameColor.blue,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    const Text(
+                      "Wallet:",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: GameColor.white),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      alignment: Alignment.centerLeft,
+                      height: height * 0.05,
+                      width: width,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF000000),
+                            Color(0xFF000000),
+                            Color(0xFF2d2f30)
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: GameColor.lightPink.withOpacity(0.7),
+                            blurRadius: 1,
+                            spreadRadius: 1,
+                          ),
+                        ],
+                      ),
+                      // color: GameColor.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "₹${user?.wallet ?? ""}",
+                            style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: GameColor.white),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RoutesName.depositScreen);
+                            },
+                            child: const Icon(
+                              Icons.wallet,
+                              color: GameColor.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    const Text(
+                      "Categories:",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: GameColor.white),
+                    ),
+                    Container(
+                        padding: const EdgeInsets.all(8),
+                        alignment: Alignment.centerLeft,
+                        width: width,
+                        height: height * 0.05,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFF000000),
+                              Color(0xFF000000),
+                              Color(0xFF2d2f30)
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: GameColor.lightPink.withOpacity(0.7),
+                              blurRadius: 1,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                        // color: GameColor.white,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            dropdownColor: GameColor.gray,
+                            hint: _dropDownValue.isEmpty
+                                ? const Text(
+                                    'Select',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: GameColor.white,
+                                    ),
+                                  )
+                                : Text(
+                                    _dropDownValue,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                            isExpanded: true,
+                            iconSize: 30.0,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            // items: ['Nifty50', 'Bank Nifty', 'USD', 'BitCoin']
+                            items: (categories.productCategoryList.data?.data ??
+                                    [])
+                                .map((val) {
+                                  final uniqueValue =
+                                      "${val.name?.toString() ?? "0"}";
+                                  return DropdownMenuItem<String>(
+                                    value: uniqueValue,
+                                    child: Text(uniqueValue),
+                                  );
+                                })
+                                .toSet()
+                                .toList(),
+                            onChanged: (val) {
+                              setState(() {
+                                _dropDownValue = val!;
+                                final index = categories
+                                    .productCategoryList.data?.data
+                                    ?.where((e) => e.name == val)
+                                    .first
+                                    .type;
+                                selectedData = "";
+                                isExpanded = false;
+                                Provider.of<ProductViewModel>(context,
+                                        listen: false)
+                                    .productApi(context, index);
+                              });
+                            },
+                            value:
+                                _dropDownValue.isEmpty ? null : _dropDownValue,
+                          ),
+                        )),
+                    const Text(
+                      "Packages",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: GameColor.white),
+                    ),
+                    if (product.productList.data != null)
+                      Container(
+                          padding: const EdgeInsets.all(8),
+                          alignment: Alignment.centerLeft,
+                          width: width,
+                          height: height * 0.09,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color(0xFF000000),
+                                Color(0xFF000000),
+                                Color(0xFF2d2f30)
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: GameColor.lightPink.withOpacity(0.7),
+                                blurRadius: 1,
+                                spreadRadius: 1,
+                              ),
+                            ],
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              dropdownColor: GameColor.gray,
+                              hint: selectedData.isEmpty
+                                  ? const Text(
+                                      'Select',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: GameColor.white,
+                                      ),
+                                    )
+                                  : Text(
+                                      selectedData,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                              isExpanded: true,
+                              iconSize: 30.0,
+                              style: const TextStyle(
+                                color: Colors.blue,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              items: (product.productList.data?.data)!
+                                  .map((item) {
+                                    final aa = item.productName;
+                                    return DropdownMenuItem<String>(
+                                      value: aa,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              width: 1.0, // Set border width
+                                            ),
+                                          ),
+                                        ),
+                                        child: ListTile(
+                                          contentPadding: EdgeInsets.zero,
+                                          title: Text(
+                                            item.productName.toString(),
+                                            style: TextStyle(
+                                              color: isExpanded
+                                                  ? GameColor.white
+                                                  : GameColor.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            "Price: ${item.productPrice.toString()}",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: isExpanded
+                                                  ? GameColor.white
+                                                  : GameColor.white,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          trailing: Text(
+                                            "ROI:${user?.roi ?? ""}%",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: isExpanded
+                                                  ? GameColor.white
+                                                  : GameColor.white,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  })
+                                  .toSet()
+                                  .toList(),
+                              onChanged: (String? item) {
+                                setState(() {
+                                  print(item);
+                                  selectedData = item ?? "";
+                                  isExpanded = true;
+                                  print("SelectedData:$selectedData");
+                                  final id = product.productList.data?.data
+                                      ?.where((e) => e.productName == item)
+                                      .first
+                                      .id;
+                                  productId = id.toString();
+                                });
+                              },
+                              itemHeight: height * 0.1,
+                              value: selectedData.isEmpty ? null : selectedData,
+                            ),
+                          )),
+                    SizedBox(
+                      height: height * 0.015,
+                    ),
+                    join.loading == false
+                        ? Center(
+                            child: ConstantButton(
+                              onTap: () {
+                                if (productId == "null") {
+                                  Utils.flushBarErrorMessage(
+                                      "Please join any project", context);
+                                } else {
+                                  join.joinApi(productId, context);
+                                }
+                              },
+                              text: 'Join',
+                            ),
+                          )
+                        : const Center(child: CircularButton()),
+                    SizedBox(
+                      height: height * 0.05,
+                    )
+                  ],
+                ),
+              )
             ],
           ),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          const SliderPage(),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          Container(
-            padding: const EdgeInsets.all(5),
-            // color: GameColor.blue,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                const Text(
-                  "Wallet:",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: GameColor.white),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  alignment: Alignment.centerLeft,
-                  height: height * 0.05,
+          user == null
+              ? Container(
+                  height: height,
                   width: width,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF000000),
-                        Color(0xFF000000),
-                        Color(0xFF2d2f30)
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: GameColor.lightPink.withOpacity(0.7),
-                        blurRadius: 1,
-                        spreadRadius: 1,
-                      ),
-                    ],
-                  ),
-                  // color: GameColor.white,
-                  child: const Text(
-                    "₹100",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: GameColor.white),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                const Text(
-                  "Categories:",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: GameColor.white),
-                ),
-                Container(
-                    padding: const EdgeInsets.all(8),
-                    alignment: Alignment.centerLeft,
-                    width: width,
-                    height: height * 0.05,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF000000),
-                          Color(0xFF000000),
-                          Color(0xFF2d2f30)
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: GameColor.lightPink.withOpacity(0.7),
-                          blurRadius: 1,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                    ),
-                    // color: GameColor.white,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        hint: _dropDownValue.isEmpty
-                            ? const Text(
-                                'Select',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: GameColor.white,
-                                ),
-                              )
-                            : Text(
-                                _dropDownValue,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                        isExpanded: true,
-                        iconSize: 30.0,
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        items: ['Nifty50', 'Bank Nifty', 'USD', 'BitCoin']
-                            .map((val) {
-                          return DropdownMenuItem<String>(
-                            value: val,
-                            child: Text(val),
-                          );
-                        }).toList(),
-                        onChanged: (val) {
-                          setState(() {
-                            _dropDownValue = val!;
-                            int index = [
-                              'Nifty50',
-                              'Bank Nifty',
-                              'USD',
-                              'BitCoin'
-                            ].indexOf(val);
-                            Provider.of<ProductViewModel>(context,
-                                    listen: false)
-                                .productApi(context, "${index + 1}");
-                          });
-                        },
-                      ),
-                    )),
-                const Text(
-                  "Packages",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: GameColor.white),
-                ),
-                Container(
-                    padding: const EdgeInsets.all(8),
-                    alignment: Alignment.centerLeft,
-                    width: width,
-                    height: height * 0.09,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF000000),
-                          Color(0xFF000000),
-                          Color(0xFF2d2f30)
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: GameColor.lightPink.withOpacity(0.7),
-                          blurRadius: 1,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        dropdownColor: GameColor.gray,
-                        hint: selectedData.isEmpty
-                            ? const Text(
-                                'Select',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: GameColor.white,
-                                ),
-                              )
-                            : Text(
-                                selectedData,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                        isExpanded: true,
-                        iconSize: 30.0,
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        items: (categories.productList.data?.data ?? [])
-                            .map((item) {
-                          return DropdownMenuItem<String>(
-                            value: item.productName.toString(),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    width: 1.0, // Set border width
-                                  ),
-                                ),
-                              ),
-                              child: ListTile(
-                                contentPadding: EdgeInsets.zero,
-                                title: Text(
-                                  item.productName.toString(),
-                                  style: TextStyle(
-                                    color:isExpanded?GameColor.white: GameColor.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  "Price: ${item.productPrice.toString()}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color:isExpanded?GameColor.white: GameColor.white,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                trailing: Text(
-                                  "ROI:${user?.roi ?? ""}%",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: isExpanded?GameColor.white: GameColor.white,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? item) {
-                          setState(() {
-                            selectedData = item??"";
-                            isExpanded= true;
-                          });
-
-                        },
-                        itemHeight: height * 0.1,
-                        value: selectedData.isEmpty ? null : selectedData,
-                      ),
-                    )),
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Center(
-                  child: ConstantButton(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.bottomNavBar,
-                          arguments: {"index": 1});
-                    },
-                    text: 'Join',
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.05,
+                  child: const Center(
+                      child: CircularProgressIndicator(
+                    color: GameColor.white,
+                  )),
                 )
-              ],
-            ),
-          )
+              : Container()
         ],
       ),
     );

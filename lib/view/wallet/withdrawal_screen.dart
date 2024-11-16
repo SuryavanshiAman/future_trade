@@ -5,6 +5,8 @@ import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:future_trade/view_model/controller.dart';
+import 'package:future_trade/view_model/note_view_model.dart';
 import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:future_trade/view_model/withdraw_view_model.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +47,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
   Widget build(BuildContext context) {
     final withdrawViewModel = Provider.of<WithdrawViewModel>(context);
     final user= Provider.of<ProfileViewModel>(context).profileResponse?.data;
+    final type= Provider.of<ElementController>(context);
+    final note = Provider.of<NoteViewModel>(context).noteResponse?.data;
     return SafeArea(
         child: Scaffold(
       backgroundColor: GameColor.black,
@@ -81,8 +85,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       fontSize: 20),
                 ),
                  Text(
-                   user?.wallet??"0.0",
-                  style: TextStyle(
+                   type.type==1? user?.roi??"1.0":user?.salary??"2.0",
+                  style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: GameColor.white,
                       fontSize: 16),
@@ -271,7 +275,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
             const SizedBox(
               height: 30,
             ),
-            withdrawViewModel.loading==false?      ConstantButton(
+            withdrawViewModel.loading==false?
+            ConstantButton(
                 onTap: () {
                   if (amount.text.isEmpty) {
                     Utils.flushBarErrorMessage("Enter Amount", context);
@@ -281,7 +286,15 @@ class _WithdrawPageState extends State<WithdrawPage> {
                     withdrawViewModel.withdrawApi(amount.text,password.text, context);
                   }
                 },
-                text: 'WITHDRAWAL REQUEST'):const CircularButton(),
+                text: 'WITHDRAWAL REQUEST'):
+            const CircularButton(),
+             SizedBox(
+              height: height*0.025,
+            ),
+            Text(
+              'Note: ${ type.type==1? note?.roiNote??"": note?.salaryNote??""}',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: GameColor.white),
+            )
           ]),
     ));
   }

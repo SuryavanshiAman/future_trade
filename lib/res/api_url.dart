@@ -26,6 +26,8 @@ class ApiUrl {
   static const String addKyc = '${baseUrl}kyc';
   static const String viewKyc = '${baseUrl}get_kyc?user_id=';
   static const String note = '${baseUrl}note';
+  static const String productType = '${baseUrl}productType';
+  static const String team = '${baseUrl}getUserTree?user_id=';
 
 }
 

@@ -6,6 +6,7 @@ import 'package:future_trade/res/color-const.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/res/custom_container.dart';
 import 'package:future_trade/utils/routes/routes_name.dart';
+import 'package:future_trade/view_model/controller.dart';
 import 'package:future_trade/view_model/downline_view_model.dart';
 import 'package:future_trade/view_model/profile_view_model.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ class _WalletScreenState extends State<WalletScreen> {
   Widget build(BuildContext context) {
     final user= Provider.of<ProfileViewModel>(context).profileResponse?.data;
     final downline= Provider.of<DownlineViewModel>(context).downlineResponse?.data;
+    final type= Provider.of<ElementController>(context);
     return Scaffold(
       backgroundColor: GameColor.black,
       appBar: const ConstantAppBar(
@@ -160,6 +162,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       ),
                       CustomContainer(
                           onTap: () {
+                            type.setType(1);
                             Navigator.pushNamed(
                                 context, RoutesName.withdrawPage);
                           },
@@ -212,6 +215,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       ),
                       CustomContainer(
                           onTap: () {
+                            type.setType(2);
                             Navigator.pushNamed(
                                 context, RoutesName.withdrawPage);
                           },

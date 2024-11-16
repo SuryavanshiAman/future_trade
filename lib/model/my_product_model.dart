@@ -52,7 +52,7 @@ class Data {
     productName = json['product_name'];
     projectID = json['project_id'];
     productImg = json['product_img'];
-    productPrice = json['product_price'];
+    productPrice = json['price'];
     monthlyIncome = json['monthly_income'];
     roi = json['roi'];
     status = json['status'];

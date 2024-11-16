@@ -1,6 +1,7 @@
 
 import 'package:future_trade/res/api_url.dart';
 import 'package:future_trade/view_model/all_policies_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Launcher {
@@ -43,9 +44,11 @@ class Launcher {
     }
 
   }
-static void openTelegram() async {
-  AllPoliciesViewModel allPoliciesViewModel =AllPoliciesViewModel();
-  final support=  allPoliciesViewModel.policiesResponse?.data;
+static void openTelegram(context) async {
+  // AllPoliciesViewModel allPoliciesViewModel =AllPoliciesViewModel();
+  final support =Provider.of<AllPoliciesViewModel>(context,listen: false).policiesResponse?.data;
+  // final support=  allPoliciesViewModel.policiesResponse?.data;
+  print(support?.support);
   if (await canLaunchUrl(Uri.parse(support?.support??""))) {
     await launchUrl(Uri.parse(support?.support??""));
   } else {

@@ -28,16 +28,17 @@ class JoinViewModel with ChangeNotifier {
     _joinRepo.joinApi(data).then((value) {
       if (value['status'] == 200) {
         setLoading(false);
-        Navigator.pushReplacementNamed(context, RoutesName.bottomNavBar);
+        Navigator.pushNamed(context, RoutesName.bottomNavBar,
+            arguments: {"index": 1});
         Utils.flushBarSuccessMessage(value['msg'], context);
       }else if(value['status'] == 401){
         setLoading(false);
-        Navigator.pushReplacementNamed(context, RoutesName.bottomNavBar);
+        // Navigator.pushReplacementNamed(context, RoutesName.bottomNavBar);
         Utils.flushBarErrorMessage(value['msg'], context);
       }
       else {
         setLoading(false);
-        Navigator.pushReplacementNamed(context, RoutesName.depositScreen);
+        Navigator.pushNamed(context, RoutesName.depositScreen);
         Utils.flushBarErrorMessage(value['msg'], context);
       }
     }).onError((error, stackTrace) {
