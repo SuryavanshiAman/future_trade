@@ -11,6 +11,7 @@ import 'package:future_trade/view_model/add_kyc_view_model.dart';
 import 'package:future_trade/view_model/all_policies_view_model.dart';
 import 'package:future_trade/view_model/auth_view_model.dart';
 import 'package:future_trade/view_model/referral_list_view_model.dart';
+import 'package:future_trade/view_model/services/splash_services.dart';
 import 'package:future_trade/view_model/update_image_view_model.dart';
 import 'package:future_trade/view_model/view_kyc_details_view_model.dart';
 import 'package:future_trade/view_model/withdraw_view_model.dart';
@@ -82,6 +83,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => NoteViewModel()),
         ChangeNotifierProvider(create: (_) => ProductCategoryViewModel()),
         ChangeNotifierProvider(create: (_) => TeamViewModel()),
+        ChangeNotifierProvider(create: (_) => SplashServices()),
       ],
       child: Center(
         child:

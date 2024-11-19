@@ -28,6 +28,7 @@ class ApiUrl {
   static const String note = '${baseUrl}note';
   static const String productType = '${baseUrl}productType';
   static const String team = '${baseUrl}getUserTree?user_id=';
+  static const String autoUpdateApk = '${baseUrl}version';
 
 }
 
