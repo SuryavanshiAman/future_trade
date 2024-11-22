@@ -3,7 +3,7 @@ class AppConstants {
   static const String appName = 'FutureTrade';
 
   // app version
-  static const String appVersion = '1.0.2';
+  static const String appVersion = '1.0.3';
 
   // default country code
   static const String defaultCountryDialCode = '+91';
