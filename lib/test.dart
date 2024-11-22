@@ -1,128 +1,124 @@
 import 'package:flutter/material.dart';
-import 'package:future_trade/generated/assets.dart';
+import 'package:future_trade/main.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(title: Text('Tree Structure')),
-      body: Center(child: TreeView(rootNode: rootNode)),
-    ),
-  ));
+class ChatPage extends StatefulWidget {
+  @override
+  _ChatPageState createState() => _ChatPageState();
 }
 
-class TreeNode {
-  final String name;
-  final String id;
-  final String imageUrl;
-  final List<TreeNode> children;
+class _ChatPageState extends State<ChatPage> {
+  final List<Map<String, String>> _messages = []; // Stores all messages
+  final List<String> _user1Replies = [
+    "Hi there!",
+    "What is your name?",
+    "What is your gender?",
+    "What is your Date of Birth?",
+    "What is your Time of Birth?",
+    "What is your marital status?",
+    "You will get success soon😊😊",
+    "How may i help you?",
+    "Have a great day!"
+  ]; // Predefined replies for user 1
+  int _currentReplyIndex = 0; // Tracks the current reply index
+  final TextEditingController _controller = TextEditingController();
 
-  TreeNode({
-    required this.name,
-    required this.id,
-    required this.imageUrl,
-    this.children = const [],
-  });
-}
+  void _sendMessage(String text) {
+    if (text.isEmpty) return;
 
-final rootNode = TreeNode(
-  name: 'Raj Kumar Gupta',
-  id: 'AJ1194317',
-  imageUrl: 'assets/avatar.png',
-  children: [
-    TreeNode(name: 'Shiv Kumar Gupta', id: 'AJ3440940', imageUrl: Assets.imagesUser),
-    TreeNode(name: 'Resham Gupta', id: 'AJ2204492', imageUrl:Assets.imagesUser),
-    TreeNode(name: 'Poornendu Tripathi', id: 'AJ3634110', imageUrl: Assets.imagesUser),
-  ],
-);
+    // Add the second user's message
+    setState(() {
+      _messages.add({"sender": "User 2", "message": text});
+    });
 
-class TreeView extends StatelessWidget {
-  final TreeNode rootNode;
+    _controller.clear();
 
-  TreeView({required this.rootNode});
+    // Trigger a single reply from User 1
+    _triggerReply();
+  }
 
+  void _triggerReply() {
+    if (_currentReplyIndex < _user1Replies.length) {
+      Future.delayed(Duration(seconds: 1), () {
+        setState(() {
+          _messages.add({
+            "sender": "User 1",
+            "message": _user1Replies[_currentReplyIndex]
+          });
+          _currentReplyIndex++;
+        });
+      });
+    }
+  }
+@override
+  void initState() {
+  _triggerReply();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Root Node
-        TreeNodeWidget(node: rootNode),
-        if (rootNode.children.isNotEmpty)
-          Column(
-            children: [
-              // Line connecting the parent to children
-              CustomPaint(
-                size: Size(200, 20), // Adjust based on the required length
-                painter: LinePainter(),
-              ),
-              // Child Nodes
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: rootNode.children.map((child) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: TreeNodeWidget(node: child),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Chat Page"),
+      ),
+      body: Container(
+        height: height,
+        width: width,
+        color: Colors.blue.withOpacity(0.2),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: _messages.length,
+                itemBuilder: (context, index) {
+                  final message = _messages[index];
+                  final isUser2 = message['sender'] == "User 2";
+                  return Align(
+                    alignment: isUser2 ? Alignment.centerRight : Alignment.centerLeft,
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: isUser2 ? Colors.blue : Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        message['message']!,
+                        style: TextStyle(color: isUser2 ? Colors.white : Colors.black),
+                      ),
+                    ),
                   );
-                }).toList(),
+                },
               ),
-            ],
-          ),
-      ],
-    );
-  }
-}
-
-class TreeNodeWidget extends StatelessWidget {
-  final TreeNode node;
-
-  TreeNodeWidget({required this.node});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey),
-          ),
-          child: Column(
-            children: [
-              Image.asset(node.imageUrl, width: 40, height: 40),
-              SizedBox(height: 8),
-              Text(node.name, style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(node.id, style: TextStyle(color: Colors.grey)),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      decoration: InputDecoration(
+                        hintText: "Type a message...",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed: () => _sendMessage(_controller.text),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-      ],
-    );
-  }
-}
-
-class LinePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.grey
-      ..strokeWidth = 1.5;
-
-    // Draw vertical line
-    canvas.drawLine(
-      Offset(size.width / 2, 0),
-      Offset(size.width / 2, size.height / 2),
-      paint,
-    );
-
-    // Draw horizontal line
-    canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      paint,
+      ),
     );
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }

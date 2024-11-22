@@ -83,19 +83,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Stack(
                   children: [
                     Container(
-                      height: height * 0.1,
+                      height: height * 0.12,
                       width: width * 0.32,
-                      decoration: BoxDecoration(
-                          boxShadow: const [
+                      decoration: const BoxDecoration(
+                          boxShadow: [
                             BoxShadow(
                               color: GameColor.blue, //New
                               blurRadius: 10,
                             )
                           ],
                           shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image:user?.photo!=null? NetworkImage(
-                                  "${ApiUrl.imageUrl}${user?.photo ?? ""}"):FileImage(image!),fit: BoxFit.fill)),
+                      ),
+                      child: CircleAvatar(
+                        radius: 35,
+                        backgroundImage: user?.photo!=null? NetworkImage(
+                            "${ApiUrl.imageUrl}${user?.photo ?? ""}"):FileImage(image!),
+                      ),
                     ),
                     Positioned(
                       top: height*0.065,
@@ -186,6 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -242,7 +246,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: (){
                   img.updateImageApi(base64Image != null ? base64Image.toString() : "", context);
             }, text: "Update Image"),
-          ):CircularButton()
+          ):const CircularButton()
         ],
       ),
     );

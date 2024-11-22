@@ -33,7 +33,7 @@ class _WalletScreenState extends State<WalletScreen> {
         ),
         centerTitle: true,
       ),
-      body: Column(
+      body: ListView(
         children: [
           SizedBox(
             height: height * 0.03,

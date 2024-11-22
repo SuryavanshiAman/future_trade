@@ -27,6 +27,7 @@ dependencies:
   dio:
   install_plugin:
   path_provider:
+  ikchatbot:
 dev_dependencies:
   flutter_test:
     sdk: flutter

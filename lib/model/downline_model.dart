@@ -32,6 +32,7 @@ class Data {
   String? totalPayIn;
   String? dailyIncome;
   String? cashbackIncome;
+  String? totalDailyIncome;
 
   Data(
       {this.totalPayout,
@@ -42,7 +43,8 @@ class Data {
         this.todayTeamBusiness,
         this.totalPayIn,
         this.dailyIncome,
-        this.cashbackIncome
+        this.cashbackIncome,
+        this.totalDailyIncome
       });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -55,6 +57,7 @@ class Data {
     totalPayIn = json['total_payin'];
     dailyIncome = json['dailyIncome'];
     cashbackIncome = json['cashbackIncome'];
+    totalDailyIncome = json['totalDailyIncome'];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,6 +71,7 @@ class Data {
     data['total_payin'] = totalPayIn;
     data['dailyIncome'] = dailyIncome;
     data['cashbackIncome'] = cashbackIncome;
+    data['totalDailyIncome'] = totalDailyIncome;
     return data;
   }
 }

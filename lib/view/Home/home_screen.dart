@@ -156,6 +156,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     _buildGridTile(
                         downline?.dailyIncome ?? "0.0", "Daily Income"),
                     _buildGridTile(
+                        downline?.totalDailyIncome ?? "0.0", " Total Daily Income"),
+                    _buildGridTile(
                         downline?.totalIncome ?? "0.0", "Total Income"),
                     _buildGridTile(
                         downline?.incomeWallet ?? "0.0", "Income Wallet"),
@@ -183,23 +185,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: width * 0.85,
-                    height: height * 0.05,
-                    color: GameColor.gray, // Background color for the marquee
-                    child: Marquee(
-                      text: note?.homeNote?.isNotEmpty == true
-                          ? note!.homeNote.toString()
-                          : "No note available",
-                      style: const TextStyle(
-                        fontSize: 16, // Font size
-                        color: Colors.white, // Text color
+                  Expanded(
+                    child: Container(
+                      // width: width * 0.85,
+                      height: height * 0.05,
+                      color: GameColor.gray, // Background color for the marquee
+                      child: Marquee(
+                        text: note?.homeNote?.isNotEmpty == true
+                            ? note!.homeNote.toString()
+                            : "No note available",
+                        style: const TextStyle(
+                          fontSize: 16, // Font size
+                          color: Colors.white, // Text color
+                        ),
+                        scrollAxis: Axis.horizontal,
+                        blankSpace: 15.0, // Space between repetitions
+                        velocity: 50.0, // Speed of the scroll
+                        startPadding: 200.0,
+                        decelerationCurve: Curves.easeOut,
                       ),
-                      scrollAxis: Axis.horizontal,
-                      blankSpace: 15.0, // Space between repetitions
-                      velocity: 50.0, // Speed of the scroll
-                      startPadding: 200.0,
-                      decelerationCurve: Curves.easeOut,
                     ),
                   ),
                 ],
@@ -365,6 +369,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _dropDownValue.isEmpty ? null : _dropDownValue,
                           ),
                         )),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
                     const Text(
                       "Packages",
                       style: TextStyle(
@@ -556,7 +563,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const CircleAvatar(
-                radius: 21,
+                radius: 20,
                 backgroundImage: AssetImage(Assets.imagesUser),
               ),
               Column(
