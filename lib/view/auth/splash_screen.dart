@@ -15,11 +15,9 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   SplashServices splashServices = SplashServices();
-  // UpdateLanguageViewModel updateLanguageViewModel =UpdateLanguageViewModel();
   @override
   void initState() {
     super.initState();
-    // splashServices.checkAuthentication(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final splashServices =
           Provider.of<SplashServices>(context, listen: false);

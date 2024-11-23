@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:future_trade/generated/assets.dart';
 import 'package:future_trade/main.dart';
 import 'package:future_trade/res/api_url.dart';
 import 'package:future_trade/res/circular_button.dart';
@@ -97,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: CircleAvatar(
                         radius: 35,
                         backgroundImage: user?.photo!=null? NetworkImage(
-                            "${ApiUrl.imageUrl}${user?.photo ?? ""}"):FileImage(image!),
+                            "${ApiUrl.imageUrl}${user?.photo ?? ""}"):image==null?AssetImage(Assets.imagesUser):FileImage(image!),
                       ),
                     ),
                     Positioned(

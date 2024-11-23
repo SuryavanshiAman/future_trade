@@ -111,7 +111,7 @@ void setAadhaarImage(File?value){
         onTap: (context) async{
           UserViewModel userViewModel = UserViewModel();
           String? userId = await userViewModel.getUser();
-          Launcher.launchURL(ApiUrl.team+"111");
+          Launcher.launchURL(ApiUrl.team+userId!);
           // Navigator.pushNamed(context, RoutesName.myTeam);
         }),
     ElementModel(

@@ -74,12 +74,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Center(
                   child: Container(
-                    width: width*1,
+                    width: width >= 450 ?width * 0.5: width * 0.96,
+                    // width: width*1,
                     height: height*0.5,
                     padding: const EdgeInsets.all(30),
-                    decoration: const BoxDecoration(
+                    decoration:  BoxDecoration(
                       color: GameColor.bg,
-                      shape: BoxShape.circle,
+                      shape: width >= 450 ? BoxShape.rectangle : BoxShape.circle,
+                      borderRadius: width >= 450 ? BorderRadius.circular(50) : null,
                       boxShadow: [
                         BoxShadow(
                           color: GameColor.white, //New

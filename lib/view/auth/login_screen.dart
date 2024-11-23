@@ -59,18 +59,20 @@ bool loginPassword=false;
             ),
             Center(
               child: Container(
-                width: width * 0.96,
+                width: width >= 450 ?width * 0.5: width * 0.96,
                 // height: height * 0.45,
                 margin: EdgeInsets.only(top: height * 0.34),
-                padding: EdgeInsets.only(
-                    // 40
-                    left: width >= 450 ? width * 0.17 : width * 0.1,
-                    right: width >= 450 ? width * 0.17 : width * 0.1,
-                    top:loginPassword==true? height * 0.04:height*0.06,bottom: height*0.04
-                ),
-                decoration: const BoxDecoration(
+                padding: const EdgeInsets.all(30),
+                // padding: EdgeInsets.only(
+                //     // 40
+                //     // left: width >= 450 ? width * 0.1 : width * 0.1,
+                //     // right: width >= 450 ? width * 0.1 : width * 0.1,
+                //     top:loginPassword==true? height * 0.04:height*0.06,bottom: height*0.04
+                // ),
+                decoration:  BoxDecoration(
                   color: GameColor.bg,
-                  shape: BoxShape.circle,
+                  shape: width >= 450 ? BoxShape.rectangle : BoxShape.circle,
+                  borderRadius: width >= 450 ? BorderRadius.circular(50) : null,
                   boxShadow: [
                     BoxShadow(
                       color: GameColor.white, //New
@@ -110,7 +112,7 @@ bool loginPassword=false;
                       label: "Enter your phone number",
                       hintColor: GameColor.black,
                       hintSize: 14,
-                      width: width >= 450 ? width * 0.5 : width * 0.65,
+                      // width: width >= 450 ? width * 0.25 : width * 0.65,
                       height: 50,
                       maxLength: 10,
                       filled: false,
@@ -135,7 +137,7 @@ bool loginPassword=false;
                       hintColor: GameColor.black,
                       keyboardType: TextInputType.name,
                       hintSize: 14,
-                      width: width >= 450 ? width * 0.5 : width * 0.65,
+                      // width: width >= 450 ? width * 0.25 : width * 0.65,
                       height: 50,
                       // maxLength: 10,
                       filled: false,
@@ -274,7 +276,7 @@ bool loginPassword=false;
                         alignment: Alignment.center,
                         height: height * 0.06,
                         widths:
-                        width >= 450 ? width * 0.4 :
+                        // width >= 450 ? width * 0.2 :
                         width * 0.5,
                         color: GameColor.blue,
                         borderRadius: const BorderRadius.all(Radius.circular(35)),

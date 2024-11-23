@@ -155,126 +155,261 @@ class Utils {
         false;
   }
 
-  static showLogOutConfirmation(BuildContext context) async {
+  // static showLogOutConfirmation(BuildContext context) async {
+  //   return await showModalBottomSheet(
+  //         elevation: 5,
+  //         backgroundColor: GameColor.black,
+  //         shape: const RoundedRectangleBorder(
+  //             side: BorderSide(width: 2, color: Colors.white),
+  //             borderRadius: BorderRadius.only(
+  //                 topLeft: Radius.circular(35), topRight: Radius.circular(35))),
+  //         context: context,
+  //         builder: (context) {
+  //           return Expanded(
+  //             child: Container(
+  //               // height: height * 0.5,
+  //               decoration: const BoxDecoration(
+  //                   borderRadius: BorderRadius.only(
+  //                       topLeft: Radius.circular(35),
+  //                       topRight: Radius.circular(35))),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.end,
+  //                 children: [
+  //                   Padding(
+  //                     padding: const EdgeInsets.only(right: 28.0, top: 28),
+  //                     child: InkWell(
+  //                         onTap: () {
+  //                           Navigator.pop(context);
+  //                         },
+  //                         child: const Icon(
+  //                           Icons.close,
+  //                           color: GameColor.white,
+  //                         )),
+  //                   ),
+  //                   // SizedBox(height: height*0.02),
+  //                   Center(
+  //                     child: CircleAvatar(
+  //                       radius: 40,
+  //                       backgroundColor: GameColor.white,
+  //                       child: Image.asset(
+  //                         Assets.imagesLogOut,
+  //                         color: GameColor.blue,
+  //                         scale: 2,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   const Center(
+  //                     child: Text("Logging out?",
+  //                         style: TextStyle(
+  //                             color: GameColor.white,
+  //                             fontSize: 22,
+  //                             fontWeight: FontWeight.w600)),
+  //                   ),
+  //                   SizedBox(height: height * 0.02),
+  //                   const Center(
+  //                     child: Text(
+  //                         "Are you sure want to log out of this\naccount?",
+  //                         textAlign: TextAlign.center,
+  //                         style: TextStyle(
+  //                             color: GameColor.white,
+  //                             fontSize: 16,
+  //                             fontWeight: FontWeight.w600)),
+  //                   ),
+  //                   SizedBox(height: height * 0.04),
+  //                   Center(
+  //                     child: PopScope(
+  //                       canPop: false,
+  //                       child: ElevatedButton(
+  //                         style: ElevatedButton.styleFrom(
+  //                           backgroundColor: GameColor.white,
+  //                           shape: RoundedRectangleBorder(
+  //                             borderRadius: BorderRadius.circular(55),
+  //                           ),
+  //                           padding: EdgeInsets.symmetric(
+  //                             horizontal: width * 0.29,
+  //                             vertical: height * 0.02,
+  //                           ),
+  //                         ),
+  //                         onPressed: () {
+  //                           UserViewModel userViewModel = UserViewModel();
+  //                           userViewModel.remove();
+  //                           Navigator.of(context, rootNavigator: true).pop();
+  //                           Navigator.pushReplacementNamed(
+  //                               context, RoutesName.loginScreen);
+  //                         },
+  //                         child: Text(
+  //                           "Yes, Logout",
+  //                           style: TextStyle(
+  //                             color: GameColor.green,
+  //                             fontSize: 16,
+  //                             fontWeight: FontWeight.bold,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: height * 0.03),
+  //                   Center(
+  //                     child: ElevatedButton(
+  //                         style: ElevatedButton.styleFrom(
+  //                             backgroundColor: Colors.white,
+  //                             side: const BorderSide(
+  //                                 width: 1, color: GameColor.white),
+  //                             shape: RoundedRectangleBorder(
+  //                                 borderRadius: BorderRadius.circular(55)),
+  //                             padding: EdgeInsets.symmetric(
+  //                                 horizontal: width * 0.34,
+  //                                 vertical: height * 0.02)),
+  //                         onPressed: () {
+  //                           Navigator.pop(context, false);
+  //                         },
+  //                         child: Text("Cancel",
+  //                             style: TextStyle(
+  //                                 color: GameColor.gameRed,
+  //                                 fontSize: 16,
+  //                                 fontWeight: FontWeight.bold))),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           );
+  //         },
+  //       ) ??
+  //       false;
+  // }
+  static Future<bool?> showLogOutConfirmation(BuildContext context) async {
     return await showModalBottomSheet(
-          elevation: 5,
-          backgroundColor: GameColor.black,
-          shape: const RoundedRectangleBorder(
-              side: BorderSide(width: 2, color: Colors.white),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-          context: context,
-          builder: (context) {
-            return Expanded(
-              child: Container(
-                // height: height * 0.5,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(35),
-                        topRight: Radius.circular(35))),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 28.0, top: 28),
-                      child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(
-                            Icons.close,
-                            color: GameColor.white,
-                          )),
-                    ),
-                    // SizedBox(height: height*0.02),
-                    Center(
-                      child: CircleAvatar(
-                        radius: 40,
-                        backgroundColor: GameColor.white,
-                        child: Image.asset(
-                          Assets.imagesLogOut,
-                          color: GameColor.blue,
-                          scale: 2,
-                        ),
-                      ),
-                    ),
-                    const Center(
-                      child: Text("Logging out?",
-                          style: TextStyle(
-                              color: GameColor.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600)),
-                    ),
-                    SizedBox(height: height * 0.02),
-                    const Center(
-                      child: Text(
-                          "Are you sure want to log out of this\naccount?",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: GameColor.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
-                    ),
-                    SizedBox(height: height * 0.04),
-                    Center(
-                      child: PopScope(
-                        canPop: false,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: GameColor.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(55),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: width * 0.29,
-                              vertical: height * 0.02,
-                            ),
-                          ),
-                          onPressed: () {
-                            UserViewModel userViewModel = UserViewModel();
-                            userViewModel.remove();
-                            Navigator.of(context, rootNavigator: true).pop();
-                            Navigator.pushReplacementNamed(
-                                context, RoutesName.loginScreen);
-                          },
-                          child: Text(
-                            "Yes, Logout",
-                            style: TextStyle(
-                              color: GameColor.green,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: height * 0.03),
-                    Center(
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              side: const BorderSide(
-                                  width: 1, color: GameColor.white),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(55)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: width * 0.34,
-                                  vertical: height * 0.02)),
-                          onPressed: () {
-                            Navigator.pop(context, false);
-                          },
-                          child: Text("Cancel",
-                              style: TextStyle(
-                                  color: GameColor.gameRed,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold))),
-                    ),
-                  ],
+      elevation: 5,
+      backgroundColor: GameColor.black,
+      shape: const RoundedRectangleBorder(
+        side: BorderSide(width: 2, color: Colors.white),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(35),
+          topRight: Radius.circular(35),
+        ),
+      ),
+      context: context,
+      builder: (context) {
+        return Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35),
+              topRight: Radius.circular(35),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Adjust height dynamically
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 28.0, top: 28),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
+                    Icons.close,
+                    color: GameColor.white,
+                  ),
                 ),
               ),
-            );
-          },
-        ) ??
-        false;
+              const SizedBox(height: 16),
+              Center(
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundColor: GameColor.white,
+                  child: Image.asset(
+                    Assets.imagesLogOut,
+                    color: GameColor.blue,
+                    scale: 2,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Center(
+                child: Text(
+                  "Logging out?",
+                  style: TextStyle(
+                    color: GameColor.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Center(
+                child: Text(
+                  "Are you sure you want to log out of this\naccount?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: GameColor.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: GameColor.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(55),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.29,
+                      vertical: 12,
+                    ),
+                  ),
+                  onPressed: () {
+                    UserViewModel userViewModel = UserViewModel();
+                    userViewModel.remove();
+                    Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.pushReplacementNamed(
+                        context, RoutesName.loginScreen);
+                  },
+                  child: Text(
+                    "Yes, Logout",
+                    style: TextStyle(
+                      color: GameColor.green,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(width: 1, color: GameColor.white),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(55),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.34,
+                      vertical: 12,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: Text(
+                    "Cancel",
+                    style: TextStyle(
+                      color: GameColor.gameRed,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
