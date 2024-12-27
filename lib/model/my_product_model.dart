@@ -36,6 +36,7 @@ class Data {
   String? monthlyIncome;
   String? roi;
   String? status;
+  String? joinDate;
 
   Data(
       {this.userId,
@@ -45,7 +46,9 @@ class Data {
         this.productPrice,
         this.monthlyIncome,
         this.roi,
-      this.status});
+      this.status,
+        this.joinDate
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
@@ -56,6 +59,7 @@ class Data {
     monthlyIncome = json['monthly_income'];
     roi = json['roi'];
     status = json['status'];
+    joinDate = json['join_date'];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,6 +72,7 @@ class Data {
     data['monthly_income'] = monthlyIncome;
     data['roi'] = roi;
     data['status'] = status;
+    data['join_date'] = joinDate;
     return data;
   }
 }

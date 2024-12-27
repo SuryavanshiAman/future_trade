@@ -8,6 +8,7 @@ import 'package:future_trade/res/constantButton.dart';
 import 'package:future_trade/res/constant_app_bar.dart';
 import 'package:future_trade/view_model/my_product_view_model.dart';
 import 'package:future_trade/view_model/reddem_view_model.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class MyProductScreen extends StatefulWidget {
@@ -78,11 +79,23 @@ class _MyProductScreenState extends State<MyProductScreen> {
                                   fontWeight: FontWeight.w600,
                                   color: GameColor.white,
                                   fontSize: 14)),
-                          trailing:  Text("Prize:₹${product[index].productPrice.toString()}",
-                              style:  TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: GameColor.green,
-                                  fontSize: 14)),
+                          trailing:  Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text("Price:₹${product[index].productPrice.toString()}",
+                                  style:  TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: GameColor.green,
+                                      fontSize: 14)),
+                              Text("Join Date:${DateFormat("d MMM yyy, hh:mm a").format(DateTime.parse(product[index].joinDate.toString()))
+                                  }",
+                                  style:  TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: GameColor.green,
+                                      fontSize: 12)),
+                            ],
+                          ),
                         ),
                       );
                     });

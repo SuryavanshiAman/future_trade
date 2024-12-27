@@ -163,6 +163,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         downline?.incomeWallet ?? "0.0", "Income Wallet"),
                     _buildGridTile(
                         downline?.cashbackIncome ?? "0.0", "Cashback Income"),
+                    _buildGridTile(
+                        downline?.todayPayout ?? "0.0", "Today Payout"),
                   ],
                 ),
               ),

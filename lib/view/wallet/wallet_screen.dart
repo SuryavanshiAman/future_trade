@@ -57,17 +57,17 @@ class _WalletScreenState extends State<WalletScreen> {
                         text: "  Total Balance",
                         style:  TextStyle(fontSize: 16, color: GameColor.black),
                         children: [
-                          TextSpan(
-                            text: "  ⓘ",
-                            style:  TextStyle(
-                              color: GameColor.black,
-                              fontWeight: FontWeight.w900,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                // _showBottomSheet(context);
-                              },
-                          ),
+                          // TextSpan(
+                          //   text: "  ⓘ",
+                          //   style:  TextStyle(
+                          //     color: GameColor.black,
+                          //     fontWeight: FontWeight.w900,
+                          //   ),
+                          //   recognizer: TapGestureRecognizer()
+                          //     ..onTap = () {
+                          //       // _showBottomSheet(context);
+                          //     },
+                          // ),
                         ],
                       ),
                     ),
@@ -76,12 +76,19 @@ class _WalletScreenState extends State<WalletScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Spacer(),
                         Image(image: const AssetImage(
                           Assets.imagesCash,),height: height*0.05,),
-                         Text(" ₹${user?.wallet??""}",
-                          style: const TextStyle(
-                              fontSize: 36, fontWeight: FontWeight.w700),
-                        ),
+                         Container(
+                           width: width*0.5,
+                           // color: Colors.red,
+                           child: Text(
+                             " ₹${user?.wallet??""}",
+                            style: const TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                                fontSize: 36, fontWeight: FontWeight.w700),
+                                                   ),
+                         ),
                       ],
                     ),
                   ),
